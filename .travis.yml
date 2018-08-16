@@ -1,0 +1,13 @@
+language: csharp
+solution: Netatmo.sln
+mono: none
+dotnet: 2.1
+before_install:
+  - cd src
+
+install:
+  - dotnet restore
+
+script:
+  - dotnet build
+  - dotnet test Netatmo.Tests/Netatmo.Tests.csproj
