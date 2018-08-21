@@ -4,6 +4,7 @@ using Flurl;
 using Flurl.Http;
 using Netatmo.Models;
 using Netatmo.Models.Client;
+using Netatmo.Models.Client.Weather;
 using NodaTime;
 
 namespace Netatmo
@@ -53,6 +54,19 @@ namespace Netatmo
             }).ReceiveJson<Token>();
 
             return new CredentialToken(token, clock);
+        }
+        
+        public async Task<DataResponse<GetStationsDataBody>> GetStationsData(string accessToken, string deviceId = null, bool? onlyFavorites = null)
+        {
+            return await baseUrl
+                .AppendPathSegment("/api/getstationsdata")
+                .PostJsonAsync(new GetStationsDataRequest
+                {
+                    AccessToken = accessToken,
+                    DeviceId = deviceId,
+                    GetFavorites = onlyFavorites
+                })
+                .ReceiveJson<DataResponse<GetStationsDataBody>>();
         }
     }
 }
