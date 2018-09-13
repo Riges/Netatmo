@@ -1,12 +1,11 @@
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Flurl.Http.Testing;
 using Netatmo.Models;
 using Netatmo.Models.Client;
 using Netatmo.Models.Client.Weather;
-using NFluent;
 using NodaTime;
 using NodaTime.Testing;
 using Xunit;
@@ -46,10 +45,10 @@ namespace Netatmo.Tests
                 })
                 .Times(1);
 
-            Check.That(result.Body).IsInstanceOf<GetStationsDataBody>();
-            Check.That(result.Body.Devices[0].DashboardData.Noise).IsEqualTo(42);
-            Check.That(result.Body.Devices[0].Modules[1].DashboardData.ToObject<IndoorDashBoardData>().CO2).IsEqualTo(484);
-            Check.That(result.Body.Devices[0].Place.Timezone).IsEqualTo(DateTimeZoneProviders.Tzdb["Europe/Paris"]);
+            result.Body.Should().BeOfType<GetStationsDataBody>();
+            result.Body.Devices[0].DashboardData.Noise.Should().Be(42);
+            result.Body.Devices[0].Modules[1].DashboardData.ToObject<IndoorDashBoardData>().CO2.Should().Be(484);
+            result.Body.Devices[0].Place.Timezone.Should().Be(DateTimeZoneProviders.Tzdb["Europe/Paris"]);
         }
 
         [Fact]
@@ -81,10 +80,10 @@ namespace Netatmo.Tests
                     "grant_type=password&client_id=clientId&client_secret=clientSecret&username=username%40email.com&password=p%40%24%24W0rd&scope=access_camera+read_camera+write_camera+read_homecoach+access_presence+read_presence+read_station+write_thermostat+read_thermostat")
                 .Times(1);
 
-            Check.That(result).IsInstanceOf<CredentialToken>();
-            Check.That(result.AccessToken).IsEqualTo(expectedToken.access_token);
-            Check.That(result.RefreshToken).IsEqualTo(expectedToken.refresh_token);
-            Check.That(result.ExpiresAt).IsEqualTo(result.ReceivedAt.Plus(Duration.FromSeconds(expectedToken.expires_in)));
+            result.Should().BeOfType<CredentialToken>();
+            result.AccessToken.Should().Be(expectedToken.access_token);
+            result.RefreshToken.Should().Be(expectedToken.refresh_token);
+            result.ExpiresAt.Should().Be(result.ReceivedAt.Plus(Duration.FromSeconds(expectedToken.expires_in)));
         }
 
         [Fact]
@@ -114,10 +113,10 @@ namespace Netatmo.Tests
                     $"grant_type=refresh_token&client_id=clientId&client_secret=clientSecret&refresh_token={token.RefreshToken}")
                 .Times(1);
 
-            Check.That(result).IsInstanceOf<CredentialToken>();
-            Check.That(result.AccessToken).IsEqualTo(expectedToken.access_token);
-            Check.That(result.RefreshToken).IsEqualTo(expectedToken.refresh_token);
-            Check.That(result.ExpiresAt).IsEqualTo(result.ReceivedAt.Plus(Duration.FromSeconds(expectedToken.expires_in)));
+            result.Should().BeOfType<CredentialToken>();
+            result.AccessToken.Should().Be(expectedToken.access_token);
+            result.RefreshToken.Should().Be(expectedToken.refresh_token);
+            result.ExpiresAt.Should().Be(result.ReceivedAt.Plus(Duration.FromSeconds(expectedToken.expires_in)));
         }
     }
 }
