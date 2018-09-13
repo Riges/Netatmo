@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Flurl.Http" Version="2.3.2" />
-      <PackageReference Include="NodaTime" Version="2.3.0" />
+      <PackageReference Include="Flurl.Http" Version="2.4.0" />
+      <PackageReference Include="NodaTime" Version="2.4.0" />
       <PackageReference Include="NodaTime.Serialization.JsonNet" Version="2.0.0" />
     </ItemGroup>
 
