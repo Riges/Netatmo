@@ -1,4 +1,5 @@
 using System;
+using Flurl.Util;
 using Newtonsoft.Json;
 using NodaTime;
 
@@ -9,7 +10,7 @@ namespace Netatmo.Converters
         private static readonly LocalDateTime _epoch = new LocalDateTime(1970,1,1,0,0,0);
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            writer.WriteValue(value is LocalDateTime localDateTime ? localDateTime.ToInvariantString() : string.Empty);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
