@@ -28,7 +28,7 @@ namespace Netatmo.Models.Client.Weather
 
         [JsonProperty("co2_calibrating")]
         public bool Co2Calibrating { get; set; }
-        
+
         [JsonProperty("firmware")]
         public int Firmware { get; set; }
 

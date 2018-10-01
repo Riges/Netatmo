@@ -2,6 +2,11 @@ namespace Netatmo
 {
     public class Scope
     {
+        private Scope(string value)
+        {
+            Value = value;
+        }
+
         public string Value { get; }
         public static Scope StationRead => new Scope("read_station");
         public static Scope ThermostatRead => new Scope("read_thermostat");
@@ -12,7 +17,5 @@ namespace Netatmo
         public static Scope PresenceRead => new Scope("read_presence");
         public static Scope PresenceAccess => new Scope("access_presence");
         public static Scope HomecoachRead => new Scope("read_homecoach");
-        
-        private Scope(string value) { Value = value; }
     }
 }

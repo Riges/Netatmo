@@ -7,7 +7,7 @@ namespace Netatmo.Models.Client.Weather
     public class Place
     {
         [JsonProperty("altitude")]
-        public int Altitude { get; set; }
+        public double Altitude { get; set; }
 
         [JsonProperty("city")]
         public string City { get; set; }
@@ -18,5 +18,8 @@ namespace Netatmo.Models.Client.Weather
         [JsonProperty("timezone")]
         [JsonConverter(typeof(StringToDateTimeZoneConverter))]
         public DateTimeZone Timezone { get; set; }
+        
+        [JsonProperty("location")]
+        public double[] Location { get; set; }
     }
 }

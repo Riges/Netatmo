@@ -8,7 +8,7 @@ namespace Netatmo.Models.Client.Weather
     {
         [JsonProperty("Humidity")]
         public int HumidityPercent { get; set; }
-        
+
         [JsonProperty("Temperature")]
         public double Temperature { get; set; }
 

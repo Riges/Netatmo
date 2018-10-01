@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client
+namespace Netatmo.Models.Client.Weather
 {
     public class User
     {

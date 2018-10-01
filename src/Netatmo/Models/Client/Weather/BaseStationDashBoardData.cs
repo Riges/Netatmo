@@ -24,7 +24,7 @@ namespace Netatmo.Models.Client.Weather
         // pressure_trend for last 12h (up, down, stable)
         [JsonProperty("pressure_trend")]
         public string PressureTrend { get; set; }
-        
+
         [JsonProperty("Temperature")]
         public double Temperature { get; set; }
 
