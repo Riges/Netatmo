@@ -1,8 +1,9 @@
 using Netatmo.Converters;
+using Netatmo.Models.Client.Enums;
 using Newtonsoft.Json;
 using NodaTime;
 
-namespace Netatmo.Models.Client.Weather
+namespace Netatmo.Models.Client.Weather.StationsData
 {
     public class Device
     {
@@ -22,6 +23,18 @@ namespace Netatmo.Models.Client.Weather
         // Wifi signal quality : 56 Good, 71 Average, 86 Bad
         [JsonProperty("wifi_status")]
         public int WifiStatus { get; set; }
+
+        public WifiStrengthEnum WifiStrength
+        {
+            get
+            {
+                if (WifiStatus <= 56) return WifiStrengthEnum.Good;
+
+                if (WifiStatus <= 71) return WifiStrengthEnum.Average;
+
+                return WifiStrengthEnum.Bad;
+            }
+        }
 
         [JsonProperty("module_name")]
         public string ModuleName { get; set; }

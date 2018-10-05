@@ -1,7 +1,7 @@
 using Netatmo.Models.Client.Enums;
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Energy
+namespace Netatmo.Models.Client.Energy.HomesData
 {
     public class User
     {

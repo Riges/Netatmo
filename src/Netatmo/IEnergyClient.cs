@@ -7,5 +7,6 @@ namespace Netatmo
     public interface IEnergyClient
     {
         Task<DataResponse<GetHomesDataBody>> GetHomesData(string homeId = null, string gatewayTypes = null);
+        Task<DataResponse<GetHomeStatusBody>> GetHomeStatus(string homeId, string[] deviceTypes = null);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Flurl.Util;
@@ -27,6 +28,8 @@ namespace TestApp
                 });
 
             var token = client.CredentialManager.CredentialToken;
+            
+            Console.WriteLine($"Token : {token.AccessToken}");
 
             Console.WriteLine("Stations data :");
             var stationsData = await client.Weather.GetStationsData();
@@ -35,6 +38,14 @@ namespace TestApp
             Console.WriteLine("Energy Homes data :");
             var homesData = await client.Energy.GetHomesData();
             Console.WriteLine(JsonConvert.SerializeObject(homesData, Formatting.Indented));
+
+            Console.WriteLine("Energy Homes data :");
+            foreach (var home in homesData.Body.Homes)
+            {
+                Console.WriteLine(home.Name);
+                var homeStatus = await client.Energy.GetHomeStatus(home.Id);
+                Console.WriteLine(JsonConvert.SerializeObject(homeStatus, Formatting.Indented));
+            }
 
             Console.WriteLine("RefreshToken :");
             Thread.Sleep(9000);

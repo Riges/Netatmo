@@ -2,7 +2,7 @@ using Netatmo.Converters;
 using Newtonsoft.Json;
 using NodaTime;
 
-namespace Netatmo.Models.Client.Weather
+namespace Netatmo.Models.Client.Weather.StationsData
 {
     public class Place
     {

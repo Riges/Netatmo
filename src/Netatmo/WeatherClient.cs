@@ -24,7 +24,6 @@ namespace Netatmo
                 .WithOAuthBearerToken(credentialManager.AccessToken)
                 .PostJsonAsync(new GetStationsDataRequest
                 {
-                    AccessToken = credentialManager.AccessToken,
                     DeviceId = deviceId,
                     GetFavorites = onlyFavorites
                 })
