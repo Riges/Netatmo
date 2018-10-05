@@ -25,7 +25,7 @@ namespace Netatmo.Tests
         private readonly HttpTest httpTest;
 
         [Fact]
-        public async Task GenerateTokenShouldAcquireExceptedCredentialToken()
+        public async Task GenerateToken_Should_Acquire_Excepted_CredentialToken()
         {
             var expectedToken = new
             {
@@ -62,7 +62,7 @@ namespace Netatmo.Tests
         }
 
         [Fact]
-        public async Task RefreshTokenShouldRefreshTheToken()
+        public async Task RefreshToken_Should_Refresh_Token()
         {
             var token = new
             {

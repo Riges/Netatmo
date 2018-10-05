@@ -2,7 +2,7 @@ using Netatmo.Converters;
 using Newtonsoft.Json;
 using NodaTime;
 
-namespace Netatmo.Models.Client.Energy
+namespace Netatmo.Models.Client.Energy.HomesData
 {
     public class Home
     {

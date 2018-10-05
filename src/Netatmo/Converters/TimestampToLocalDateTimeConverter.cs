@@ -11,14 +11,20 @@ namespace Netatmo.Converters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteValue(value is LocalDateTime localDateTime ? localDateTime.ToInvariantString() : string.Empty);
+            writer.WriteValue(value is LocalDateTime localDateTime && localDateTime != default(LocalDateTime)
+                ? localDateTime.ToInvariantString()
+                : null);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             if (reader.Value == null) return null;
 
-            return _epoch.PlusSeconds(int.Parse(reader.Value.ToString()));
+            var value = int.Parse(reader.Value.ToString());
+
+            if (value == 0) return null;
+
+            return _epoch.PlusSeconds(value);
         }
 
         public override bool CanConvert(Type objectType)

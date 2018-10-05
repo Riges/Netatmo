@@ -1,3 +1,4 @@
+using Netatmo.Models.Client.Weather.StationsData;
 using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client.Weather

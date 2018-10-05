@@ -24,11 +24,25 @@ namespace Netatmo
                 .WithOAuthBearerToken(credentialManager.AccessToken)
                 .PostJsonAsync(new GetHomesDataRequest
                 {
-                    AccessToken = credentialManager.AccessToken,
                     HomeId = homeId,
                     GatewayTypes = gatewayTypes
                 })
                 .ReceiveJson<DataResponse<GetHomesDataBody>>();
+        }
+
+        public async Task<DataResponse<GetHomeStatusBody>> GetHomeStatus(string homeId, string[] deviceTypes = null)
+        {
+            var data = await baseUrl
+                .AppendPathSegment("/api/homestatus")
+                .WithOAuthBearerToken(credentialManager.AccessToken)
+                .PostJsonAsync(new GetHomeStatusRequest
+                {
+                    HomeId = homeId,
+                    DeviceTypes = deviceTypes
+                })
+                .ReceiveJson<DataResponse<GetHomeStatusBody>>();
+
+            return data;
         }
     }
 }

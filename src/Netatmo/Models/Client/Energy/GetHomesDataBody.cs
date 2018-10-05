@@ -1,3 +1,4 @@
+using Netatmo.Models.Client.Energy.HomesData;
 using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client.Energy

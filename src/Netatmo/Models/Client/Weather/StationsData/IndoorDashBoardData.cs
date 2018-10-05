@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Weather
+namespace Netatmo.Models.Client.Weather.StationsData
 {
     public class IndoorDashBoardData : OutdoorDashBoardData
     {
