@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Flurl.Http.Testing;
 using Moq;
+using Netatmo.Enums;
 using Netatmo.Models.Client;
 using Netatmo.Models.Client.Energy;
-using Netatmo.Models.Client.Enums;
 using NodaTime;
 using Xunit;
 
