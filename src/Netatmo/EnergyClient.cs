@@ -1,8 +1,10 @@
+using System;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using Netatmo.Models.Client;
 using Netatmo.Models.Client.Energy;
+using NodaTime;
 
 namespace Netatmo
 {
@@ -32,7 +34,7 @@ namespace Netatmo
 
         public async Task<DataResponse<GetHomeStatusBody>> GetHomeStatus(string homeId, string[] deviceTypes = null)
         {
-            var data = await baseUrl
+            return await baseUrl
                 .AppendPathSegment("/api/homestatus")
                 .WithOAuthBearerToken(credentialManager.AccessToken)
                 .PostJsonAsync(new GetHomeStatusRequest
@@ -41,8 +43,21 @@ namespace Netatmo
                     DeviceTypes = deviceTypes
                 })
                 .ReceiveJson<DataResponse<GetHomeStatusBody>>();
+        }
 
-            return data;
+        public async Task<bool> SetThermMode(string homeId, string mode, LocalDateTime? endTime = null)
+        {
+            var response = await baseUrl
+                .AppendPathSegment("/api/setroomthermmode")
+                .WithOAuthBearerToken(credentialManager.AccessToken)
+                .PostJsonAsync(new SetThermModeRequest
+                {
+                    HomeId = homeId,
+                    Mode = mode,
+                    EndTime = endTime
+                }).ReceiveJson<DataResponse>();
+
+            return response.Status.Equals("ok", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

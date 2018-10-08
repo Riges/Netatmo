@@ -1,5 +1,4 @@
 using System;
-using Flurl.Util;
 using Newtonsoft.Json;
 using NodaTime;
 
@@ -7,13 +6,19 @@ namespace Netatmo.Converters
 {
     public class TimestampToLocalDateTimeConverter : JsonConverter
     {
-        private static readonly LocalDateTime _epoch = new LocalDateTime(1970, 1, 1, 0, 0, 0);
+        private static readonly LocalDateTime Epoch = new LocalDateTime(1970, 1, 1, 0, 0, 0);
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteValue(value is LocalDateTime localDateTime && localDateTime != default(LocalDateTime)
-                ? localDateTime.ToInvariantString()
-                : null);
+            if (value is LocalDateTime localDateTime && localDateTime != default(LocalDateTime))
+            {
+                var timestamp = (int) localDateTime.ToDateTimeUnspecified().Subtract(Epoch.ToDateTimeUnspecified()).TotalSeconds;
+
+                if (timestamp > 0)
+                {
+                    writer.WriteValue(timestamp);
+                }
+            }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -24,7 +29,7 @@ namespace Netatmo.Converters
 
             if (value == 0) return null;
 
-            return _epoch.PlusSeconds(value);
+            return Epoch.PlusSeconds(value);
         }
 
         public override bool CanConvert(Type objectType)

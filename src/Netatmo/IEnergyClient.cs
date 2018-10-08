@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Netatmo.Models.Client;
 using Netatmo.Models.Client.Energy;
+using NodaTime;
 
 namespace Netatmo
 {
@@ -8,5 +9,6 @@ namespace Netatmo
     {
         Task<DataResponse<GetHomesDataBody>> GetHomesData(string homeId = null, string gatewayTypes = null);
         Task<DataResponse<GetHomeStatusBody>> GetHomeStatus(string homeId, string[] deviceTypes = null);
+        Task<bool> SetThermMode(string homeId, string mode, LocalDateTime? endTime = null);
     }
 }
