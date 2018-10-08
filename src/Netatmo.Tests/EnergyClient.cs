@@ -107,5 +107,32 @@ namespace Netatmo.Tests
 
             result.Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData("ok", true)]
+        [InlineData("error", false)]
+        public async Task SetRoomThermPoint_Should_Return_Expected_Result(string status, bool expectedResult)
+        {
+            var homeId = "5a327cbdb05a2133678b5d3e";
+            var roomId = "2255031728";
+            var mode = "schedule";
+            httpTest.RespondWithJson(new DataResponse
+            {
+                Status = status, TimeExec = 0.036107063293457, 
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+            
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            var result = await sut.SetRoomThermPoint(homeId, roomId, mode);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermpoint")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json").WithRequestJson(new SetRoomThermpointRequest{HomeId = homeId, RoomId = roomId, Mode = mode})
+                .Times(1);
+
+            result.Should().Be(expectedResult);
+        }
     }
 }

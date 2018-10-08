@@ -59,5 +59,22 @@ namespace Netatmo
 
             return response.Status.Equals("ok", StringComparison.OrdinalIgnoreCase);
         }
+
+        public async Task<bool> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null, LocalDateTime? endTime = null)
+        {
+            var response = await baseUrl
+                .AppendPathSegment("/api/setroomthermpoint")
+                .WithOAuthBearerToken(credentialManager.AccessToken)
+                .PostJsonAsync(new SetRoomThermpointRequest
+                {
+                    HomeId = homeId,
+                    RoomId = roomId,
+                    Mode = mode,
+                    Temp = temp,
+                    EndTime = endTime
+                }).ReceiveJson<DataResponse>();
+
+            return response.Status.Equals("ok", StringComparison.OrdinalIgnoreCase);
+        }
     }
 }
