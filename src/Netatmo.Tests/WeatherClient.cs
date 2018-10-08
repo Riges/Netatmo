@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Flurl.Http.Testing;
 using Moq;
-using Netatmo.Models.Client.Enums;
+using Netatmo.Enums;
 using Netatmo.Models.Client.Weather;
 using Netatmo.Models.Client.Weather.StationsData;
 using NodaTime;

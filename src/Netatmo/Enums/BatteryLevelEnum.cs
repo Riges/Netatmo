@@ -1,4 +1,4 @@
-namespace Netatmo.Models.Client.Enums
+namespace Netatmo.Enums
 {
     public enum BatteryLevelEnum
     {

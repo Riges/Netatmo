@@ -1,5 +1,5 @@
 using Netatmo.Converters;
-using Netatmo.Models.Client.Enums;
+using Netatmo.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NodaTime;
