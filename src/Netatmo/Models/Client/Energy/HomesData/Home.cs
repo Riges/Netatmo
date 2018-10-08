@@ -33,7 +33,7 @@ namespace Netatmo.Models.Client.Energy.HomesData
 
         [JsonProperty("therm_mode_endtime")]
         [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
-        public LocalDateTime ThermModeEndtime { get; set; }
+        public LocalDateTime? ThermModeEndtime { get; set; }
         
         [JsonProperty("rooms")]
         public Room[] Rooms { get; set; }

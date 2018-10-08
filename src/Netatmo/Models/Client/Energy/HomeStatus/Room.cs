@@ -36,6 +36,6 @@ namespace Netatmo.Models.Client.Energy.HomeStatus
         
         [JsonProperty("therm_setpoint_end_time")]
         [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
-        public LocalDateTime  ThermSetPointEndTime { get; set; }
+        public LocalDateTime?  ThermSetPointEndTime { get; set; }
     }
 }

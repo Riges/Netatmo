@@ -1,12 +1,13 @@
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Flurl.Http.Testing;
 using Moq;
+using Netatmo.Models.Client;
 using Netatmo.Models.Client.Energy;
 using Netatmo.Models.Client.Enums;
+using NodaTime;
 using Xunit;
 
 namespace Netatmo.Tests
@@ -79,6 +80,32 @@ namespace Netatmo.Tests
             result.Body.Home.Modules[1].BatteryStatus.Should().Be(BatteryLevelEnum.Full);
             
             result.Body.Home.Modules[2].BatteryStatus.Should().Be(BatteryLevelEnum.High);
+        }
+
+        [Theory]
+        [InlineData("ok", true)]
+        [InlineData("error", false)]
+        public async Task SetThermMode_Should_Return_Expected_Result(string status, bool expectedResult)
+        {
+            var homeId = "5a327cbdb05a2133678b5d3e";
+            var mode = "schedule";
+            httpTest.RespondWithJson(new DataResponse
+            {
+                Status = status, TimeExec = 0.036107063293457, 
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+            
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            var result = await sut.SetThermMode(homeId, mode);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermmode")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json").WithRequestJson(new SetThermModeRequest{HomeId = homeId, Mode = mode})
+                .Times(1);
+
+            result.Should().Be(expectedResult);
         }
     }
 }
