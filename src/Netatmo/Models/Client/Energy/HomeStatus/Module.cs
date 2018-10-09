@@ -11,7 +11,7 @@ namespace Netatmo.Models.Client.Energy.HomeStatus
         // NATherm1 = thermostat, NRV = valve, NAPlug = relay, NACamera = welcome camera, NOC = presence camera
         [JsonProperty("type")]
         public string Type { get; set; }
-        
+
         [JsonProperty("bridge")]
         public string Bridgereachable { get; set; }
 
@@ -62,7 +62,7 @@ namespace Netatmo.Models.Client.Energy.HomeStatus
         // Only for NATherm1
         [JsonProperty("boiler_valve_comfort_boost")]
         public bool? BoilerValveComfortBoost { get; set; }
-        
+
         [JsonProperty("battery_level")]
         public int BatteryLevel { get; set; }
 
@@ -93,7 +93,7 @@ namespace Netatmo.Models.Client.Energy.HomeStatus
                 }
             }
         }
-        
+
         [JsonProperty("battery_state")]
         public string BatteryState { get; set; }
 

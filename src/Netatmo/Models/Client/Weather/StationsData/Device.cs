@@ -1,4 +1,3 @@
-using Netatmo.Converters;
 using Netatmo.Enums;
 using Newtonsoft.Json;
 using NodaTime;
@@ -46,15 +45,12 @@ namespace Netatmo.Models.Client.Weather.StationsData
         public int Firmware { get; set; }
 
         [JsonProperty("date_setup")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime SetupAt { get; set; }
 
         [JsonProperty("last_setup")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime LastSetupAt { get; set; }
 
         [JsonProperty("last_status_store")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime LastStatusStoreAt { get; set; }
 
         [JsonProperty("dashboard_data")]

@@ -17,6 +17,7 @@ namespace Netatmo.Tests
         public WeatherClient()
         {
             httpTest = new HttpTest();
+            httpTest.Configure(Configuration.ConfigureRequest);
         }
 
         public void Dispose()
@@ -49,7 +50,11 @@ namespace Netatmo.Tests
             result.Body.Should().BeOfType<GetStationsDataBody>();
             result.Body.Devices[0].DashboardData.Noise.Should().Be(53);
             result.Body.Devices[0].WifiStrength.Should().Be(WifiStrengthEnum.Good);
-            result.Body.Devices[0].Modules[0].DashboardData.ToObject<OutdoorDashBoardData>().HumidityPercent.Should().Be(40);
+            result.Body.Devices[0].Modules[0].GetDashboardData<OutdoorDashBoardData>().HumidityPercent.Should().Be(40);
+            result.Body.Devices[0].Modules[0]
+                .Invoking(y => y.GetDashboardData<WindGaugeDashBoardData>())
+                .Should().Throw<ArgumentException>()
+                .WithMessage("OutdoorDashBoardData should be expected");
             result.Body.Devices[0].Modules[0].RfStrength.Should().Be(RfStrengthEnum.FullSignal);
             result.Body.Devices[0].Modules[0].BatteryStatus.Should().Be(BatteryLevelEnum.Full);
             result.Body.Devices[0].Place.Timezone.Should().Be(DateTimeZoneProviders.Tzdb["Europe/Paris"]);

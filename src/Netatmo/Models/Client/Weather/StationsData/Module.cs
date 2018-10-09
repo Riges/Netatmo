@@ -1,4 +1,4 @@
-using Netatmo.Converters;
+using System;
 using Netatmo.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -101,15 +101,12 @@ namespace Netatmo.Models.Client.Weather.StationsData
         public int Firmware { get; set; }
 
         [JsonProperty("last_message")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime LastMessageAt { get; set; }
 
         [JsonProperty("last_seen")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime LastSeenAt { get; set; }
 
         [JsonProperty("last_setup")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime LastSetupAt { get; set; }
 
         [JsonProperty("data_type")]
@@ -117,5 +114,38 @@ namespace Netatmo.Models.Client.Weather.StationsData
 
         [JsonProperty("dashboard_data")]
         public JObject DashboardData { get; set; }
+
+        public T GetDashboardData<T>()
+        {
+            Type expectedType;
+            switch(Type)
+            {
+                case "NAMain":
+                    expectedType = typeof(BaseStationDashBoardData);
+                    break;
+                case "NAModule1":
+                    expectedType = typeof(OutdoorDashBoardData);
+                    break;
+                case "NAModule2":
+                    expectedType = typeof(WindGaugeDashBoardData);
+                    break;
+                case "NAModule3":
+                    expectedType = typeof(RainGaugeDashBoardData);
+                    break;
+                case "NAModule4":
+                    expectedType = typeof(IndoorDashBoardData);
+                    break;
+                default:
+                    expectedType = typeof(DashBoardData);
+                    break;
+            }
+
+            if (expectedType != typeof(T))
+            {
+                throw new ArgumentException($"{expectedType.Name} should be expected");
+            }
+            
+            return JsonConvert.DeserializeObject<T>(DashboardData.ToString(), Configuration.JsonSerializer());
+        }
     }
 }
