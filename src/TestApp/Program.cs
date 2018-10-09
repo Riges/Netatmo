@@ -3,8 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Flurl.Util;
 using Netatmo;
+using Netatmo.Models.Client.Energy;
+using Netatmo.Models.Client.Energy.RoomMeasure;
 using Newtonsoft.Json;
 using NodaTime;
+using NodaTime.Extensions;
 
 namespace TestApp
 {
@@ -12,6 +15,8 @@ namespace TestApp
     {
         public static async Task Main(string[] args)
         {
+            JsonConvert.DefaultSettings = Configuration.JsonSerializer;
+
             IClient client = new Client(
                 SystemClock.Instance, " https://api.netatmo.com/",
                 Environment.GetEnvironmentVariable("NETATMO_CLIENT_ID"),
@@ -27,7 +32,7 @@ namespace TestApp
                 });
 
             var token = client.CredentialManager.CredentialToken;
-            
+
             Console.WriteLine($"Token : {token.AccessToken}");
 
             Console.WriteLine("Stations data :");
@@ -44,6 +49,23 @@ namespace TestApp
                 Console.WriteLine(home.Name);
                 var homeStatus = await client.Energy.GetHomeStatus(home.Id);
                 Console.WriteLine(JsonConvert.SerializeObject(homeStatus, Formatting.Indented));
+
+                Console.WriteLine("Energy room measure :");
+                foreach (var room in home.Rooms)
+                {
+                    Console.WriteLine(room.Name);
+                    var parameters = new GetRoomMeasureParameters
+                    {
+                        HomeId = home.Id,
+                        RoomId = room.Id,
+                        Scale = Scale.Max,
+                        Type = ThermostatMeasurementType.Temperature,
+                        BeginAt = SystemClock.Instance.InUtc().GetCurrentLocalDateTime().PlusDays(-1),
+                        EndAt = SystemClock.Instance.InUtc().GetCurrentLocalDateTime()
+                    };
+                    var roomMeasure = await client.Energy.GetRoomMeasure<TemperatureStep>(parameters);
+                    Console.WriteLine(JsonConvert.SerializeObject(roomMeasure, Formatting.Indented));
+                }
             }
 
             Console.WriteLine("RefreshToken :");

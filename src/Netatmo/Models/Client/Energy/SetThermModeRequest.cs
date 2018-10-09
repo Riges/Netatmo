@@ -7,11 +7,11 @@ namespace Netatmo.Models.Client.Energy
     {
         [JsonProperty("home_id")]
         public string HomeId { get; set; }
-        
+
         [JsonProperty("mode")]
         public string Mode { get; set; }
-        
+
         [JsonProperty("endtime")]
-        public LocalDateTime?  EndTime { get; set; }
+        public LocalDateTime? EndTime { get; set; }
     }
 }

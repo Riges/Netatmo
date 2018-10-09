@@ -1,10 +1,8 @@
-using Netatmo.Converters;
 using Newtonsoft.Json;
 using NodaTime;
 
 namespace Netatmo.Models.Client
 {
-    
     public class DataResponse
     {
         [JsonProperty("status")]
@@ -14,10 +12,9 @@ namespace Netatmo.Models.Client
         public double? TimeExec { get; set; }
 
         [JsonProperty("time_server")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime? TimeServer { get; set; }
     }
-    
+
     public class DataResponse<T> : DataResponse
     {
         [JsonProperty("body")]

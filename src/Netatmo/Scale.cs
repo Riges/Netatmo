@@ -2,25 +2,23 @@ using System;
 
 namespace Netatmo
 {
-    public class Scope : IEquatable<Scope>
+    public class Scale : IEquatable<Scale>
     {
-        private Scope(string value)
+        private Scale(string value)
         {
             Value = value;
         }
 
         public string Value { get; }
-        public static Scope StationRead => new Scope("read_station");
-        public static Scope ThermostatRead => new Scope("read_thermostat");
-        public static Scope StationWrite => new Scope("write_thermostat");
-        public static Scope CameraRead => new Scope("read_camera");
-        public static Scope CameraWrite => new Scope("write_camera");
-        public static Scope CameraAccess => new Scope("access_camera");
-        public static Scope PresenceRead => new Scope("read_presence");
-        public static Scope PresenceAccess => new Scope("access_presence");
-        public static Scope HomecoachRead => new Scope("read_homecoach");
+        public static Scale Max => new Scale("max");
+        public static Scale HalfHour => new Scale("30min");
+        public static Scale OneHour => new Scale("1hour");
+        public static Scale ThreeHours => new Scale("3hours");
+        public static Scale OneDay => new Scale("1day");
+        public static Scale OneWeek => new Scale("1week");
+        public static Scale OneMonth => new Scale("1month");
 
-        public bool Equals(Scope other)
+        public bool Equals(Scale other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -32,7 +30,7 @@ namespace Netatmo
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((Scope) obj);
+            return Equals((Scale) obj);
         }
 
         public override int GetHashCode()
@@ -40,7 +38,7 @@ namespace Netatmo
             return Value != null ? Value.GetHashCode() : 0;
         }
 
-        public static bool operator ==(Scope obj1, Scope obj2)
+        public static bool operator ==(Scale obj1, Scale obj2)
         {
             if (ReferenceEquals(obj1, obj2)) return true;
 
@@ -50,7 +48,7 @@ namespace Netatmo
             return obj1.Equals(obj2);
         }
 
-        public static bool operator !=(Scope obj1, Scope obj2)
+        public static bool operator !=(Scale obj1, Scale obj2)
         {
             return !(obj1 == obj2);
         }

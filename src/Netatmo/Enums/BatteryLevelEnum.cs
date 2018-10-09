@@ -5,8 +5,8 @@ namespace Netatmo.Enums
         Undefined = 0,
         VeryLow = 1,
         Low = 2,
-        Medium= 3,
-        High= 4,
+        Medium = 3,
+        High = 4,
         Full = 5,
         Max = 6
     }

@@ -1,4 +1,3 @@
-using Netatmo.Converters;
 using Newtonsoft.Json;
 using NodaTime;
 
@@ -39,11 +38,9 @@ namespace Netatmo.Models.Client.Weather.StationsData
         public double MaxTemp { get; set; }
 
         [JsonProperty("date_min_temp")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime MinTempAt { get; set; }
 
         [JsonProperty("date_max_temp")]
-        [JsonConverter(typeof(TimestampToLocalDateTimeConverter))]
         public LocalDateTime MaxTempAt { get; set; }
     }
 }

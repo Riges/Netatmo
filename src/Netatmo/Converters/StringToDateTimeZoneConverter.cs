@@ -5,23 +5,18 @@ using NodaTime;
 
 namespace Netatmo.Converters
 {
-    public class StringToDateTimeZoneConverter : JsonConverter
+    public class StringToDateTimeZoneConverter : JsonConverter<DateTimeZone>
     {
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, DateTimeZone value, JsonSerializer serializer)
         {
-            writer.WriteValue(value is DateTimeZone dateTimeZone ? dateTimeZone.ToInvariantString() : string.Empty);
+            writer.WriteValue(value?.ToInvariantString());
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override DateTimeZone ReadJson(JsonReader reader, Type objectType, DateTimeZone existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             if (reader.Value == null) return null;
 
             return DateTimeZoneProviders.Tzdb[reader.Value.ToString()];
-        }
-
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof(string);
         }
     }
 }
