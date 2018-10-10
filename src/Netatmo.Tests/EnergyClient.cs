@@ -49,6 +49,28 @@ namespace Netatmo.Tests
         }
 
         [Fact]
+        public async Task DeleteHomeSchedule_Should_Return_Expected_Result()
+        {
+            var homeId = "5a327cbdb05a2133678b5d3e";
+            var scheduleId = "5a327cbdb05a2133678b5d3f";
+            httpTest.RespondWithJson(new DataResponse
+            {
+                Status = "ok", TimeExec = 0.036107063293457,
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            await sut.DeleteHomeSchedule(homeId, scheduleId);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/deletehomeschedule")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json").WithRequestJson(new DeleteHomeScheduleRequest {HomeId = homeId, ScheduleId = scheduleId})
+                .Times(1);
+        }
+
+        [Fact]
         public async Task GetHomesData_Should_Return_DataResponse_With_HomesData()
         {
             httpTest.RespondWith(
