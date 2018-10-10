@@ -37,59 +37,6 @@ namespace Netatmo.Tests
         private Mock<ICredentialManager> credentialManagerMock;
 
         [Theory]
-        [InlineData("ok", true)]
-        [InlineData("error", false)]
-        public async Task SetThermMode_Should_Return_Expected_Result(string status, bool expectedResult)
-        {
-            var homeId = "5a327cbdb05a2133678b5d3e";
-            var mode = "schedule";
-            httpTest.RespondWithJson(new DataResponse
-            {
-                Status = status, TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
-            });
-
-            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
-            var result = await sut.SetThermMode(homeId, mode);
-
-            httpTest
-                .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermmode")
-                .WithVerb(HttpMethod.Post)
-                .WithOAuthBearerToken(accessToken)
-                .WithContentType("application/json").WithRequestJson(new SetThermModeRequest {HomeId = homeId, Mode = mode})
-                .Times(1);
-
-            result.Should().Be(expectedResult);
-        }
-
-        [Theory]
-        [InlineData("ok", true)]
-        [InlineData("error", false)]
-        public async Task SetRoomThermPoint_Should_Return_Expected_Result(string status, bool expectedResult)
-        {
-            var homeId = "5a327cbdb05a2133678b5d3e";
-            var roomId = "2255031728";
-            var mode = "schedule";
-            httpTest.RespondWithJson(new DataResponse
-            {
-                Status = status, TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
-            });
-
-            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
-            var result = await sut.SetRoomThermPoint(homeId, roomId, mode);
-
-            httpTest
-                .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermpoint")
-                .WithVerb(HttpMethod.Post)
-                .WithOAuthBearerToken(accessToken)
-                .WithContentType("application/json").WithRequestJson(new SetRoomThermpointRequest {HomeId = homeId, RoomId = roomId, Mode = mode})
-                .Times(1);
-
-            result.Should().Be(expectedResult);
-        }
-
-        [Theory]
         [ClassData(typeof(GetRoomMeasureArgumentExceptionData))]
         public void GetRoomMeasure_Should_Throw_ArgumentException(GetRoomMeasureParameters parameters, string exceptionMessage)
         {
@@ -212,6 +159,73 @@ namespace Netatmo.Tests
                 }))
                 .Should().Throw<ArgumentException>()
                 .WithMessage("DateTemperatureStep should be used with a date of temperature measurement");
+        }
+
+        [Fact]
+        public async Task SetRoomThermPoint_Should_Return_Expected_Result()
+        {
+            var homeId = "5a327cbdb05a2133678b5d3e";
+            var roomId = "2255031728";
+            var mode = "schedule";
+            httpTest.RespondWithJson(new DataResponse
+            {
+                Status = "ok", TimeExec = 0.036107063293457,
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            await sut.SetRoomThermPoint(homeId, roomId, mode);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermpoint")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json").WithRequestJson(new SetRoomThermpointRequest {HomeId = homeId, RoomId = roomId, Mode = mode})
+                .Times(1);
+        }
+
+        [Fact]
+        public async Task SetThermMode_Should_Return_Expected_Result()
+        {
+            var homeId = "5a327cbdb05a2133678b5d3e";
+            var mode = "schedule";
+            httpTest.RespondWithJson(new DataResponse
+            {
+                Status = "ok", TimeExec = 0.036107063293457,
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            await sut.SetThermMode(homeId, mode);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermmode")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json").WithRequestJson(new SetThermModeRequest {HomeId = homeId, Mode = mode})
+                .Times(1);
+        }
+
+        [Fact]
+        public async Task SwitchHomeSchedule_Should_Return_Expected_Result()
+        {
+            var homeId = "5a327cbdb05a2133678b5d3e";
+            var scheduleId = "5a327cbdb05a2133678b5d3f";
+            httpTest.RespondWithJson(new DataResponse
+            {
+                Status = "ok", TimeExec = 0.036107063293457,
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            await sut.SwitchHomeSchedule(homeId, scheduleId);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/switchhomeschedule")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json").WithRequestJson(new SwitchHomeScheduleRequest {HomeId = homeId, ScheduleId = scheduleId})
+                .Times(1);
         }
     }
 }

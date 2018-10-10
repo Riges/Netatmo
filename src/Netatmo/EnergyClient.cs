@@ -48,9 +48,9 @@ namespace Netatmo
                 .ReceiveJson<DataResponse<GetHomeStatusBody>>();
         }
 
-        public async Task<bool> SetThermMode(string homeId, string mode, LocalDateTime? endTime = null)
+        public async Task<DataResponse> SetThermMode(string homeId, string mode, LocalDateTime? endTime = null)
         {
-            var response = await baseUrl
+            return await baseUrl
                 .ConfigureRequest(Configuration.ConfigureRequest)
                 .AppendPathSegment("/api/setroomthermmode")
                 .WithOAuthBearerToken(credentialManager.AccessToken)
@@ -60,13 +60,12 @@ namespace Netatmo
                     Mode = mode,
                     EndTime = endTime
                 }).ReceiveJson<DataResponse>();
-
-            return response.Status.Equals("ok", StringComparison.OrdinalIgnoreCase);
         }
 
-        public async Task<bool> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null, LocalDateTime? endTime = null)
+        public async Task<DataResponse> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null,
+            LocalDateTime? endTime = null)
         {
-            var response = await baseUrl
+            return await baseUrl
                 .ConfigureRequest(Configuration.ConfigureRequest)
                 .AppendPathSegment("/api/setroomthermpoint")
                 .WithOAuthBearerToken(credentialManager.AccessToken)
@@ -78,8 +77,6 @@ namespace Netatmo
                     Temp = temp,
                     EndTime = endTime
                 }).ReceiveJson<DataResponse>();
-
-            return response.Status.Equals("ok", StringComparison.OrdinalIgnoreCase);
         }
 
         public async Task<DataResponse<T[]>> GetRoomMeasure<T>(GetRoomMeasureParameters parameters) where T : IStep
@@ -102,6 +99,19 @@ namespace Netatmo
                     Optimize = parameters.Optimize,
                     RealTime = parameters.RealTime
                 }).ReceiveJson<DataResponse<T[]>>();
+        }
+
+        public async Task<DataResponse> SwitchHomeSchedule(string homeId, string scheduleId)
+        {
+            return await baseUrl
+                .ConfigureRequest(Configuration.ConfigureRequest)
+                .AppendPathSegment("/api/switchhomeschedule")
+                .WithOAuthBearerToken(credentialManager.AccessToken)
+                .PostJsonAsync(new SwitchHomeScheduleRequest
+                {
+                    HomeId = homeId,
+                    ScheduleId = scheduleId
+                }).ReceiveJson<DataResponse>();
         }
 
         private void ValidateGetRoomMeasureParameters<T>(GetRoomMeasureParameters parameters)
