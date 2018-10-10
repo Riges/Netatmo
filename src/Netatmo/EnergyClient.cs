@@ -114,6 +114,20 @@ namespace Netatmo
                 }).ReceiveJson<DataResponse>();
         }
 
+        public async Task<DataResponse> RenameHomeSchedule(string homeId, string scheduleId, string name)
+        {
+            return await baseUrl
+                .ConfigureRequest(Configuration.ConfigureRequest)
+                .AppendPathSegment("/api/renamehomeschedule")
+                .WithOAuthBearerToken(credentialManager.AccessToken)
+                .PostJsonAsync(new RenameHomeScheduleRequest
+                {
+                    HomeId = homeId,
+                    ScheduleId = scheduleId,
+                    Name = name
+                }).ReceiveJson<DataResponse>();
+        }
+
         private void ValidateGetRoomMeasureParameters<T>(GetRoomMeasureParameters parameters)
         {
             if (string.IsNullOrWhiteSpace(parameters.HomeId))
