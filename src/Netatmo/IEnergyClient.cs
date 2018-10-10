@@ -10,8 +10,9 @@ namespace Netatmo
     {
         Task<DataResponse<GetHomesDataBody>> GetHomesData(string homeId = null, string gatewayTypes = null);
         Task<DataResponse<GetHomeStatusBody>> GetHomeStatus(string homeId, string[] deviceTypes = null);
-        Task<bool> SetThermMode(string homeId, string mode, LocalDateTime? endTime = null);
-        Task<bool> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null, LocalDateTime? endTime = null);
+        Task<DataResponse> SetThermMode(string homeId, string mode, LocalDateTime? endTime = null);
+        Task<DataResponse> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null, LocalDateTime? endTime = null);
         Task<DataResponse<T[]>> GetRoomMeasure<T>(GetRoomMeasureParameters parameters) where T : IStep;
+        Task<DataResponse> SwitchHomeSchedule(string homeId, string scheduleId);
     }
 }
