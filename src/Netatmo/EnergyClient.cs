@@ -128,6 +128,19 @@ namespace Netatmo
                 }).ReceiveJson<DataResponse>();
         }
 
+        public async Task<DataResponse> DeleteHomeSchedule(string homeId, string scheduleId)
+        {
+            return await baseUrl
+                .ConfigureRequest(Configuration.ConfigureRequest)
+                .AppendPathSegment("/api/deletehomeschedule")
+                .WithOAuthBearerToken(credentialManager.AccessToken)
+                .PostJsonAsync(new DeleteHomeScheduleRequest
+                {
+                    HomeId = homeId,
+                    ScheduleId = scheduleId
+                }).ReceiveJson<DataResponse>();
+        }
+
         private void ValidateGetRoomMeasureParameters<T>(GetRoomMeasureParameters parameters)
         {
             if (string.IsNullOrWhiteSpace(parameters.HomeId))
