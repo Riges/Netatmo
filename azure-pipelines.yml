@@ -1,4 +1,3 @@
-name: Netatmo CI
 trigger:
   batch: true
   branches:
@@ -82,4 +81,4 @@ jobs:
         parameters:
           artifactName: 'TEST' # defaults for any parameters that aren't specified
           platform: 'Linux'
-          suffixPlatform: 'test'
+          versionSuffix: 'unknow'
