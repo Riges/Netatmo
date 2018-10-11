@@ -17,5 +17,6 @@ namespace Netatmo
         Task<DataResponse> RenameHomeSchedule(string homeId, string scheduleId, string name);
         Task<DataResponse> DeleteHomeSchedule(string homeId, string scheduleId);
         Task<DataResponse> SyncHomeSchedule(SyncHomeScheduleRequest requestParameters);
+        Task<CreateHomeScheduleResponse> CreateHomeSchedule(CreateHomeScheduleRequest requestParameters);
     }
 }

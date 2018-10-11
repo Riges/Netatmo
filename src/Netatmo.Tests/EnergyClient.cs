@@ -49,13 +49,45 @@ namespace Netatmo.Tests
         }
 
         [Fact]
+        public async Task CreateHomeSchedule_Should_Return_Expected_Result()
+        {
+            var parameters = new CreateHomeScheduleRequest("5a327cbdb05a2133678b5d3e", 14, 16, "Cat schedule");
+            httpTest.RespondWithJson(new CreateHomeScheduleResponse
+            {
+                ScheduleId = "5a819e6113475d09c28b497a",
+                Status = "ok",
+                TimeExec = 0.036107063293457,
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            await sut.CreateHomeSchedule(parameters);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/createnewhomeschedule")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json")
+                .WithRequestJson(
+                    new CreateHomeScheduleRequest(
+                        parameters.HomeId,
+                        parameters.HgTemp,
+                        parameters.AwayTemp,
+                        parameters.Name,
+                        new Timetable[0],
+                        new Zone[0]))
+                .Times(1);
+        }
+
+        [Fact]
         public async Task DeleteHomeSchedule_Should_Return_Expected_Result()
         {
             var homeId = "5a327cbdb05a2133678b5d3e";
             var scheduleId = "5a327cbdb05a2133678b5d3f";
             httpTest.RespondWithJson(new DataResponse
             {
-                Status = "ok", TimeExec = 0.036107063293457,
+                Status = "ok",
+                TimeExec = 0.036107063293457,
                 TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
             });
 
@@ -104,10 +136,7 @@ namespace Netatmo.Tests
                 .ShouldHaveCalled("https://api.netatmo.com/api/homestatus")
                 .WithVerb(HttpMethod.Post)
                 .WithOAuthBearerToken(accessToken)
-                .WithContentType("application/json").WithRequestJson(new GetHomeStatusRequest
-                {
-                    HomeId = homeId
-                })
+                .WithContentType("application/json").WithRequestJson(new GetHomeStatusRequest {HomeId = homeId})
                 .Times(1);
 
             result.Body.Should().BeOfType<GetHomeStatusBody>();
@@ -191,7 +220,8 @@ namespace Netatmo.Tests
             var name = "Cat schedule";
             httpTest.RespondWithJson(new DataResponse
             {
-                Status = "ok", TimeExec = 0.036107063293457,
+                Status = "ok",
+                TimeExec = 0.036107063293457,
                 TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
             });
 
@@ -215,7 +245,8 @@ namespace Netatmo.Tests
             var mode = "schedule";
             httpTest.RespondWithJson(new DataResponse
             {
-                Status = "ok", TimeExec = 0.036107063293457,
+                Status = "ok",
+                TimeExec = 0.036107063293457,
                 TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
             });
 
@@ -237,7 +268,8 @@ namespace Netatmo.Tests
             var mode = "schedule";
             httpTest.RespondWithJson(new DataResponse
             {
-                Status = "ok", TimeExec = 0.036107063293457,
+                Status = "ok",
+                TimeExec = 0.036107063293457,
                 TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
             });
 
@@ -259,7 +291,8 @@ namespace Netatmo.Tests
             var scheduleId = "5a327cbdb05a2133678b5d3f";
             httpTest.RespondWithJson(new DataResponse
             {
-                Status = "ok", TimeExec = 0.036107063293457,
+                Status = "ok",
+                TimeExec = 0.036107063293457,
                 TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
             });
 
@@ -280,7 +313,8 @@ namespace Netatmo.Tests
             var parameters = new SyncHomeScheduleRequest("5a327cbdb05a2133678b5d3e", "5a327cbdb05a2133678b5d3f", 14, 16);
             httpTest.RespondWithJson(new DataResponse
             {
-                Status = "ok", TimeExec = 0.036107063293457,
+                Status = "ok",
+                TimeExec = 0.036107063293457,
                 TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
             });
 
