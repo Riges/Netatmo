@@ -1,0 +1,24 @@
+parameters:
+  artifactName: 'Unknow' # defaults for any parameters that aren't specified
+  platform: 'Linux'
+  suffixPlatform: 'unknow'
+steps:
+  - script: dotnet restore src
+    displayName: Restore packages
+  - script: |
+      mkdir artifacts
+      dotnet pack src -c Release -o "$(Build.SourcesDirectory)/artifacts" --version-suffix "ci.${{ parameters.suffixPlatform }}.$(Build.BuildNumber)"
+    displayName: Build
+  - script: dotnet test src/Netatmo.Tests/Netatmo.Tests.csproj -c Release -l trx
+    displayName: Run Tests
+  - task: PublishTestResults@2
+    displayName: Publish Tests
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '**/*.trx'
+      platform: ${{ parameters.platform }}
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Artifacts
+    inputs:
+      pathToPublish: artifacts
+      artifactName: ${{ parameters.artifactName }}

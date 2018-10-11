@@ -1,0 +1,85 @@
+name: Netatmo CI
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+jobs:
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - script: dotnet restore src
+        displayName: Restore packages
+      - script: |
+          mkdir artifacts
+          dotnet pack src -c Release -o "$(Build.SourcesDirectory)/artifacts" --version-suffix "ci.linux.$(Build.BuildNumber)"
+        displayName: Build
+      - script: dotnet test src/Netatmo.Tests/Netatmo.Tests.csproj -c Release -l trx
+        displayName: Run Tests
+      - task: PublishTestResults@2
+        displayName: Publish Tests
+        inputs:
+          testRunner: VSTest
+          testResultsFiles: '**/*.trx'
+          platform: Linux
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Artifacts
+        inputs:
+          pathToPublish: artifacts
+          artifactName: Linux
+  - job: Windows
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+      - script: dotnet restore src
+        displayName: Restore packages
+      - script: |
+          mkdir artifacts
+          dotnet pack src -c Release -o "$(Build.SourcesDirectory)/artifacts" --version-suffix "ci.windows.$(Build.BuildNumber)"
+        displayName: Build
+      - script: dotnet test src/Netatmo.Tests/Netatmo.Tests.csproj -c Release -l trx
+        displayName: Run Tests
+      - task: PublishTestResults@2
+        displayName: Publish Tests
+        inputs:
+          testRunner: VSTest
+          testResultsFiles: '**/*.trx'
+          platform: Windows
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Artifact
+        inputs:
+          pathToPublish: artifacts
+          artifactName: Windows
+  - job: macOS
+    pool:
+      vmImage: 'xcode9-macos10.13'
+    steps:
+      - script: dotnet restore src
+        displayName: Restore packages
+      - script: |
+          mkdir artifacts
+          dotnet pack src -c Release -o "$(Build.SourcesDirectory)/artifacts" --version-suffix "ci.macos.$(Build.BuildNumber)"
+        displayName: Build
+      - script: dotnet test src/Netatmo.Tests/Netatmo.Tests.csproj -c Release -l trx
+        displayName: Run Tests
+      - task: PublishTestResults@2
+        displayName: Publish Tests
+        inputs:
+          testRunner: VSTest
+          testResultsFiles: '**/*.trx'
+          platform: macOS
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Artifact
+        inputs:
+          pathToPublish: artifacts
+          artifactName: macOS
+  - job: Test
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+      - template: azure-pipelines/steps/build.yml
+        parameters:
+          artifactName: 'TEST' # defaults for any parameters that aren't specified
+          platform: 'Linux'
+          suffixPlatform: 'test'
