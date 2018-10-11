@@ -1,9 +1,19 @@
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Energy.HomesData
+namespace Netatmo.Models.Client.Energy
 {
     public class Timetable
     {
+        public Timetable()
+        {
+        }
+
+        public Timetable(string zoneId, int mOffset)
+        {
+            ZoneId = zoneId;
+            MOffset = mOffset;
+        }
+
         [JsonProperty("id")]
         public string ZoneId { get; set; }
 

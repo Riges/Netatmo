@@ -141,6 +141,15 @@ namespace Netatmo
                 }).ReceiveJson<DataResponse>();
         }
 
+        public async Task<DataResponse> SyncHomeSchedule(SyncHomeScheduleRequest requestParameters)
+        {
+            return await baseUrl
+                .ConfigureRequest(Configuration.ConfigureRequest)
+                .AppendPathSegment("/api/synchomeschedule")
+                .WithOAuthBearerToken(credentialManager.AccessToken)
+                .PostJsonAsync(requestParameters).ReceiveJson<DataResponse>();
+        }
+
         private void ValidateGetRoomMeasureParameters<T>(GetRoomMeasureParameters parameters)
         {
             if (string.IsNullOrWhiteSpace(parameters.HomeId))
