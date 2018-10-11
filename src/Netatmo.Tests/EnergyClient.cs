@@ -273,5 +273,34 @@ namespace Netatmo.Tests
                 .WithContentType("application/json").WithRequestJson(new SwitchHomeScheduleRequest {HomeId = homeId, ScheduleId = scheduleId})
                 .Times(1);
         }
+
+        [Fact]
+        public async Task SyncHomeSchedule_Should_Return_Expected_Result()
+        {
+            var parameters = new SyncHomeScheduleRequest("5a327cbdb05a2133678b5d3e", "5a327cbdb05a2133678b5d3f", 14, 16);
+            httpTest.RespondWithJson(new DataResponse
+            {
+                Status = "ok", TimeExec = 0.036107063293457,
+                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+            });
+
+            var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            await sut.SyncHomeSchedule(parameters);
+
+            httpTest
+                .ShouldHaveCalled("https://api.netatmo.com/api/synchomeschedule")
+                .WithVerb(HttpMethod.Post)
+                .WithOAuthBearerToken(accessToken)
+                .WithContentType("application/json")
+                .WithRequestJson(
+                    new SyncHomeScheduleRequest(
+                        parameters.HomeId,
+                        parameters.ScheduleId,
+                        parameters.HgTemp,
+                        parameters.AwayTemp,
+                        new Timetable[0],
+                        new Zone[0]))
+                .Times(1);
+        }
     }
 }
