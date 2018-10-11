@@ -11,7 +11,8 @@ namespace Netatmo.Models.Client.Energy
             Rooms = new List<Room>();
         }
 
-        public Zone(string id, string name, ZoneTypeEnum type, Room[] rooms = null) : this()
+        public Zone(string id, string name, ZoneTypeEnum type, Room[] rooms = null) :
+            this()
         {
             Id = id;
             Name = name;

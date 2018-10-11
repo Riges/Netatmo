@@ -3,20 +3,19 @@ using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client.Energy
 {
-    public class SyncHomeScheduleRequest
+    public class CreateHomeScheduleRequest
     {
-        public SyncHomeScheduleRequest()
+        public CreateHomeScheduleRequest()
         {
             Timetables = new List<Timetable>();
             Zones = new List<Zone>();
         }
 
-        public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, string name = null,
-            Timetable[] timetables = null, Zone[] zones = null) :
+        public CreateHomeScheduleRequest(string homeId, double hgTemp, double awayTemp, string name, Timetable[] timetables = null,
+            Zone[] zones = null) : 
             this()
         {
             HomeId = homeId;
-            ScheduleId = scheduleId;
             Name = name;
             HgTemp = hgTemp;
             AwayTemp = awayTemp;
@@ -26,21 +25,8 @@ namespace Netatmo.Models.Client.Energy
             if (zones != null) Zones.AddRange(zones);
         }
 
-        public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, string name) :
-            this(homeId, scheduleId, hgTemp, awayTemp, name, null, null)
-        {
-        }
-
-        public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, Timetable[] timetables, Zone[] zones) :
-            this(homeId, scheduleId, hgTemp, awayTemp, null, timetables, zones)
-        {
-        }
-
         [JsonProperty("home_id")]
         public string HomeId { get; set; }
-
-        [JsonProperty("schedule_id")]
-        public string ScheduleId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
