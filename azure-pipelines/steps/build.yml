@@ -7,7 +7,7 @@ steps:
     displayName: Restore packages
   - bash: |
       mkdir artifacts
-      dotnet pack src/Netatmo/Netatmo.csproj -c Release -o "$(Build.SourcesDirectory)/artifacts" --version-suffix "ci.$VERSIONSUFFIX.$(Build.BuildNumber)"
+      dotnet pack src -c Release -o "$(Build.SourcesDirectory)/artifacts" --version-suffix "ci.$VERSIONSUFFIX.$(Build.BuildNumber)"
     env:
       VERSIONSUFFIX: ${{ parameters.versionSuffix }}
     displayName: Build

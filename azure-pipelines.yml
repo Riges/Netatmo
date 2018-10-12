@@ -6,7 +6,7 @@ trigger:
 jobs:
   - job: Linux
     pool:
-      vmImage: 'vs2017-win2016'
+      vmImage: 'ubuntu-16.04'
     steps:
       - template: azure-pipelines/steps/build.yml
         parameters:
@@ -31,3 +31,23 @@ jobs:
           artifactName: 'macOS'
           platform: 'macOS'
           versionSuffix: 'macos'
+  - job: NuGet
+    pool:
+      vmImage: 'ubuntu-16.04'
+    dependsOn:
+      - Linux
+      - Windows
+      - macOS
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+    steps:
+      - script: dotnet restore src
+        displayName: Restore packages
+      - script: |
+          mkdir artifacts
+          dotnet pack src/Netatmo/Netatmo.csproj -c Release -o "$(Build.SourcesDirectory)/artifacts"
+        displayName: Build
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Artifacts
+        inputs:
+          pathToPublish: artifacts
+          artifactName: NuGet

@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFrameworks>netcoreapp2.1;netstandard2.0</TargetFrameworks>
         <LangVersion>7.1</LangVersion>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Netatmo\Netatmo.csproj" />
     </ItemGroup>
-
 </Project>

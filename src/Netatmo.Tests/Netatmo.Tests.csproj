@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
-
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
@@ -18,5 +16,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Netatmo\Netatmo.csproj" />
     </ItemGroup>
-
 </Project>
