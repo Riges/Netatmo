@@ -21,7 +21,6 @@ namespace Netatmo.Converters
         {
             if (reader.Value == null) return null;
 
-            var stringValue = reader.Value.ToString();
             var value = int.Parse(reader.Value.ToString());
 
             if (value == 0) return null;

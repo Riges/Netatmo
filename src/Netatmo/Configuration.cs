@@ -12,7 +12,7 @@ namespace Netatmo
             return new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
-                Converters = new List<JsonConverter> {new TimestampToLocalDateTimeConverter(), new StringToDateTimeZoneConverter()}
+                Converters = new List<JsonConverter> {new TimestampToInstantConverter(), new TimestampToLocalDateTimeConverter(), new StringToDateTimeZoneConverter()}
             };
         }
         
