@@ -8,8 +8,8 @@ namespace Netatmo.Models.Client.Energy
         public string RoomId { get; set; }
         public Scale Scale { get; set; }
         public ThermostatMeasurementType Type { get; set; }
-        public LocalDateTime? BeginAt { get; set; }
-        public LocalDateTime? EndAt { get; set; }
+        public Instant? BeginAt { get; set; }
+        public Instant? EndAt { get; set; }
         public int? Limit { get; set; }
         public bool? Optimize { get; set; }
         public bool? RealTime { get; set; }

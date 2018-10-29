@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using Flurl.Http.Testing;
 using Moq;
 using Netatmo.Enums;
@@ -57,7 +58,7 @@ namespace Netatmo.Tests
                 ScheduleId = "5a819e6113475d09c28b497a",
                 Status = "ok",
                 TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+                TimeServer = Instant.FromUnixTimeSeconds(1518023467)
             });
 
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
@@ -88,7 +89,7 @@ namespace Netatmo.Tests
             {
                 Status = "ok",
                 TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+                TimeServer = Instant.FromUnixTimeSeconds(1518023467)
             });
 
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
@@ -179,7 +180,7 @@ namespace Netatmo.Tests
                 })
                 .Times(1);
 
-            result.Body[0].BeginAt.Should().Be(new LocalDateTime(2017, 12, 14, 13, 45, 00));
+            result.Body[0].BeginAt.Should().Be(Instant.FromDateTimeUtc(DateTime.SpecifyKind(new DateTime(2017, 12, 14, 13, 45, 0), DateTimeKind.Utc)));
             result.Body.Length.Should().Be(2);
             result.Body[0].Values[0][0].Should().Be(27.9);
             result.Body[0].Values[1][0].Should().Be(27.1);
@@ -222,7 +223,7 @@ namespace Netatmo.Tests
             {
                 Status = "ok",
                 TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+                TimeServer = Instant.FromUnixTimeSeconds(1518023467)
             });
 
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
@@ -247,7 +248,7 @@ namespace Netatmo.Tests
             {
                 Status = "ok",
                 TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+                TimeServer = Instant.FromUnixTimeSeconds(1518023467)
             });
 
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
@@ -270,7 +271,7 @@ namespace Netatmo.Tests
             {
                 Status = "ok",
                 TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+                TimeServer = Instant.FromUnixTimeSeconds(1518023467)
             });
 
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
@@ -293,7 +294,7 @@ namespace Netatmo.Tests
             {
                 Status = "ok",
                 TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+                TimeServer = Instant.FromUnixTimeSeconds(1518023467)
             });
 
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
@@ -315,7 +316,7 @@ namespace Netatmo.Tests
             {
                 Status = "ok",
                 TimeExec = 0.036107063293457,
-                TimeServer = new LocalDateTime(1970, 1, 1, 0, 0, 0).PlusSeconds(1518023467)
+                TimeServer = Instant.FromUnixTimeSeconds(1518023467)
             });
 
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);

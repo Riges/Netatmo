@@ -101,13 +101,13 @@ namespace Netatmo.Models.Client.Weather.StationsData
         public int Firmware { get; set; }
 
         [JsonProperty("last_message")]
-        public LocalDateTime LastMessageAt { get; set; }
+        public Instant LastMessageAt { get; set; }
 
         [JsonProperty("last_seen")]
-        public LocalDateTime LastSeenAt { get; set; }
+        public Instant LastSeenAt { get; set; }
 
         [JsonProperty("last_setup")]
-        public LocalDateTime LastSetupAt { get; set; }
+        public Instant LastSetupAt { get; set; }
 
         [JsonProperty("data_type")]
         public string[] DataType { get; set; }

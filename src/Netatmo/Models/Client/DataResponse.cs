@@ -12,7 +12,7 @@ namespace Netatmo.Models.Client
         public double? TimeExec { get; set; }
 
         [JsonProperty("time_server")]
-        public LocalDateTime? TimeServer { get; set; }
+        public Instant? TimeServer { get; set; }
     }
 
     public class DataResponse<T> : DataResponse

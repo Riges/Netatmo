@@ -16,7 +16,7 @@ namespace Netatmo.Models.Client.Energy.HomesData
         public string Type { get; set; }
 
         [JsonProperty("setup_date")]
-        public LocalDateTime SetupAt { get; set; }
+        public Instant SetupAt { get; set; }
 
         [JsonProperty("modules_bridged")]
         public string[] ModulesBridged { get; set; }

@@ -45,13 +45,13 @@ namespace Netatmo.Models.Client.Weather.StationsData
         public int Firmware { get; set; }
 
         [JsonProperty("date_setup")]
-        public LocalDateTime SetupAt { get; set; }
+        public Instant SetupAt { get; set; }
 
         [JsonProperty("last_setup")]
-        public LocalDateTime LastSetupAt { get; set; }
+        public Instant LastSetupAt { get; set; }
 
         [JsonProperty("last_status_store")]
-        public LocalDateTime LastStatusStoreAt { get; set; }
+        public Instant LastStatusStoreAt { get; set; }
 
         [JsonProperty("dashboard_data")]
         public BaseStationDashBoardData DashboardData { get; set; }
