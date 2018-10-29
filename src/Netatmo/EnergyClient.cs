@@ -48,7 +48,7 @@ namespace Netatmo
                 .ReceiveJson<DataResponse<GetHomeStatusBody>>();
         }
 
-        public async Task<DataResponse> SetThermMode(string homeId, string mode, LocalDateTime? endTime = null)
+        public async Task<DataResponse> SetThermMode(string homeId, string mode, Instant? endTime = null)
         {
             return await baseUrl
                 .ConfigureRequest(Configuration.ConfigureRequest)
@@ -62,8 +62,7 @@ namespace Netatmo
                 }).ReceiveJson<DataResponse>();
         }
 
-        public async Task<DataResponse> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null,
-            LocalDateTime? endTime = null)
+        public async Task<DataResponse> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null, Instant? endTime = null)
         {
             return await baseUrl
                 .ConfigureRequest(Configuration.ConfigureRequest)

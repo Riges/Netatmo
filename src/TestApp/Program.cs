@@ -60,8 +60,8 @@ namespace TestApp
                         RoomId = room.Id,
                         Scale = Scale.Max,
                         Type = ThermostatMeasurementType.Temperature,
-                        BeginAt = SystemClock.Instance.InUtc().GetCurrentLocalDateTime().PlusDays(-1),
-                        EndAt = SystemClock.Instance.InUtc().GetCurrentLocalDateTime()
+                        BeginAt = SystemClock.Instance.GetCurrentInstant().Plus(Duration.FromDays(-1)),
+                        EndAt = SystemClock.Instance.GetCurrentInstant()
                     };
                     var roomMeasure = await client.Energy.GetRoomMeasure<TemperatureStep>(parameters);
                     Console.WriteLine(JsonConvert.SerializeObject(roomMeasure, Formatting.Indented));

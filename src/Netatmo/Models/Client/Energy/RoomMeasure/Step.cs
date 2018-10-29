@@ -6,7 +6,7 @@ namespace Netatmo.Models.Client.Energy.RoomMeasure
     public abstract class Step<T> : IStep
     {
         [JsonProperty("beg_time")]
-        public LocalDateTime BeginAt { get; set; }
+        public Instant BeginAt { get; set; }
 
         [JsonProperty("step_time")]
         public int StepTime { get; set; }

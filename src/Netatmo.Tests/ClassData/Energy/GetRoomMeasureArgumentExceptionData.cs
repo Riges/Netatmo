@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Netatmo.Models.Client.Energy;
@@ -80,8 +81,8 @@ namespace Netatmo.Tests.ClassData.Energy
                     RoomId = "2255031728",
                     Scale = Scale.Max,
                     Type = ThermostatMeasurementType.Temperature,
-                    BeginAt = new LocalDateTime(2018,4,30, 0,0,0),
-                    EndAt = new LocalDateTime(2017,4,30, 0,0,0)
+                    BeginAt = Instant.FromDateTimeUtc(DateTime.SpecifyKind(new DateTime(2018, 4, 30), DateTimeKind.Utc)),
+                    EndAt = Instant.FromDateTimeUtc(DateTime.SpecifyKind(new DateTime(2017, 4, 30), DateTimeKind.Utc))
                 },
                 "BeginAt should be lower than EndAt"
             };

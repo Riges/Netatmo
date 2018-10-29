@@ -18,10 +18,10 @@ namespace Netatmo.Models.Client.Energy
         public string Type { get; set; }
 
         [JsonProperty("date_begin")]
-        public LocalDateTime? BeginAt { get; set; }
+        public Instant? BeginAt { get; set; }
 
         [JsonProperty("date_end")]
-        public LocalDateTime? EndAt { get; set; }
+        public Instant? EndAt { get; set; }
 
         [JsonProperty("limit")]
         public int? Limit { get; set; }

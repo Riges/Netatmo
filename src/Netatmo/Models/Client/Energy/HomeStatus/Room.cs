@@ -30,9 +30,9 @@ namespace Netatmo.Models.Client.Energy.HomeStatus
         public string ThermSetPointMode { get; set; }
 
         [JsonProperty("therm_setpoint_start_time")]
-        public LocalDateTime ThermSetPointStartTime { get; set; }
+        public Instant ThermSetPointStartTime { get; set; }
 
         [JsonProperty("therm_setpoint_end_time")]
-        public LocalDateTime? ThermSetPointEndTime { get; set; }
+        public Instant? ThermSetPointEndTime { get; set; }
     }
 }

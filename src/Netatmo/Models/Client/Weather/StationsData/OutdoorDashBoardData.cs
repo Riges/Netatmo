@@ -22,9 +22,9 @@ namespace Netatmo.Models.Client.Weather.StationsData
         public double MaxTemp { get; set; }
 
         [JsonProperty("date_min_temp")]
-        public LocalDateTime MinTempAt { get; set; }
+        public Instant MinTempAt { get; set; }
 
         [JsonProperty("date_max_temp")]
-        public LocalDateTime MaxTempAt { get; set; }
+        public Instant MaxTempAt { get; set; }
     }
 }

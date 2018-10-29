@@ -8,7 +8,7 @@ namespace Netatmo.Converters
     {
         public override void WriteJson(JsonWriter writer, Instant? value, JsonSerializer serializer)
         {
-            if (value.HasValue) writer.WriteValue(value.Value.ToUnixTimeSeconds());
+            if (value.HasValue) writer.WriteValue(value.Value.ToUnixTimeSeconds().ToString());
         }
 
         public override Instant? ReadJson(JsonReader reader, Type objectType, Instant? existingValue, bool hasExistingValue,

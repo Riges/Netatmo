@@ -12,6 +12,6 @@ namespace Netatmo.Models.Client.Energy
         public string Mode { get; set; }
 
         [JsonProperty("endtime")]
-        public LocalDateTime? EndTime { get; set; }
+        public Instant? EndTime { get; set; }
     }
 }
