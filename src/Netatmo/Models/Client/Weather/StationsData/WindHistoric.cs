@@ -3,7 +3,7 @@ using NodaTime;
 
 namespace Netatmo.Models.Client.Weather.StationsData
 {
-    public class WindHistoric
+    public class WindHistoric : IWindDashBoardData
     {
         [JsonProperty("WindStrength")]
         public int WindStrength { get; set; }
