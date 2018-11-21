@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 using NodaTime;
 
-namespace Netatmo.Models.Client.Weather.StationsData
+namespace Netatmo.Models.Client.Weather.StationsData.DashboardData
 {
-    public class WindHistoric : IWindDashBoardData
+    public class WindHistoric : IWindHistory
     {
         [JsonProperty("WindStrength")]
         public int WindStrength { get; set; }
