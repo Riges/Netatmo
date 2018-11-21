@@ -1,5 +1,6 @@
 using System;
 using Netatmo.Enums;
+using Netatmo.Models.Client.Weather.StationsData.DashboardData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NodaTime;
@@ -115,7 +116,7 @@ namespace Netatmo.Models.Client.Weather.StationsData
         [JsonProperty("dashboard_data")]
         public JObject DashboardData { get; set; }
 
-        public T GetDashboardData<T>()
+        public T GetDashboardData<T>()where T : IDashBoardData
         {
             Type expectedType;
             switch(Type)

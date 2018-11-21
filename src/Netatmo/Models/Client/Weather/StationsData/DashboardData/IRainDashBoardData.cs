@@ -1,13 +1,10 @@
 using Newtonsoft.Json;
 using NodaTime;
 
-namespace Netatmo.Models.Client.Weather.StationsData
+namespace Netatmo.Models.Client.Weather.StationsData.DashboardData
 {
-    public interface IRainDashBoardData
+    public interface IRainDashBoardData : IDashBoardData
     {
-        [JsonProperty("time_utc")]
-        Instant TimeUtc { get; set; }
-
         [JsonProperty("Rain")]
         double Rain { get; set; }
 

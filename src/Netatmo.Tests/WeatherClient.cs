@@ -7,6 +7,7 @@ using Moq;
 using Netatmo.Enums;
 using Netatmo.Models.Client.Weather;
 using Netatmo.Models.Client.Weather.StationsData;
+using Netatmo.Models.Client.Weather.StationsData.DashboardData;
 using NodaTime;
 using Xunit;
 
