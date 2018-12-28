@@ -3,6 +3,10 @@ parameters:
   platform: 'Linux'
   versionSuffix: 'unknow'
 steps:
+  - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core SDK Tool Installer'
+    inputs:
+      version: 2.2.100
   - script: dotnet restore src
     displayName: Restore packages
   - bash: |
