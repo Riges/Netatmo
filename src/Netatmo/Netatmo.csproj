@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <Version>1.2.0</Version>
-        <TargetFrameworks>netcoreapp2.1;netstandard2.0</TargetFrameworks>
+        <Version>1.2.1</Version>
+        <TargetFrameworks>netcoreapp2.2;netcoreapp2.1;netstandard2.0</TargetFrameworks>
         <PackageId>Netatmo</PackageId>
         <Authors>Luc FASQUELLE</Authors>
         <Description>Client for Netatmo api</Description>

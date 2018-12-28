@@ -7,7 +7,6 @@ using Netatmo.Models.Client.Energy;
 using Netatmo.Models.Client.Energy.RoomMeasure;
 using Newtonsoft.Json;
 using NodaTime;
-using NodaTime.Extensions;
 
 namespace TestApp
 {
