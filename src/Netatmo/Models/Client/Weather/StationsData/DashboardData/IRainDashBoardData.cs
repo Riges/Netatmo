@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using NodaTime;
 
 namespace Netatmo.Models.Client.Weather.StationsData.DashboardData
 {
