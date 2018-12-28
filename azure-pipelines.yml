@@ -40,6 +40,10 @@ jobs:
       - macOS
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
     steps:
+      - task: DotNetCoreInstaller@0
+        displayName: 'Use .NET Core SDK Tool Installer'
+        inputs:
+          version: 2.2.100
       - script: dotnet restore src
         displayName: Restore packages
       - script: |
