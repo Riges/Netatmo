@@ -10,10 +10,12 @@ namespace Netatmo
             CredentialManager = new CredentialManager(baseUrl, clientId, clientSecret, clock);
             Weather = new WeatherClient(baseUrl, CredentialManager);
             Energy = new EnergyClient(baseUrl, CredentialManager);
+            Air = new AirClient(baseUrl, CredentialManager);
         }
 
         public IWeatherClient Weather { get; }
         public IEnergyClient Energy { get; }
+        public IAirClient Air { get; }
         public ICredentialManager CredentialManager { get; }
 
         public Task GenerateToken(string username, string password, Scope[] scopes = null)
