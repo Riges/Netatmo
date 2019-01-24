@@ -5,43 +5,40 @@ namespace Netatmo.Models.Client.Air.HomesCoachs
 {
     public class DashBoardData
     {
-        [JsonProperty("time_utc")]
-        Instant TimeUtc { get; set; }
-        
-        [JsonProperty("Temperature")]
-        float Temperature {get;set;}
-        
-        [JsonProperty("CO2")]
-        int CO2 {get;set;}
-        
-        [JsonProperty("Humidity")]
-        int Humidity {get;set;}
-        
-        [JsonProperty("Noise")]
-        float Noise {get;set;}
-        
-        [JsonProperty("Pressure")]
-        float Pressure {get;set;}
-        
+        [JsonProperty("time_utc")] 
+        public Instant TimeUtc { get; set; }
+
+        [JsonProperty("Temperature")] 
+        public double Temperature { get; set; }
+
+        [JsonProperty("CO2")] 
+        public int CO2 { get; set; }
+
+        [JsonProperty("Humidity")] 
+        public int HumidityPercent { get; set; }
+
+        [JsonProperty("Noise")] 
+        public double Noise { get; set; }
+
+        [JsonProperty("Pressure")] 
+        public double Pressure { get; set; }
+
         [JsonProperty("AbsolutePressure")]
-        float AbsolutePressure {get;set;}
-        
-        [JsonProperty("health_idx")]
-        float HealthIdx {get;set;}
-        
-        [JsonProperty("min_temp")]
-        float MinTemp {get;set;}
-        
-        [JsonProperty("max_temp")]
-        float MaxTemp {get;set;}
-        
+        public double AbsolutePressure { get; set; }
+
+        [JsonProperty("health_idx")] 
+        public HealthIdx HealthIdx { get; set; }
+
+        [JsonProperty("min_temp")] 
+        public decimal MinTemp { get; set; }
+
+        [JsonProperty("max_temp")] 
+        public decimal MaxTemp { get; set; }
+
         [JsonProperty("date_min_temp")]
-        Instant DateMinTemp {get;set;}
-        
-        [JsonProperty("date_max_temp")]
-        Instant DateMaxTemp {get;set;}
-        
-        
-        
+        public Instant DateMinTemp { get; set; }
+
+        [JsonProperty("date_max_temp")] 
+        public Instant DateMaxTemp { get; set; }
     }
 }
