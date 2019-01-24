@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using NodaTime;
 
-namespace Netatmo.Models.Client.Weather.StationsData
+namespace Netatmo.Models.Client
 {
     public class Place
     {

@@ -1,4 +1,4 @@
-using Netatmo.Models.Client.Weather.StationsData;
+using Netatmo.Enums;
 using Newtonsoft.Json;
 using NodaTime;
 
@@ -7,54 +7,65 @@ namespace Netatmo.Models.Client.Air.HomesCoachs
     public class Devices
     {
         [JsonProperty("_id")] 
-        string Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("cipher_id")] 
-        string CipherId { get; set; }
+        public string CipherId { get; set; }
 
         [JsonProperty("last_status_store")] 
-        Instant LastStatusStore { get; set; }
-
-        [JsonProperty("modules")] 
-        dynamic[] Modules { get; set; }
+        public Instant LastStatusStore { get; set; }
 
         [JsonProperty("place")] 
-        Place Place { get; set; }
+        public Place Place { get; set; }
 
         [JsonProperty("type")] 
-        string Type { get; set; }
+        public string Type { get; set; }
 
         [JsonProperty("dashboard_data")] 
-        DashBoardData DashboardData { get; set; }
+        public DashBoardData DashboardData { get; set; }
 
         [JsonProperty("data_type")] 
-        string[] DataType { get; set; }
+        public string[] DataType { get; set; }
 
         [JsonProperty("co2_calibrating")] 
-        bool Co2Calibrating { get; set; }
+        public bool Co2Calibrating { get; set; }
 
         [JsonProperty("reachable")] 
-        bool Reachable { get; set; }
+        public bool Reachable { get; set; }
 
         [JsonProperty("date_setup")] 
-        Instant DateSetup { get; set; }
+        public Instant DateSetup { get; set; }
 
         [JsonProperty("last_setup")] 
-        Instant LastSetup { get; set; }
+        public Instant LastSetup { get; set; }
 
         [JsonProperty("module_name")] 
-        string ModuleName { get; set; }
+        public string ModuleName { get; set; }
 
         [JsonProperty("firmware")] 
-        int Firmware { get; set; }
+        public int Firmware { get; set; }
 
         [JsonProperty("last_upgrade")] 
-        Instant LastUpgrade { get; set; }
+        public Instant LastUpgrade { get; set; }
+        
+        [JsonProperty("name")] 
+        public string Name { get; set; }
 
         [JsonProperty("wifi_status")] 
-        int WifiStatus { get; set; }
+        public int WifiStatus { get; set; }
+        
+        public WifiStrengthEnum WifiStrength
+        {
+            get
+            {
+                if (WifiStatus <= 56) return WifiStrengthEnum.Good;
+                if (WifiStatus <= 71) return WifiStrengthEnum.Average;
+                return WifiStrengthEnum.Bad;
+            }
+        }
 
-        [JsonProperty("name")] 
-        string Name { get; set; }
+        
     }
+    
+   
 }

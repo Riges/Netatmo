@@ -17,13 +17,16 @@ namespace Netatmo
             this.credentialManager = credentialManager;
         }
 
-        public Task<DataResponse<GetHomeCoachsData>> GetHomeCoachsData()
+        public Task<DataResponse<GetHomeCoachsData>> GetHomeCoachsData(string deviceId = null)
         {
             return baseUrl
                 .ConfigureRequest(Configuration.ConfigureRequest)
                 .AppendPathSegment("/api/gethomecoachsdata")
                 .WithOAuthBearerToken(credentialManager.AccessToken)
-                .PostJsonAsync(new { })
+                .PostJsonAsync(new GetHomeCoachsDataRequest
+                { 
+                    DeviceId = deviceId
+                })
                 .ReceiveJson<DataResponse<GetHomeCoachsData>>();
         }
     }

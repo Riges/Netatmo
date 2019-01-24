@@ -6,6 +6,6 @@ namespace Netatmo
 {
     public interface IAirClient
     {
-        Task<DataResponse<GetHomeCoachsData>> GetHomeCoachsData();
+        Task<DataResponse<GetHomeCoachsData>> GetHomeCoachsData(string deviceId = null);
     }
 }
