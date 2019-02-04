@@ -18,17 +18,11 @@ namespace TestApp
 
             IClient client = new Client(
                 SystemClock.Instance, " https://api.netatmo.com/",
-                Environment.GetEnvironmentVariable("NETATMO_CLIENT_ID"),
-                Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET"));
+                "5c4f159c6c320317008f1669",
+                "RcE4HcD3Nypad3kM2xMAmY9DfPdIedAo3r3nN4aoiH");
 
             await client.GenerateToken(
-                Environment.GetEnvironmentVariable("NETATMO_USERNAME"),
-                Environment.GetEnvironmentVariable("NETATMO_PASSWORD"),
-                new[]
-                {
-                    Scope.CameraAccess, Scope.CameraRead, Scope.CameraWrite, Scope.HomecoachRead, Scope.PresenceAccess, Scope.PresenceRead,
-                    Scope.StationRead, Scope.StationWrite, Scope.ThermostatRead
-                });
+                "5be083e50f21e10b008d47c3|7c5a6601ee054b1f6bdd1a7f0a979a31");
 
             var token = client.CredentialManager.CredentialToken;
 

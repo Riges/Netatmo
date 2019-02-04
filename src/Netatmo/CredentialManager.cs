@@ -8,6 +8,8 @@ using NodaTime;
 
 namespace Netatmo
 {
+    using System;
+
     public class CredentialManager : ICredentialManager
     {
         private readonly string baseUrl;
@@ -42,6 +44,18 @@ namespace Netatmo
             }).ReceiveJson<Token>();
 
             CredentialToken = new CredentialToken(token, clock);
+        }      
+        
+        public async Task GenerateToken(string oauth2Token)
+        {        
+            var appToken = new Token()
+            {
+                AccessToken = oauth2Token,
+                RefreshToken = null,
+                ExpiresIn = 20
+            };
+            
+           CredentialToken = new CredentialToken(appToken, clock);
         }
 
         public async Task RefreshToken()
