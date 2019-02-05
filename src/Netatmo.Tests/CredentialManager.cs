@@ -74,7 +74,7 @@ namespace Netatmo.Tests
 
             var sut = new Netatmo.CredentialManager("https://api.netatmo.com/", "clientId", "clientSecret", SystemClock.Instance);
 
-            await sut.GenerateToken(expectedToken.access_token);
+            await sut.ProvideOAuth2Token(expectedToken.access_token);
 
             var token = sut.CredentialToken;
 
