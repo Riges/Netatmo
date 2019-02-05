@@ -44,10 +44,10 @@ namespace Netatmo
             }).ReceiveJson<Token>();
 
             CredentialToken = new CredentialToken(token, clock);
-        }      
-        
+        }
+
         public async Task GenerateToken(string oauth2Token)
-        {        
+        {
             var appToken = new Token()
             {
                 AccessToken = oauth2Token,
@@ -55,7 +55,7 @@ namespace Netatmo
                 ExpiresIn = 20
             };
             
-           CredentialToken = new CredentialToken(appToken, clock);
+            await Task.Run(() => CredentialToken = new CredentialToken(appToken, clock));
         }
 
         public async Task RefreshToken()
