@@ -62,7 +62,7 @@ namespace Netatmo.Tests
         }     
         
         [Fact]
-        public async Task ProvideOAuth2Token_Should_Provide_Token_From_Existing()
+        public void ProvideOAuth2Token_Should_Provide_Token_From_Existing()
         {
             var expectedToken = new
             {
@@ -74,7 +74,7 @@ namespace Netatmo.Tests
 
             var sut = new Netatmo.CredentialManager("https://api.netatmo.com/", "clientId", "clientSecret", SystemClock.Instance);
 
-            await sut.ProvideOAuth2Token(expectedToken.access_token);
+            sut.ProvideOAuth2Token(expectedToken.access_token);
 
             var token = sut.CredentialToken;
 
