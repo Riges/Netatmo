@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <Version>1.3.0</Version>
+        <Version>1.3.1</Version>
         <TargetFrameworks>netcoreapp2.2;netcoreapp2.1;netstandard2.0</TargetFrameworks>
         <PackageId>Netatmo</PackageId>
         <Authors>Luc FASQUELLE</Authors>
@@ -9,6 +9,8 @@
         <PackageTags>Netatmo;Home Automation;</PackageTags>
         <PackageProjectUrl>https://github.com/Riges/Netatmo</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Riges/Netatmo/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Riges/Netatmo.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
