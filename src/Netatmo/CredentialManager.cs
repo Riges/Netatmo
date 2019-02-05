@@ -46,7 +46,7 @@ namespace Netatmo
             CredentialToken = new CredentialToken(token, clock);
         }
 
-        public async Task GenerateToken(string oauth2Token)
+        public async Task ProvideOAuth2Token(string oauth2Token)
         {
             var appToken = new Token()
             {
