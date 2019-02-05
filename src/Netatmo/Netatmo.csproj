@@ -9,6 +9,8 @@
         <PackageTags>Netatmo;Home Automation;</PackageTags>
         <PackageProjectUrl>https://github.com/Riges/Netatmo</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Riges/Netatmo/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Riges/Netatmo.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
