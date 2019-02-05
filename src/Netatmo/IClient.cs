@@ -6,6 +6,7 @@ namespace Netatmo
     {
         IWeatherClient Weather { get; }
         IEnergyClient Energy { get; }
+        IAirClient Air { get; }
         ICredentialManager CredentialManager { get; }
         Task GenerateToken(string username, string password, Scope[] scopes = null);
         Task RefreshToken();
