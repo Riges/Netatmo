@@ -62,7 +62,7 @@ namespace Netatmo.Tests
         }     
         
         [Fact]
-        public async Task GenerateToken_Should_Create_Token_From_Existing()
+        public async Task ProvideOAuth2Token_Should_Provide_Token_From_Existing()
         {
             var expectedToken = new
             {
