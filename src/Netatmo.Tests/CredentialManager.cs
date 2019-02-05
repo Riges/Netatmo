@@ -59,6 +59,29 @@ namespace Netatmo.Tests
             token.AccessToken.Should().Be(expectedToken.access_token);
             token.RefreshToken.Should().Be(expectedToken.refresh_token);
             token.ExpiresAt.Should().Be(token.ReceivedAt.Plus(Duration.FromSeconds(expectedToken.expires_in)));
+        }     
+        
+        [Fact]
+        public async Task GenerateToken_Should_Create_Token_From_Existing()
+        {
+            var expectedToken = new
+            {
+                access_token = "2YotnFZFEjr1zCsicMWpAA",
+                expires_in = 20
+            };
+
+            httpTest.RespondWithJson(expectedToken);
+
+            var sut = new Netatmo.CredentialManager("https://api.netatmo.com/", "clientId", "clientSecret", SystemClock.Instance);
+
+            await sut.GenerateToken(expectedToken.access_token);
+
+            var token = sut.CredentialToken;
+
+            token.Should().BeOfType<CredentialToken>();
+            token.AccessToken.Should().Be(expectedToken.access_token);
+            token.RefreshToken.Should().BeNull();
+            token.ExpiresAt.Should().Be(token.ReceivedAt.Plus(Duration.FromSeconds(expectedToken.expires_in)));
         }
 
         [Fact]

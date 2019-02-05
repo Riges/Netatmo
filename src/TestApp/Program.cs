@@ -22,44 +22,16 @@ namespace TestApp
                 "RcE4HcD3Nypad3kM2xMAmY9DfPdIedAo3r3nN4aoiH");
 
             await client.GenerateToken(
-                "5be083e50f21e10b008d47c3|7c5a6601ee054b1f6bdd1a7f0a979a31");
+                "5be083e50f21e10b008d47c3|881bb37c6553f9255f7b0173d342e0e1");
 
             var token = client.CredentialManager.CredentialToken;
 
             Console.WriteLine($"Token : {token.AccessToken}");
 
             Console.WriteLine("Stations data :");
-            var stationsData = await client.Weather.GetStationsData();
+            var stationsData = await client.Air.GetHomeCoachsData();
             Console.WriteLine(JsonConvert.SerializeObject(stationsData, Formatting.Indented));
 
-            Console.WriteLine("Energy Homes data :");
-            var homesData = await client.Energy.GetHomesData();
-            Console.WriteLine(JsonConvert.SerializeObject(homesData, Formatting.Indented));
-
-            Console.WriteLine("Energy Homes data :");
-            foreach (var home in homesData.Body.Homes)
-            {
-                Console.WriteLine(home.Name);
-                var homeStatus = await client.Energy.GetHomeStatus(home.Id);
-                Console.WriteLine(JsonConvert.SerializeObject(homeStatus, Formatting.Indented));
-
-                Console.WriteLine("Energy room measure :");
-                foreach (var room in home.Rooms)
-                {
-                    Console.WriteLine(room.Name);
-                    var parameters = new GetRoomMeasureParameters
-                    {
-                        HomeId = home.Id,
-                        RoomId = room.Id,
-                        Scale = Scale.Max,
-                        Type = ThermostatMeasurementType.Temperature,
-                        BeginAt = SystemClock.Instance.GetCurrentInstant().Plus(Duration.FromDays(-1)),
-                        EndAt = SystemClock.Instance.GetCurrentInstant()
-                    };
-                    var roomMeasure = await client.Energy.GetRoomMeasure<TemperatureStep>(parameters);
-                    Console.WriteLine(JsonConvert.SerializeObject(roomMeasure, Formatting.Indented));
-                }
-            }
 
             Console.WriteLine("RefreshToken :");
             Thread.Sleep(9000);
