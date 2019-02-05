@@ -23,9 +23,9 @@ namespace Netatmo
             return CredentialManager.GenerateToken(username, password, scopes);
         }
         
-        public Task GenerateToken(string oauth2Token)
+        public Task ProvideOAuth2Token(string oauth2Token)
         {
-            return CredentialManager.GenerateToken(oauth2Token);
+            return CredentialManager.ProvideOAuth2Token(oauth2Token);
         }
 
         public Task RefreshToken()
