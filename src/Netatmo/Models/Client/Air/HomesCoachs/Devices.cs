@@ -48,7 +48,7 @@ namespace Netatmo.Models.Client.Air.HomesCoachs
         [JsonProperty("last_upgrade")] 
         public Instant LastUpgrade { get; set; }
         
-        [JsonProperty("name")] 
+        [JsonProperty("station_name")] 
         public string Name { get; set; }
 
         [JsonProperty("wifi_status")] 
