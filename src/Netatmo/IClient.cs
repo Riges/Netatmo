@@ -9,6 +9,7 @@ namespace Netatmo
         IAirClient Air { get; }
         ICredentialManager CredentialManager { get; }
         Task GenerateToken(string username, string password, Scope[] scopes = null);
+        void ProvideOAuth2Token(string oauth2Token);
         Task RefreshToken();
     }
 }
