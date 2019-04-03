@@ -15,7 +15,7 @@
 
     <ItemGroup>
         <PackageReference Include="Flurl.Http" Version="2.4.1" />
-        <PackageReference Include="NodaTime" Version="2.4.4" />
+        <PackageReference Include="NodaTime" Version="2.4.5" />
         <PackageReference Include="NodaTime.Serialization.JsonNet" Version="2.1.0" />
     </ItemGroup>
 </Project>
