@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.402
+    - name: Build with dotnet
+      run: dotnet restore src
+    - name: Build and Package app
+      run: dotnet pack src -c Release
+    - name: Test
+      run: dotnet test src --configuration Release
