@@ -47,7 +47,7 @@ jobs:
       - name: Restore packages
         run: dotnet restore src
       - name: Build and create package nuget
-        run: dotnet pack src -c Release /p:PackageVersion=${{ github.event.tag_name }}
+        run: dotnet pack src -c Release -p:PackageVersion=${{ github.event.tag_name }}
       - name: Publish artifact
         uses: actions/upload-artifact@master
         with:
