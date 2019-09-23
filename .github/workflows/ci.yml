@@ -9,7 +9,8 @@ on:
       - master
 
 jobs:
-  Test:
+  test:  
+    name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -28,6 +29,8 @@ jobs:
       - name: Test
         run: dotnet test src --configuration Release
   build:
+    name: Build
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -43,9 +46,10 @@ jobs:
       - name: Test
         run: dotnet test src --configuration Release
   pack:
-     runs-on: ubuntu-latest
-     if: github.event_name != 'pull_request'
-      
+    name: Create Package nuget
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'      
     steps:
       - uses: actions/checkout@v1
       - name: Setup .NET Core
