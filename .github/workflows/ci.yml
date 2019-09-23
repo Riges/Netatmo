@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  test:  
+  test:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -24,15 +24,13 @@ jobs:
           dotnet-version: 2.2.402
       - name: Restore packages
         run: dotnet restore src
-      - name: Build and Package app
-        run: dotnet build src -c Release
       - name: Test
         run: dotnet test src --configuration Release
   build:
     name: Create Package nuget
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'      
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v1
       - name: Setup .NET Core
