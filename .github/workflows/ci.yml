@@ -29,25 +29,8 @@ jobs:
       - name: Test
         run: dotnet test src --configuration Release
   build:
-    name: Build
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 2.2.402
-      - name: Restore packages
-        run: dotnet restore src
-      - name: Build and Package app
-        run: dotnet pack src -c Release
-      - name: Test
-        run: dotnet test src --configuration Release
-  pack:
     name: Create Package nuget
-    needs: [test, build]
+    needs: test
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'      
     steps:
@@ -58,7 +41,5 @@ jobs:
           dotnet-version: 2.2.402
       - name: Restore packages
         run: dotnet restore src
-      - name: Build and Package app
+      - name: Build and create package nuget
         run: dotnet pack src -c Release
-      - name: Test
-        run: dotnet test src --configuration Release
