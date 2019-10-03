@@ -6,7 +6,7 @@ steps:
   - task: DotNetCoreInstaller@0
     displayName: 'Use .NET Core SDK Tool Installer'
     inputs:
-      version: 2.2.100
+      version: 3.0.100
   - script: dotnet restore src
     displayName: Restore packages
   - bash: |
