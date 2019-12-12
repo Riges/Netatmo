@@ -3,10 +3,13 @@ using NodaTime;
 
 namespace Netatmo.Models.Client.Weather.StationsData.DashboardData
 {
-    public class IndoorDashBoardData : DashBoardData, ITemperatureDashBoardData, ICO2DashBoardData
+    public class IndoorDashBoardData : DashBoardData, ITemperatureDashBoardData, ICO2DashBoardData, IHumidityDashBoardData
     {
         [JsonProperty("CO2")]
         public int CO2 { get; set; }
+
+        [JsonProperty("Humidity")]
+        public int HumidityPercent { get; set; }
 
         [JsonProperty("Temperature")]
         public double Temperature { get; set; }
