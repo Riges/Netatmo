@@ -41,9 +41,9 @@ namespace Netatmo.Tests
         public void GetRoomMeasure_Should_Throw_ArgumentException(GetRoomMeasureParameters parameters, string exceptionMessage)
         {
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            Func<Task> act = async () => { await sut.GetRoomMeasure<TemperatureStep>(parameters); };
 
-            sut
-                .Awaiting(async s => await s.GetRoomMeasure<TemperatureStep>(parameters))
+            act
                 .Should().Throw<ArgumentException>()
                 .WithMessage(exceptionMessage);
         }
@@ -189,25 +189,27 @@ namespace Netatmo.Tests
         public void GetRoomMeasure_With_Bad_Type_Should_Throw_ArgumentException()
         {
             var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
+            Func<Task> actTemperatureStep = async () => { await sut.GetRoomMeasure<DateTemperatureStep>(new GetRoomMeasureParameters
+            {
+                HomeId = "5a327cbdb05a2133678b5d3e",
+                RoomId = "2255031728",
+                Scale = Scale.Max,
+                Type = ThermostatMeasurementType.Temperature
+            }); };
 
-            sut
-                .Awaiting(async s => await s.GetRoomMeasure<DateTemperatureStep>(new GetRoomMeasureParameters
-                {
-                    HomeId = "5a327cbdb05a2133678b5d3e",
-                    RoomId = "2255031728",
-                    Scale = Scale.Max,
-                    Type = ThermostatMeasurementType.Temperature
-                }))
+            actTemperatureStep
                 .Should().Throw<ArgumentException>()
                 .WithMessage("TemperatureStep should be used with a temperature measurement");
-            sut
-                .Awaiting(async s => await s.GetRoomMeasure<TemperatureStep>(new GetRoomMeasureParameters
-                {
-                    HomeId = "5a327cbdb05a2133678b5d3e",
-                    RoomId = "2255031728",
-                    Scale = Scale.OneMonth,
-                    Type = ThermostatMeasurementType.DateMinTemp
-                }))
+            
+            Func<Task> actDateTemperatureStep = async () => { await sut.GetRoomMeasure<TemperatureStep>(new GetRoomMeasureParameters
+            {
+                HomeId = "5a327cbdb05a2133678b5d3e",
+                RoomId = "2255031728",
+                Scale = Scale.OneMonth,
+                Type = ThermostatMeasurementType.DateMinTemp
+            }); };
+
+            actDateTemperatureStep
                 .Should().Throw<ArgumentException>()
                 .WithMessage("DateTemperatureStep should be used with a date of temperature measurement");
         }
