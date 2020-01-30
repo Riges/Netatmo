@@ -6,34 +6,34 @@ trigger:
 jobs:
   - job: Linux
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: "ubuntu-latest"
     steps:
       - template: azure-pipelines/steps/build.yml
         parameters:
-          artifactName: 'Linux'
-          platform: 'Linux'
-          versionSuffix: 'linux'
+          artifactName: "Linux"
+          platform: "Linux"
+          versionSuffix: "linux"
   - job: Windows
     pool:
-      vmImage: 'vs2017-win2016'
+      vmImage: "windows-latest"
     steps:
       - template: azure-pipelines/steps/build.yml
         parameters:
-          artifactName: 'Windows'
-          platform: 'Windows'
-          versionSuffix: 'windows'
+          artifactName: "Windows"
+          platform: "Windows"
+          versionSuffix: "windows"
   - job: macOS
     pool:
-      vmImage: 'xcode9-macos10.13'
+      vmImage: "macOS-latest"
     steps:
       - template: azure-pipelines/steps/build.yml
         parameters:
-          artifactName: 'macOS'
-          platform: 'macOS'
-          versionSuffix: 'macos'
+          artifactName: "macOS"
+          platform: "macOS"
+          versionSuffix: "macos"
   - job: NuGet
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: "ubuntu-16.04"
     dependsOn:
       - Linux
       - Windows
@@ -41,9 +41,9 @@ jobs:
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
     steps:
       - task: DotNetCoreInstaller@0
-        displayName: 'Use .NET Core SDK Tool Installer'
+        displayName: "Use .NET Core SDK Tool Installer"
         inputs:
-          version: 3.0.100
+          version: 3.1.101
       - script: dotnet restore src
         displayName: Restore packages
       - script: |
