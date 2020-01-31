@@ -77,3 +77,5 @@ jobs:
           asset_path: src/Netatmo/bin/Release/Netatmo.${{steps.vars.outputs.tag}}.nupkg
           asset_name: Netatmo.${{steps.vars.outputs.tag}}.nupkg
           asset_content_type: application/zip
+      - name: Push package
+        run: dotnet nuget push src/Netatmo/bin/Release/Netatmo.${{steps.vars.outputs.tag}}.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
