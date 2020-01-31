@@ -5,7 +5,7 @@ on:
     branches:
       - master
     tags:
-      - "v*"
+      - "*"
   pull_request:
     branches:
       - master
@@ -34,23 +34,23 @@ jobs:
     name: Create Package nuget
     needs: test
     runs-on: ubuntu-latest
-    # if: github.event_name == 'release'
+    if: github.event_name == 'push' && github.event.created == 'push' && github.event.compare != '' && github.ref != ''
     steps:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      # - uses: actions/checkout@v1
-      # - name: Setup .NET Core
-      #   uses: actions/setup-dotnet@v1
-      #   with:
-      #     dotnet-version: 3.1.101
-      # - name: Restore packages
-      #   run: dotnet restore src
-      # - name: Build and create package nuget
-      #   run: dotnet pack src -c Release -p:PackageVersion=${{ github.event.tag_name }}
-      # - name: Publish artifact
-      #   uses: actions/upload-artifact@master
-      #   with:
-      #     name: Netatmo.${{ github.event.tag_name }}.nupkg
-      #     path: src/Netatmo/bin/Netatmo.${{ github.event.tag_name }}.nupkg
+      - uses: actions/checkout@v1
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+      - name: Restore packages
+        run: dotnet restore src
+      - name: Build and create package nuget
+        run: dotnet pack src -c Release -p:PackageVersion=${{ github.event.tag_name }}
+      - name: Publish artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Netatmo.${{ github.event.tag_name }}.nupkg
+          path: src/Netatmo/bin/Netatmo.${{ github.event.tag_name }}.nupkg
