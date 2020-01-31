@@ -1,12 +1,13 @@
 parameters:
-  artifactName: 'Unknow'
-  platform: 'Linux'
-  versionSuffix: 'unknow'
+  artifactName: "Unknow"
+  platform: "Linux"
+  versionSuffix: "unknow"
 steps:
-  - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core SDK Tool Installer'
+  - task: UseDotNet@2
+    displayName: "Use .NET Core SDK Tool Installer"
     inputs:
-      version: 3.0.100
+      packageType: "sdk"
+      version: "3.1.101"
   - script: dotnet restore src
     displayName: Restore packages
   - bash: |
@@ -21,7 +22,7 @@ steps:
     displayName: Publish Tests
     inputs:
       testRunner: VSTest
-      testResultsFiles: '**/*.trx'
+      testResultsFiles: "**/*.trx"
       platform: ${{ parameters.platform }}
   - task: PublishBuildArtifacts@1
     displayName: Publish Artifacts
