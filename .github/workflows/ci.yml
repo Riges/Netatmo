@@ -34,7 +34,7 @@ jobs:
     name: Create Package nuget
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.event.created == 'push' && github.event.compare != '' && github.ref != ''
+    if: github.event_name == 'push' && github.event.created == true && github.event.base_ref == 'refs/heads/master' && github.event.compare != '' && github.ref != ''
     steps:
       - name: Dump GitHub context
         env:
