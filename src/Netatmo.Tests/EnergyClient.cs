@@ -279,7 +279,7 @@ namespace Netatmo.Tests
             await sut.SetThermMode(homeId, mode);
 
             httpTest
-                .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermmode")
+                .ShouldHaveCalled("https://api.netatmo.com/api/setthermmode")
                 .WithVerb(HttpMethod.Post)
                 .WithOAuthBearerToken(accessToken)
                 .WithContentType("application/json").WithRequestJson(new SetThermModeRequest {HomeId = homeId, Mode = mode})

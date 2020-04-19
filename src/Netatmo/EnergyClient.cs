@@ -52,7 +52,7 @@ namespace Netatmo
         {
             return await baseUrl
                 .ConfigureRequest(Configuration.ConfigureRequest)
-                .AppendPathSegment("/api/setroomthermmode")
+                .AppendPathSegment("/api/setthermmode")
                 .WithOAuthBearerToken(credentialManager.AccessToken)
                 .PostJsonAsync(new SetThermModeRequest
                 {
