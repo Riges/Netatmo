@@ -10,43 +10,13 @@ namespace Netatmo.Tests.ClassData.Energy
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] {new GetRoomMeasureParameters(), "Home Id shouldn't be null"};
+            yield return new object[] { new GetRoomMeasureParameters(), "Home Id shouldn't be null" };
+            yield return new object[] { new GetRoomMeasureParameters { HomeId = "5a327cbdb05a2133678b5d3e" }, "Room Id shouldn't be null" };
+            yield return new object[] { new GetRoomMeasureParameters { HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728" }, "Scale shouldn't be null" };
+            yield return new object[] { new GetRoomMeasureParameters { HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728", Scale = Scale.Max }, "Type shouldn't be null" };
             yield return new object[]
             {
-                new GetRoomMeasureParameters
-                {
-                    HomeId = "5a327cbdb05a2133678b5d3e"
-                },
-                "Room Id shouldn't be null"
-            };
-            yield return new object[]
-            {
-                new GetRoomMeasureParameters
-                {
-                    HomeId = "5a327cbdb05a2133678b5d3e",
-                    RoomId = "2255031728"
-                },
-                "Scale shouldn't be null"
-            };
-            yield return new object[]
-            {
-                new GetRoomMeasureParameters
-                {
-                    HomeId = "5a327cbdb05a2133678b5d3e",
-                    RoomId = "2255031728",
-                    Scale = Scale.Max
-                },
-                "Type shouldn't be null"
-            };
-            yield return new object[]
-            {
-                new GetRoomMeasureParameters
-                {
-                    HomeId = "5a327cbdb05a2133678b5d3e",
-                    RoomId = "2255031728",
-                    Scale = Scale.Max,
-                    Type = ThermostatMeasurementType.DateMinTemp
-                },
+                new GetRoomMeasureParameters { HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728", Scale = Scale.Max, Type = ThermostatMeasurementType.DateMinTemp },
                 "Type shouldn't be allow for this scale"
             };
             yield return new object[]
@@ -88,9 +58,6 @@ namespace Netatmo.Tests.ClassData.Energy
             };
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

@@ -13,6 +13,8 @@ namespace Netatmo.Tests
 {
     public class AirClient : IDisposable
     {
+        private readonly HttpTest httpTest;
+
         public AirClient()
         {
             httpTest = new HttpTest();
@@ -23,8 +25,6 @@ namespace Netatmo.Tests
         {
             httpTest.Dispose();
         }
-
-        private readonly HttpTest httpTest;
 
         [Fact]
         public async Task GetStationsData_Should_Return_DataResponse_With_AirData()
