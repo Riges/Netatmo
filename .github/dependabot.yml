@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: 'nuget'
+    directory: '/src'
+    schedule:
+      interval: 'weekly'
+      day: 'friday'
+      time: '09:00'
+      timezone: 'Europe/Paris'
+    commit-message:
+      prefix: 'nuget'
+    labels:
+      - 'nuget'
+      - 'dependencies'
+    reviewers:
+      - 'riges'
+    assignees:
+      - 'riges'
