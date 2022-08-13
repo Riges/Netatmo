@@ -1,9 +1,8 @@
-namespace Netatmo.Enums
+namespace Netatmo.Enums;
+
+public enum PressureUnitEnum
 {
-    public enum PressureUnitEnum
-    {
-        Mbar = 0,
-        InHg = 1,
-        MmHg = 2
-    }
+    Mbar = 0,
+    InHg = 1,
+    MmHg = 2
 }

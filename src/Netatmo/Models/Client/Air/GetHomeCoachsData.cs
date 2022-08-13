@@ -1,14 +1,13 @@
 using Netatmo.Models.Client.Air.HomesCoachs;
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Air
+namespace Netatmo.Models.Client.Air;
+
+public class GetHomeCoachsData
 {
-    public class GetHomeCoachsData
-    {
-        [JsonProperty("devices")]
-        public Devices[] Devices { get; set; }
+    [JsonProperty("devices")]
+    public Devices[] Devices { get; set; }
         
-        [JsonProperty("user")]
-        public User User { get; set; }
-    }
+    [JsonProperty("user")]
+    public User User { get; set; }
 }

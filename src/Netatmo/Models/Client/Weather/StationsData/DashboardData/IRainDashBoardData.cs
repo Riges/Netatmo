@@ -1,16 +1,15 @@
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Weather.StationsData.DashboardData
+namespace Netatmo.Models.Client.Weather.StationsData.DashboardData;
+
+public interface IRainDashBoardData : IDashBoardData
 {
-    public interface IRainDashBoardData : IDashBoardData
-    {
-        [JsonProperty("Rain")]
-        double Rain { get; set; }
+    [JsonProperty("Rain")]
+    double Rain { get; set; }
 
-        [JsonProperty("sum_rain_1")]
-        double RainLastHour { get; set; }
+    [JsonProperty("sum_rain_1")]
+    double RainLastHour { get; set; }
 
-        [JsonProperty("sum_rain_24")]
-        double RainLastDay { get; set; }
-    }
+    [JsonProperty("sum_rain_24")]
+    double RainLastDay { get; set; }
 }

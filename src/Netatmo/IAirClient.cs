@@ -1,11 +1,9 @@
-using System.Threading.Tasks;
 using Netatmo.Models.Client;
 using Netatmo.Models.Client.Air;
 
-namespace Netatmo
+namespace Netatmo;
+
+public interface IAirClient
 {
-    public interface IAirClient
-    {
-        Task<DataResponse<GetHomeCoachsData>> GetHomeCoachsData(string deviceId = null);
-    }
+    Task<DataResponse<GetHomeCoachsData>> GetHomeCoachsData(string deviceId = null);
 }

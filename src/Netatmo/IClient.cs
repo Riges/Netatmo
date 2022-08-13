@@ -1,15 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿namespace Netatmo;
 
-namespace Netatmo
+public interface IClient
 {
-    public interface IClient
-    {
-        IWeatherClient Weather { get; }
-        IEnergyClient Energy { get; }
-        IAirClient Air { get; }
-        ICredentialManager CredentialManager { get; }
-        Task GenerateToken(string username, string password, Scope[] scopes = null);
-        void ProvideOAuth2Token(string accessToken);
-        Task RefreshToken();
-    }
+    IWeatherClient Weather { get; }
+    IEnergyClient Energy { get; }
+    IAirClient Air { get; }
+    ICredentialManager CredentialManager { get; }
+    Task GenerateToken(string username, string password, Scope[] scopes = null);
+    void ProvideOAuth2Token(string accessToken);
+    Task RefreshToken();
 }

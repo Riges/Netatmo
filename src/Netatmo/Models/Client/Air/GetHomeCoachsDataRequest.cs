@@ -1,7 +1,6 @@
-namespace Netatmo.Models.Client.Air
+namespace Netatmo.Models.Client.Air;
+
+public class GetHomeCoachsDataRequest
 {
-    public class GetHomeCoachsDataRequest
-    {
-        public string DeviceId { get; set; }
-    }
+    public string DeviceId { get; set; }
 }

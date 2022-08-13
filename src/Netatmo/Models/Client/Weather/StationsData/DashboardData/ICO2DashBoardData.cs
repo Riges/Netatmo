@@ -1,10 +1,9 @@
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Weather.StationsData.DashboardData
+namespace Netatmo.Models.Client.Weather.StationsData.DashboardData;
+
+public interface ICO2DashBoardData : IDashBoardData
 {
-    public interface ICO2DashBoardData : IDashBoardData
-    {
-        [JsonProperty("CO2")]
-        int CO2 { get; set; }
-    }
+    [JsonProperty("CO2")]
+    int CO2 { get; set; }
 }
