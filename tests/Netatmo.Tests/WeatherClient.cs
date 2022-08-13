@@ -34,20 +34,22 @@ public class WeatherClient : IDisposable
         var sut = new Netatmo.WeatherClient("https://api.netatmo.com/", credentialManagerMock.Object);
         var result = await sut.GetStationsData();
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/getstationsdata")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/getstationsdata")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new GetStationsDataRequest())
+            .WithContentType("application/json")
+            .WithRequestJson(new GetStationsDataRequest())
             .Times(1);
 
         result.Body.Should().BeOfType<GetStationsDataBody>();
         result.Body.Devices[0].DashboardData.Noise.Should().Be(53);
         result.Body.Devices[0].WifiStrength.Should().Be(WifiStrengthEnum.Good);
         result.Body.Devices[0].Modules[0].GetDashboardData<OutdoorDashBoardData>().HumidityPercent.Should().Be(40);
-        result.Body.Devices[0].Modules[0]
+        result.Body.Devices[0]
+            .Modules[0]
             .Invoking(y => y.GetDashboardData<WindGaugeDashBoardData>())
-            .Should().Throw<ArgumentException>()
+            .Should()
+            .Throw<ArgumentException>()
             .WithMessage("OutdoorDashBoardData should be expected");
         result.Body.Devices[0].Modules[0].RfStrength.Should().Be(RfStrengthEnum.FullSignal);
         result.Body.Devices[0].Modules[0].BatteryStatus.Should().Be(BatteryLevelEnum.Full);
