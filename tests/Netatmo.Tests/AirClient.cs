@@ -33,11 +33,11 @@ public class AirClient : IDisposable
         var sut = new Netatmo.AirClient("https://api.netatmo.com/", credentialManagerMock.Object);
         var result = await sut.GetHomeCoachsData();
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/gethomecoachsdata")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/gethomecoachsdata")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new GetHomeCoachsDataRequest())
+            .WithContentType("application/json")
+            .WithRequestJson(new GetHomeCoachsDataRequest())
             .Times(1);
 
         result.Body.Should().BeOfType<GetHomeCoachsData>();

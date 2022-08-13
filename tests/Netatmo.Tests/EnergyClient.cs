@@ -13,7 +13,7 @@ public class EnergyClient : IDisposable
     private readonly string accessToken;
 
     private readonly HttpTest httpTest;
-    private Mock<ICredentialManager> credentialManagerMock;
+    private readonly Mock<ICredentialManager> credentialManagerMock;
 
     public EnergyClient()
     {
@@ -34,27 +34,21 @@ public class EnergyClient : IDisposable
     public async Task CreateHomeSchedule_Should_Return_Expected_Result()
     {
         var parameters = new CreateHomeScheduleRequest("5a327cbdb05a2133678b5d3e", 14, 16, "Cat schedule");
-        httpTest.RespondWithJson(new CreateHomeScheduleResponse
-        {
-            ScheduleId = "5a819e6113475d09c28b497a", Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467)
-        });
+        httpTest.RespondWithJson(
+            new CreateHomeScheduleResponse
+            {
+                ScheduleId = "5a819e6113475d09c28b497a", Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467)
+            });
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.CreateHomeSchedule(parameters);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/createnewhomeschedule")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/createnewhomeschedule")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
             .WithContentType("application/json")
             .WithRequestJson(
-                new CreateHomeScheduleRequest(
-                    parameters.HomeId,
-                    parameters.HgTemp,
-                    parameters.AwayTemp,
-                    parameters.Name,
-                    new Timetable[0],
-                    new Zone[0]))
+                new CreateHomeScheduleRequest(parameters.HomeId, parameters.HgTemp, parameters.AwayTemp, parameters.Name, Array.Empty<Timetable>(), Array.Empty<Zone>()))
             .Times(1);
     }
 
@@ -68,11 +62,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.DeleteHomeSchedule(homeId, scheduleId);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/deletehomeschedule")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/deletehomeschedule")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new DeleteHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId })
+            .WithContentType("application/json")
+            .WithRequestJson(new DeleteHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId })
             .Times(1);
     }
 
@@ -85,11 +79,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         var result = await sut.GetHomesData();
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/homesdata")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/homesdata")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new GetHomesDataRequest())
+            .WithContentType("application/json")
+            .WithRequestJson(new GetHomesDataRequest())
             .Times(1);
 
         result.Body.Should().BeOfType<GetHomesDataBody>();
@@ -106,11 +100,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         var result = await sut.GetHomeStatus(homeId);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/homestatus")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/homestatus")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new GetHomeStatusRequest { HomeId = homeId })
+            .WithContentType("application/json")
+            .WithRequestJson(new GetHomeStatusRequest { HomeId = homeId })
             .Times(1);
 
         result.Body.Should().BeOfType<GetHomeStatusBody>();
@@ -137,14 +131,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         var result = await sut.GetRoomMeasure<TemperatureStep>(parameters);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/getroommeasure")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/getroommeasure")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new GetRoomMeasureRequest
-            {
-                HomeId = parameters.HomeId, RoomId = parameters.RoomId, Scale = parameters.Scale.Value, Type = parameters.Type.Value
-            })
+            .WithContentType("application/json")
+            .WithRequestJson(new GetRoomMeasureRequest { HomeId = parameters.HomeId, RoomId = parameters.RoomId, Scale = parameters.Scale.Value, Type = parameters.Type.Value })
             .Times(1);
 
         result.Body[0].BeginAt.Should().Be(Instant.FromDateTimeUtc(DateTime.SpecifyKind(new DateTime(2017, 12, 14, 13, 45, 0), DateTimeKind.Utc)));
@@ -157,29 +148,20 @@ public class EnergyClient : IDisposable
     public void GetRoomMeasure_With_Bad_Type_Should_Throw_ArgumentException()
     {
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
-        Func<Task> actTemperatureStep = async () =>
-        {
-            await sut.GetRoomMeasure<DateTemperatureStep>(new GetRoomMeasureParameters
-            {
-                HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728", Scale = Scale.Max, Type = ThermostatMeasurementType.Temperature
-            });
-        };
-
-        actTemperatureStep
-            .Should().Throw<ArgumentException>()
-            .WithMessage("TemperatureStep should be used with a temperature measurement");
+        Func<Task> actTemperatureStep = () => sut.GetRoomMeasure<DateTemperatureStep>(
+            new GetRoomMeasureParameters { HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728", Scale = Scale.Max, Type = ThermostatMeasurementType.Temperature });
 
         Func<Task> actDateTemperatureStep = async () =>
         {
-            await sut.GetRoomMeasure<TemperatureStep>(new GetRoomMeasureParameters
-            {
-                HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728", Scale = Scale.OneMonth, Type = ThermostatMeasurementType.DateMinTemp
-            });
+            await sut.GetRoomMeasure<TemperatureStep>(
+                new GetRoomMeasureParameters
+                {
+                    HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728", Scale = Scale.OneMonth, Type = ThermostatMeasurementType.DateMinTemp
+                });
         };
 
-        actDateTemperatureStep
-            .Should().Throw<ArgumentException>()
-            .WithMessage("DateTemperatureStep should be used with a date of temperature measurement");
+        actTemperatureStep.Should().ThrowAsync<ArgumentException>().WithMessage("TemperatureStep should be used with a temperature measurement");
+        actDateTemperatureStep.Should().ThrowAsync<ArgumentException>().WithMessage("DateTemperatureStep should be used with a date of temperature measurement");
     }
 
     [Fact]
@@ -193,11 +175,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.RenameHomeSchedule(homeId, scheduleId, name);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/renamehomeschedule")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/renamehomeschedule")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new RenameHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId, Name = name })
+            .WithContentType("application/json")
+            .WithRequestJson(new RenameHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId, Name = name })
             .Times(1);
     }
 
@@ -212,11 +194,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SetRoomThermPoint(homeId, roomId, mode);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/setroomthermpoint")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/setroomthermpoint")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new SetRoomThermpointRequest { HomeId = homeId, RoomId = roomId, Mode = mode })
+            .WithContentType("application/json")
+            .WithRequestJson(new SetRoomThermpointRequest { HomeId = homeId, RoomId = roomId, Mode = mode })
             .Times(1);
     }
 
@@ -230,11 +212,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SetThermMode(homeId, mode);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/setthermmode")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/setthermmode")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new SetThermModeRequest { HomeId = homeId, Mode = mode })
+            .WithContentType("application/json")
+            .WithRequestJson(new SetThermModeRequest { HomeId = homeId, Mode = mode })
             .Times(1);
     }
 
@@ -248,11 +230,11 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SwitchHomeSchedule(homeId, scheduleId);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/switchhomeschedule")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/switchhomeschedule")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
-            .WithContentType("application/json").WithRequestJson(new SwitchHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId })
+            .WithContentType("application/json")
+            .WithRequestJson(new SwitchHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId })
             .Times(1);
     }
 
@@ -265,19 +247,12 @@ public class EnergyClient : IDisposable
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SyncHomeSchedule(parameters);
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/api/synchomeschedule")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/api/synchomeschedule")
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
             .WithContentType("application/json")
             .WithRequestJson(
-                new SyncHomeScheduleRequest(
-                    parameters.HomeId,
-                    parameters.ScheduleId,
-                    parameters.HgTemp,
-                    parameters.AwayTemp,
-                    new Timetable[0],
-                    new Zone[0]))
+                new SyncHomeScheduleRequest(parameters.HomeId, parameters.ScheduleId, parameters.HgTemp, parameters.AwayTemp, Array.Empty<Timetable>(), Array.Empty<Zone>()))
             .Times(1);
     }
 
@@ -286,10 +261,8 @@ public class EnergyClient : IDisposable
     public void GetRoomMeasure_Should_Throw_ArgumentException(GetRoomMeasureParameters parameters, string exceptionMessage)
     {
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
-        Func<Task> act = async () => { await sut.GetRoomMeasure<TemperatureStep>(parameters); };
+        Func<Task> act = () => sut.GetRoomMeasure<TemperatureStep>(parameters);
 
-        act
-            .Should().Throw<ArgumentException>()
-            .WithMessage(exceptionMessage);
+        act.Should().ThrowAsync<ArgumentException>().WithMessage(exceptionMessage);
     }
 }

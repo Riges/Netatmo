@@ -28,17 +28,25 @@ public class CredentialManager : IDisposable
 
         var sut = new Netatmo.CredentialManager("https://api.netatmo.com/", "clientId", "clientSecret", SystemClock.Instance);
 
-        await sut.GenerateToken("username@email.com", "p@$$W0rd",
+        await sut.GenerateToken(
+            "username@email.com",
+            "p@$$W0rd",
             new[]
             {
-                Scope.CameraAccess, Scope.CameraRead, Scope.CameraWrite, Scope.HomecoachRead, Scope.PresenceAccess, Scope.PresenceRead, Scope.StationRead,
-                Scope.StationWrite, Scope.ThermostatRead
+                Scope.CameraAccess,
+                Scope.CameraRead,
+                Scope.CameraWrite,
+                Scope.HomecoachRead,
+                Scope.PresenceAccess,
+                Scope.PresenceRead,
+                Scope.StationRead,
+                Scope.StationWrite,
+                Scope.ThermostatRead
             });
 
         var token = sut.CredentialToken;
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/oauth2/token")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/oauth2/token")
             .WithVerb(HttpMethod.Post)
             .WithContentType("application/x-www-form-urlencoded")
             .WithRequestBody(
@@ -89,12 +97,10 @@ public class CredentialManager : IDisposable
         await sut.RefreshToken();
         var refreshedToken = sut.CredentialToken;
 
-        httpTest
-            .ShouldHaveCalled("https://api.netatmo.com/oauth2/token")
+        httpTest.ShouldHaveCalled("https://api.netatmo.com/oauth2/token")
             .WithVerb(HttpMethod.Post)
             .WithContentType("application/x-www-form-urlencoded")
-            .WithRequestBody(
-                $"grant_type=refresh_token&client_id=clientId&client_secret=clientSecret&refresh_token={oldToken.RefreshToken}")
+            .WithRequestBody($"grant_type=refresh_token&client_id=clientId&client_secret=clientSecret&refresh_token={oldToken.RefreshToken}")
             .Times(1);
 
         refreshedToken.Should().BeOfType<CredentialToken>();
