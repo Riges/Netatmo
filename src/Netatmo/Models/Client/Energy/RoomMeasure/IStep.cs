@@ -1,6 +1,5 @@
-namespace Netatmo.Models.Client.Energy.RoomMeasure
+namespace Netatmo.Models.Client.Energy.RoomMeasure;
+
+public interface IStep
 {
-    public interface IStep
-    {
-    }
 }

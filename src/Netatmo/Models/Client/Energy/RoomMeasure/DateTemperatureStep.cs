@@ -1,8 +1,7 @@
 using NodaTime;
 
-namespace Netatmo.Models.Client.Energy.RoomMeasure
+namespace Netatmo.Models.Client.Energy.RoomMeasure;
+
+public class DateTemperatureStep : Step<Instant>
 {
-    public class DateTemperatureStep : Step<Instant>
-    {
-    }
 }

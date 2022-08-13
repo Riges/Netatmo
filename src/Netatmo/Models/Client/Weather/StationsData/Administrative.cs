@@ -1,29 +1,28 @@
 using Netatmo.Enums;
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Weather.StationsData
+namespace Netatmo.Models.Client.Weather.StationsData;
+
+public class Administrative
 {
-    public class Administrative
-    {
-        [JsonProperty("country")]
-        public string Country { get; set; }
+    [JsonProperty("country")]
+    public string Country { get; set; }
 
-        [JsonProperty("feel_like_algo")]
-        public FeelLikeAlgoEnum FeelLikeAlgo { get; set; }
+    [JsonProperty("feel_like_algo")]
+    public FeelLikeAlgoEnum FeelLikeAlgo { get; set; }
 
-        [JsonProperty("lang")]
-        public string Lang { get; set; }
+    [JsonProperty("lang")]
+    public string Lang { get; set; }
 
-        [JsonProperty("pressureunit")]
-        public PressureUnitEnum PressureUnit { get; set; }
+    [JsonProperty("pressureunit")]
+    public PressureUnitEnum PressureUnit { get; set; }
 
-        [JsonProperty("reg_locale")]
-        public string RegLocale { get; set; }
+    [JsonProperty("reg_locale")]
+    public string RegLocale { get; set; }
 
-        [JsonProperty("unit")]
-        public UnitEnum Unit { get; set; }
+    [JsonProperty("unit")]
+    public UnitEnum Unit { get; set; }
 
-        [JsonProperty("windunit")]
-        public WindUnitEnum WindUnit { get; set; }
-    }
+    [JsonProperty("windunit")]
+    public WindUnitEnum WindUnit { get; set; }
 }
