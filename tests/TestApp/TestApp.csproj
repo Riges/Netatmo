@@ -14,6 +14,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Netatmo\Netatmo.csproj" />
+      <ProjectReference Include="..\..\src\Netatmo\Netatmo.csproj" />
     </ItemGroup>
 </Project>
