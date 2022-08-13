@@ -1,9 +1,7 @@
 using Newtonsoft.Json;
+using NodaTime;
 
 namespace Netatmo.Models.Client.Energy;
 
-public class CreateHomeScheduleResponse : DataResponse
-{
-    [JsonProperty("schedule_id")]
-    public string ScheduleId { get; set; }
-}
+public record CreateHomeScheduleResponse(string Status, double? TimeExec, Instant? TimeServer, [property: JsonProperty("schedule_id")] string ScheduleId)
+    : DataResponse(Status, TimeExec, TimeServer);

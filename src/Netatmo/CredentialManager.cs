@@ -29,41 +29,33 @@ public class CredentialManager : ICredentialManager
         var scope = string.Join(" ", scopes?.Select(s => s.Value) ?? new string[0]);
 
         // TODO : Handle not success status codes (rate limit exceeded, api down, ect)
-        var token = await baseUrl.AppendPathSegment("/oauth2/token").PostUrlEncodedAsync(new
-        {
-            grant_type = "password",
-            client_id = clientId,
-            client_secret = clientSecret,
-            username,
-            password,
-            scope
-        }).ReceiveJson<Token>();
+        var token = await baseUrl.AppendPathSegment("/oauth2/token")
+            .PostUrlEncodedAsync(
+                new
+                {
+                    grant_type = "password",
+                    client_id = clientId,
+                    client_secret = clientSecret,
+                    username,
+                    password,
+                    scope
+                })
+            .ReceiveJson<Token>();
 
         CredentialToken = new CredentialToken(token, clock);
     }
 
     public void ProvideOAuth2Token(string oauth2Token)
     {
-        var appToken = new Token()
-        {
-            AccessToken = oauth2Token,
-            RefreshToken = null,
-            ExpiresIn = 20
-        };
-
-        CredentialToken = new CredentialToken(appToken, clock);
+        CredentialToken = new CredentialToken(new Token(20, oauth2Token, null), clock);
     }
 
     public async Task RefreshToken()
     {
         // TODO : Handle not success status codes (rate limit exceeded, api down, ect)
-        var token = await baseUrl.AppendPathSegment("/oauth2/token").PostUrlEncodedAsync(new
-        {
-            grant_type = "refresh_token",
-            client_id = clientId,
-            client_secret = clientSecret,
-            refresh_token = CredentialToken.RefreshToken
-        }).ReceiveJson<Token>();
+        var token = await baseUrl.AppendPathSegment("/oauth2/token")
+            .PostUrlEncodedAsync(new { grant_type = "refresh_token", client_id = clientId, client_secret = clientSecret, refresh_token = CredentialToken.RefreshToken })
+            .ReceiveJson<Token>();
 
         CredentialToken = new CredentialToken(token, clock);
     }

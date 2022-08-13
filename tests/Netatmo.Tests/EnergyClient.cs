@@ -11,9 +11,9 @@ namespace Netatmo.Tests;
 public class EnergyClient : IDisposable
 {
     private readonly string accessToken;
+    private readonly Mock<ICredentialManager> credentialManagerMock;
 
     private readonly HttpTest httpTest;
-    private readonly Mock<ICredentialManager> credentialManagerMock;
 
     public EnergyClient()
     {
@@ -34,11 +34,7 @@ public class EnergyClient : IDisposable
     public async Task CreateHomeSchedule_Should_Return_Expected_Result()
     {
         var parameters = new CreateHomeScheduleRequest("5a327cbdb05a2133678b5d3e", 14, 16, "Cat schedule");
-        httpTest.RespondWithJson(
-            new CreateHomeScheduleResponse
-            {
-                ScheduleId = "5a819e6113475d09c28b497a", Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467)
-            });
+        httpTest.RespondWithJson(new CreateHomeScheduleResponse("ok", 0.036107063293457, Instant.FromUnixTimeSeconds(1518023467), "5a819e6113475d09c28b497a"));
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.CreateHomeSchedule(parameters);
@@ -57,7 +53,7 @@ public class EnergyClient : IDisposable
     {
         var homeId = "5a327cbdb05a2133678b5d3e";
         var scheduleId = "5a327cbdb05a2133678b5d3f";
-        httpTest.RespondWithJson(new DataResponse { Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467) });
+        httpTest.RespondWithJson(new DataResponse("ok", 0.036107063293457, Instant.FromUnixTimeSeconds(1518023467)));
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.DeleteHomeSchedule(homeId, scheduleId);
@@ -170,7 +166,7 @@ public class EnergyClient : IDisposable
         var homeId = "5a327cbdb05a2133678b5d3e";
         var scheduleId = "5a327cbdb05a2133678b5d3f";
         var name = "Cat schedule";
-        httpTest.RespondWithJson(new DataResponse { Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467) });
+        httpTest.RespondWithJson(new DataResponse("ok", 0.036107063293457, Instant.FromUnixTimeSeconds(1518023467)));
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.RenameHomeSchedule(homeId, scheduleId, name);
@@ -189,7 +185,7 @@ public class EnergyClient : IDisposable
         var homeId = "5a327cbdb05a2133678b5d3e";
         var roomId = "2255031728";
         var mode = "schedule";
-        httpTest.RespondWithJson(new DataResponse { Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467) });
+        httpTest.RespondWithJson(new DataResponse("ok", 0.036107063293457, Instant.FromUnixTimeSeconds(1518023467)));
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SetRoomThermPoint(homeId, roomId, mode);
@@ -207,7 +203,7 @@ public class EnergyClient : IDisposable
     {
         var homeId = "5a327cbdb05a2133678b5d3e";
         var mode = "schedule";
-        httpTest.RespondWithJson(new DataResponse { Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467) });
+        httpTest.RespondWithJson(new DataResponse("ok", 0.036107063293457, Instant.FromUnixTimeSeconds(1518023467)));
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SetThermMode(homeId, mode);
@@ -225,7 +221,7 @@ public class EnergyClient : IDisposable
     {
         var homeId = "5a327cbdb05a2133678b5d3e";
         var scheduleId = "5a327cbdb05a2133678b5d3f";
-        httpTest.RespondWithJson(new DataResponse { Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467) });
+        httpTest.RespondWithJson(new DataResponse("ok", 0.036107063293457, Instant.FromUnixTimeSeconds(1518023467)));
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SwitchHomeSchedule(homeId, scheduleId);
@@ -242,7 +238,7 @@ public class EnergyClient : IDisposable
     public async Task SyncHomeSchedule_Should_Return_Expected_Result()
     {
         var parameters = new SyncHomeScheduleRequest("5a327cbdb05a2133678b5d3e", "5a327cbdb05a2133678b5d3f", 14, 16);
-        httpTest.RespondWithJson(new DataResponse { Status = "ok", TimeExec = 0.036107063293457, TimeServer = Instant.FromUnixTimeSeconds(1518023467) });
+        httpTest.RespondWithJson(new DataResponse("ok", 0.036107063293457, Instant.FromUnixTimeSeconds(1518023467)));
 
         var sut = new Netatmo.EnergyClient("https://api.netatmo.com/", credentialManagerMock.Object);
         await sut.SyncHomeSchedule(parameters);
