@@ -29,15 +29,18 @@ public class CredentialManager : ICredentialManager
         var scope = string.Join(" ", scopes?.Select(s => s.Value) ?? new string[0]);
 
         // TODO : Handle not success status codes (rate limit exceeded, api down, ect)
-        var token = await baseUrl.AppendPathSegment("/oauth2/token").PostUrlEncodedAsync(new
-        {
-            grant_type = "password",
-            client_id = clientId,
-            client_secret = clientSecret,
-            username,
-            password,
-            scope
-        }).ReceiveJson<Token>();
+        var token = await baseUrl.AppendPathSegment("/oauth2/token")
+            .PostUrlEncodedAsync(
+                new
+                {
+                    grant_type = "password",
+                    client_id = clientId,
+                    client_secret = clientSecret,
+                    username,
+                    password,
+                    scope
+                })
+            .ReceiveJson<Token>();
 
         CredentialToken = new CredentialToken(token, clock);
     }
@@ -60,13 +63,9 @@ public class CredentialManager : ICredentialManager
         }public async Task RefreshToken()
     {
         // TODO : Handle not success status codes (rate limit exceeded, api down, ect)
-        var token = await baseUrl.AppendPathSegment("/oauth2/token").PostUrlEncodedAsync(new
-        {
-            grant_type = "refresh_token",
-            client_id = clientId,
-            client_secret = clientSecret,
-            refresh_token = CredentialToken.RefreshToken
-        }).ReceiveJson<Token>();
+        var token = await baseUrl.AppendPathSegment("/oauth2/token")
+            .PostUrlEncodedAsync(new { grant_type = "refresh_token", client_id = clientId, client_secret = clientSecret, refresh_token = CredentialToken.RefreshToken })
+            .ReceiveJson<Token>();
 
         CredentialToken = new CredentialToken(token, clock);
     }

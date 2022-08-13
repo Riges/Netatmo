@@ -2,14 +2,7 @@ using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client;
 
-public class Token
-{
-    [JsonProperty("expires_in")]
-    public int ExpiresIn { get; set; }
-
-    [JsonProperty("access_token")]
-    public string AccessToken { get; set; }
-
-    [JsonProperty("refresh_token")]
-    public string RefreshToken { get; set; }
-}
+public record Token(
+    [property: JsonProperty("expires_in")] int ExpiresIn,
+    [property: JsonProperty("access_token")] string AccessToken,
+    [property: JsonProperty("refresh_token")] string RefreshToken);

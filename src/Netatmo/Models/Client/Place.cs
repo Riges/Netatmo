@@ -3,20 +3,9 @@ using NodaTime;
 
 namespace Netatmo.Models.Client;
 
-public class Place
-{
-    [JsonProperty("altitude")]
-    public double Altitude { get; set; }
-
-    [JsonProperty("city")]
-    public string City { get; set; }
-
-    [JsonProperty("country")]
-    public string Country { get; set; }
-
-    [JsonProperty("timezone")]
-    public DateTimeZone Timezone { get; set; }
-
-    [JsonProperty("location")]
-    public double[] Location { get; set; }
-}
+public record Place(
+    [property: JsonProperty("altitude")] double Altitude,
+    [property: JsonProperty("city")] string City,
+    [property: JsonProperty("country")] string Country,
+    [property: JsonProperty("timezone")] DateTimeZone Timezone,
+    [property: JsonProperty("location")] double[] Location);
