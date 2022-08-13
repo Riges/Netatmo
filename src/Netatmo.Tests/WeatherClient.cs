@@ -14,6 +14,8 @@ namespace Netatmo.Tests
 {
     public class WeatherClient : IDisposable
     {
+        private readonly HttpTest httpTest;
+
         public WeatherClient()
         {
             httpTest = new HttpTest();
@@ -24,8 +26,6 @@ namespace Netatmo.Tests
         {
             httpTest.Dispose();
         }
-
-        private readonly HttpTest httpTest;
 
         [Fact]
         public async Task GetStationsData_Should_Return_DataResponse_With_StationsData()

@@ -25,7 +25,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.101
+          dotnet-version: 5.0.x
       - name: Restore packages
         run: dotnet restore src
       - name: Test
@@ -47,7 +47,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.101
+          dotnet-version: 5.0.x
       - name: Restore packages
         run: dotnet restore src
       - name: Build and create package nuget

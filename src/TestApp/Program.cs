@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Flurl.Http;
 using Flurl.Util;
 using Netatmo;
 using Netatmo.Models.Client.Energy;
@@ -17,7 +19,7 @@ namespace TestApp
             JsonConvert.DefaultSettings = Configuration.JsonSerializer;
 
             IClient client = new Client(
-                SystemClock.Instance, " https://api.netatmo.com/",
+                SystemClock.Instance, "https://api.netatmo.com/",
                 Environment.GetEnvironmentVariable("NETATMO_CLIENT_ID"),
                 Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET"));
 
@@ -26,8 +28,8 @@ namespace TestApp
                 Environment.GetEnvironmentVariable("NETATMO_PASSWORD"),
                 new[]
                 {
-                    Scope.CameraAccess, Scope.CameraRead, Scope.CameraWrite, Scope.HomecoachRead, Scope.PresenceAccess, Scope.PresenceRead,
-                    Scope.StationRead, Scope.StationWrite, Scope.ThermostatRead
+                    Scope.CameraAccess, Scope.CameraRead, Scope.CameraWrite, Scope.HomecoachRead, Scope.PresenceAccess, Scope.PresenceRead, Scope.StationRead,
+                    Scope.StationWrite, Scope.ThermostatRead
                 });
 
             var token = client.CredentialManager.CredentialToken;
@@ -52,6 +54,11 @@ namespace TestApp
                 Console.WriteLine("Energy room measure :");
                 foreach (var room in home.Rooms)
                 {
+                    if (room.ModuleIds == null || !room.ModuleIds.Any())
+                    {
+                        continue;
+                    }
+
                     Console.WriteLine(room.Name);
                     var parameters = new GetRoomMeasureParameters
                     {
@@ -62,8 +69,17 @@ namespace TestApp
                         BeginAt = SystemClock.Instance.GetCurrentInstant().Plus(Duration.FromDays(-1)),
                         EndAt = SystemClock.Instance.GetCurrentInstant()
                     };
-                    var roomMeasure = await client.Energy.GetRoomMeasure<TemperatureStep>(parameters);
-                    Console.WriteLine(JsonConvert.SerializeObject(roomMeasure, Formatting.Indented));
+
+                    try
+                    {
+                        var roomMeasure = await client.Energy.GetRoomMeasure<TemperatureStep>(parameters);
+                        Console.WriteLine(JsonConvert.SerializeObject(roomMeasure, Formatting.Indented));
+                    }
+                    catch (FlurlHttpException exception)
+                    {
+                        var error = await exception.GetResponseStringAsync();
+                        Console.WriteLine($"exception : {error}");
+                    }
                 }
             }
 

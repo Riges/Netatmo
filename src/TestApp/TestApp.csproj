@@ -1,9 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFrameworks>netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;netstandard2.1;netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>net5.0;netstandard2.1;netstandard2.0;netcoreapp3.1</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <IsPackable>false</IsPackable>
+    </PropertyGroup>
+    <PropertyGroup>
+        <EnableNETAnalyzers>True</EnableNETAnalyzers>
+        <CodeAnalysisTreatWarningsAsErrors>True</CodeAnalysisTreatWarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>

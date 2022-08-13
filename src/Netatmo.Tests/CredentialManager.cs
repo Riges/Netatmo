@@ -12,6 +12,8 @@ namespace Netatmo.Tests
 {
     public class CredentialManager : IDisposable
     {
+        private readonly HttpTest httpTest;
+
         public CredentialManager()
         {
             httpTest = new HttpTest();
@@ -22,17 +24,10 @@ namespace Netatmo.Tests
             httpTest.Dispose();
         }
 
-        private readonly HttpTest httpTest;
-
         [Fact]
         public async Task GenerateToken_Should_Acquire_Excepted_CredentialToken()
         {
-            var expectedToken = new
-            {
-                access_token = "2YotnFZFEjr1zCsicMWpAA",
-                expires_in = 10800,
-                refresh_token = "tGzv3JOkF0XG5Qx2TlKWIA"
-            };
+            var expectedToken = new { access_token = "2YotnFZFEjr1zCsicMWpAA", expires_in = 10800, refresh_token = "tGzv3JOkF0XG5Qx2TlKWIA" };
 
             httpTest.RespondWithJson(expectedToken);
 
@@ -41,8 +36,8 @@ namespace Netatmo.Tests
             await sut.GenerateToken("username@email.com", "p@$$W0rd",
                 new[]
                 {
-                    Scope.CameraAccess, Scope.CameraRead, Scope.CameraWrite, Scope.HomecoachRead, Scope.PresenceAccess, Scope.PresenceRead,
-                    Scope.StationRead, Scope.StationWrite, Scope.ThermostatRead
+                    Scope.CameraAccess, Scope.CameraRead, Scope.CameraWrite, Scope.HomecoachRead, Scope.PresenceAccess, Scope.PresenceRead, Scope.StationRead,
+                    Scope.StationWrite, Scope.ThermostatRead
                 });
 
             var token = sut.CredentialToken;
@@ -59,16 +54,12 @@ namespace Netatmo.Tests
             token.AccessToken.Should().Be(expectedToken.access_token);
             token.RefreshToken.Should().Be(expectedToken.refresh_token);
             token.ExpiresAt.Should().Be(token.ReceivedAt.Plus(Duration.FromSeconds(expectedToken.expires_in)));
-        }     
-        
+        }
+
         [Fact]
         public void ProvideOAuth2Token_Should_Provide_Token_From_Existing()
         {
-            var expectedToken = new
-            {
-                access_token = "2YotnFZFEjr1zCsicMWpAA",
-                expires_in = 20
-            };
+            var expectedToken = new { access_token = "2YotnFZFEjr1zCsicMWpAA", expires_in = 20 };
 
             httpTest.RespondWithJson(expectedToken);
 
@@ -87,19 +78,9 @@ namespace Netatmo.Tests
         [Fact]
         public async Task RefreshToken_Should_Refresh_Token()
         {
-            var token = new
-            {
-                access_token = "2YotnFZFEjr1zCsicMWpAA",
-                expires_in = 10800,
-                refresh_token = "tGzv3JOkF0XG5Qx2TlKWIA"
-            };
+            var token = new { access_token = "2YotnFZFEjr1zCsicMWpAA", expires_in = 10800, refresh_token = "tGzv3JOkF0XG5Qx2TlKWIA" };
 
-            var expectedToken = new
-            {
-                access_token = "dGVzdGNsaWVudDpzZWNyZXQ",
-                expires_in = 10800,
-                refresh_token = "fdb8fdbecf1d03ce5e6125c067733c0d51de209c"
-            };
+            var expectedToken = new { access_token = "dGVzdGNsaWVudDpzZWNyZXQ", expires_in = 10800, refresh_token = "fdb8fdbecf1d03ce5e6125c067733c0d51de209c" };
 
             httpTest.RespondWithJson(token);
             httpTest.RespondWithJson(expectedToken);
