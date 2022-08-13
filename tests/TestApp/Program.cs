@@ -9,7 +9,8 @@ using NodaTime;
 JsonConvert.DefaultSettings = Configuration.JsonSerializer;
 
 IClient client = new Client(
-    SystemClock.Instance, "https://api.netatmo.com/",
+    SystemClock.Instance,
+    "https://api.netatmo.com/",
     Environment.GetEnvironmentVariable("NETATMO_CLIENT_ID"),
     Environment.GetEnvironmentVariable("NETATMO_CLIENT_SECRET"));
 
@@ -18,8 +19,15 @@ await client.GenerateToken(
     Environment.GetEnvironmentVariable("NETATMO_PASSWORD"),
     new[]
     {
-        Scope.CameraAccess, Scope.CameraRead, Scope.CameraWrite, Scope.HomecoachRead, Scope.PresenceAccess, Scope.PresenceRead, Scope.StationRead,
-        Scope.StationWrite, Scope.ThermostatRead
+        Scope.CameraAccess,
+        Scope.CameraRead,
+        Scope.CameraWrite,
+        Scope.HomecoachRead,
+        Scope.PresenceAccess,
+        Scope.PresenceRead,
+        Scope.StationRead,
+        Scope.StationWrite,
+        Scope.ThermostatRead
     });
 
 var token = client.CredentialManager.CredentialToken;
