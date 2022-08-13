@@ -1,22 +1,21 @@
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client.Weather.StationsData.DashboardData
+namespace Netatmo.Models.Client.Weather.StationsData.DashboardData;
+
+public class WindGaugeDashBoardData : DashBoardData, IWindDashBoardData, IGustDashBoardData
 {
-    public class WindGaugeDashBoardData : DashBoardData, IWindDashBoardData, IGustDashBoardData
-    {
-        [JsonProperty("WindHistoric")]
-        public WindHistoric[] WindHistoric { get; set; }
+    [JsonProperty("WindHistoric")]
+    public WindHistoric[] WindHistoric { get; set; }
 
-        [JsonProperty("GustStrength")]
-        public int GustStrength { get; set; }
+    [JsonProperty("GustStrength")]
+    public int GustStrength { get; set; }
 
-        [JsonProperty("GustAngle")]
-        public int GustAngle { get; set; }
+    [JsonProperty("GustAngle")]
+    public int GustAngle { get; set; }
 
-        [JsonProperty("WindStrength")]
-        public int WindStrength { get; set; }
+    [JsonProperty("WindStrength")]
+    public int WindStrength { get; set; }
 
-        [JsonProperty("WindAngle")]
-        public int WindAngle { get; set; }
-    }
+    [JsonProperty("WindAngle")]
+    public int WindAngle { get; set; }
 }

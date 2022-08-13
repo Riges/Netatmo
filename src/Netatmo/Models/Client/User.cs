@@ -1,14 +1,6 @@
 using Netatmo.Models.Client.Weather.StationsData;
 using Newtonsoft.Json;
 
-namespace Netatmo.Models.Client
-{
-    public class User
-    {
-        [JsonProperty("administrative")]
-        public Administrative Administrative { get; set; }
+namespace Netatmo.Models.Client;
 
-        [JsonProperty("mail")]
-        public string Mail { get; set; }
-    }
-}
+public record User([property: JsonProperty("administrative")] Administrative Administrative, [property: JsonProperty("mail")] string Mail);

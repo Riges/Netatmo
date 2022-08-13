@@ -1,26 +1,14 @@
 using Netatmo.Models.Client;
 using NodaTime;
 
-namespace Netatmo.Models
+namespace Netatmo.Models;
+
+public record CredentialToken(int ExpiresIn, string AccessToken, string RefreshToken, Instant ReceivedAt)
 {
-    public class CredentialToken
+    public CredentialToken(Token token, IClock clock)
+        : this(token.ExpiresIn, token.AccessToken, token.RefreshToken, clock.GetCurrentInstant())
     {
-        public CredentialToken(Token token, IClock clock)
-        {
-            ReceivedAt = clock.GetCurrentInstant();
-            ExpiresIn = token.ExpiresIn;
-            AccessToken = token.AccessToken;
-            RefreshToken = token.RefreshToken;
-        }
-
-        public int ExpiresIn { get; }
-
-        public string AccessToken { get; }
-
-        public string RefreshToken { get; }
-
-        public Instant ReceivedAt { get; }
-
-        public Instant ExpiresAt => ReceivedAt.Plus(Duration.FromSeconds(ExpiresIn));
     }
+
+    public Instant ExpiresAt => ReceivedAt.Plus(Duration.FromSeconds(ExpiresIn));
 }

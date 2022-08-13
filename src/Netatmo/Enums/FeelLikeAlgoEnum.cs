@@ -1,8 +1,7 @@
-namespace Netatmo.Enums
+namespace Netatmo.Enums;
+
+public enum FeelLikeAlgoEnum
 {
-    public enum FeelLikeAlgoEnum
-    {
-        Humidex = 0,
-        HeatIndex = 1
-    }
+    Humidex = 0,
+    HeatIndex = 1
 }
