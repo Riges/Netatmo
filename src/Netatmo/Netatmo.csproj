@@ -12,7 +12,7 @@
         <PackageProjectUrl>https://github.com/Riges/Netatmo</PackageProjectUrl>
         <PackageTags>Netatmo;Home Automation;</PackageTags>
         <PackageProjectUrl>https://github.com/Riges/Netatmo</PackageProjectUrl>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Riges/Netatmo.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
