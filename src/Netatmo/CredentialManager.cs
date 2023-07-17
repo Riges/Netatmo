@@ -45,17 +45,22 @@ namespace Netatmo
 
             CredentialToken = new CredentialToken(token, clock);
         }
-
-        public void ProvideOAuth2Token(string oauth2Token)
+        
+        public void ProvideOAuth2Token(string accessToken, string refreshToken)
         {
             var appToken = new Token()
             {
-                AccessToken = oauth2Token,
-                RefreshToken = null,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
                 ExpiresIn = 20
             };
 
             CredentialToken = new CredentialToken(appToken, clock);
+        }
+
+        public void ProvideOAuth2Token(string accessToken)
+        {
+            ProvideOAuth2Token(accessToken, null);
         }
 
         public async Task RefreshToken()

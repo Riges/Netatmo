@@ -8,7 +8,8 @@ namespace Netatmo
         CredentialToken CredentialToken { get; }
         string AccessToken { get; }
         Task GenerateToken(string username, string password, Scope[] scopes = null);
-        void ProvideOAuth2Token(string oauth2Token);
+        void ProvideOAuth2Token(string accessToken);
+        void ProvideOAuth2Token(string accessToken, string refreshToken);
         Task RefreshToken();
     }
 }

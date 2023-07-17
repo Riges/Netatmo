@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using NodaTime;
 
 namespace Netatmo
@@ -20,12 +21,18 @@ namespace Netatmo
 
         public Task GenerateToken(string username, string password, Scope[] scopes = null)
         {
+            Console.WriteLine("Client credentials grant type is deprecated since october 2022 and will not work!");
             return CredentialManager.GenerateToken(username, password, scopes);
         }
         
-        public void ProvideOAuth2Token(string oauth2Token)
+        public void ProvideOAuth2Token(string accessToken)
         {
-            CredentialManager.ProvideOAuth2Token(oauth2Token);
+            CredentialManager.ProvideOAuth2Token(accessToken);
+        }
+        
+        public void ProvideOAuth2Token(string accessToken, string refreshToken)
+        {
+            CredentialManager.ProvideOAuth2Token(accessToken, refreshToken);
         }
 
         public Task RefreshToken()
