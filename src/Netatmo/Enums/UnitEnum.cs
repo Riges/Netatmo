@@ -1,8 +1,7 @@
-namespace Netatmo.Enums
+namespace Netatmo.Enums;
+
+public enum UnitEnum
 {
-    public enum UnitEnum
-    {
-        Metric = 0,
-        Imperial = 1
-    }
+    Metric = 0,
+    Imperial = 1
 }

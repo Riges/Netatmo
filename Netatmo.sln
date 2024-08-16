@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netatmo", "src\Netatmo\Netatmo.csproj", "{0E18F081-D50E-44B7-8DF7-42FC9F2E316E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netatmo.Tests", "tests\Netatmo.Tests\Netatmo.Tests.csproj", "{14363A07-CF0F-466E-84ED-19158900CA19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "tests\TestApp\TestApp.csproj", "{50527DF5-B8F7-4DE2-9159-94CFE7F8A86B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{35DE6BA8-BAAC-4B8E-9492-256CA758B2BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E18F081-D50E-44B7-8DF7-42FC9F2E316E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E18F081-D50E-44B7-8DF7-42FC9F2E316E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E18F081-D50E-44B7-8DF7-42FC9F2E316E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E18F081-D50E-44B7-8DF7-42FC9F2E316E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14363A07-CF0F-466E-84ED-19158900CA19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14363A07-CF0F-466E-84ED-19158900CA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14363A07-CF0F-466E-84ED-19158900CA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14363A07-CF0F-466E-84ED-19158900CA19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50527DF5-B8F7-4DE2-9159-94CFE7F8A86B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50527DF5-B8F7-4DE2-9159-94CFE7F8A86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50527DF5-B8F7-4DE2-9159-94CFE7F8A86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50527DF5-B8F7-4DE2-9159-94CFE7F8A86B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50527DF5-B8F7-4DE2-9159-94CFE7F8A86B} = {35DE6BA8-BAAC-4B8E-9492-256CA758B2BF}
+		{14363A07-CF0F-466E-84ED-19158900CA19} = {35DE6BA8-BAAC-4B8E-9492-256CA758B2BF}
+	EndGlobalSection
+EndGlobal

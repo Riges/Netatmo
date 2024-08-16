@@ -1,0 +1,23 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="RIGHT_MARGIN" value="180" />
+    <option name="SOFT_MARGINS" value="150,180" />
+    <MySQLCodeStyleSettings version="7">
+      <option name="TYPE_CASE" value="3" />
+      <option name="CUSTOM_TYPE_CASE" value="3" />
+      <option name="ALIAS_CASE" value="4" />
+      <option name="USE_GENERIC_STYLE" value="true" />
+    </MySQLCodeStyleSettings>
+    <PostgresCodeStyleSettings version="7">
+      <option name="USE_GENERIC_STYLE" value="true" />
+    </PostgresCodeStyleSettings>
+    <SqlCodeStyleSettings version="7">
+      <option name="TYPE_CASE" value="3" />
+      <option name="CUSTOM_TYPE_CASE" value="3" />
+      <option name="ALIAS_CASE" value="4" />
+    </SqlCodeStyleSettings>
+    <editorconfig>
+      <option name="ENABLED" value="false" />
+    </editorconfig>
+  </code_scheme>
+</component>

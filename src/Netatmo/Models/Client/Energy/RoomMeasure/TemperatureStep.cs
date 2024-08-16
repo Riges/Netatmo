@@ -1,6 +1,5 @@
-namespace Netatmo.Models.Client.Energy.RoomMeasure
+namespace Netatmo.Models.Client.Energy.RoomMeasure;
+
+public class TemperatureStep : Step<double>
 {
-    public class TemperatureStep : Step<double>
-    {
-    }
 }

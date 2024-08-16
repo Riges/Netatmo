@@ -1,15 +1,13 @@
-using System.Threading.Tasks;
 using Netatmo.Models;
 
-namespace Netatmo
+namespace Netatmo;
+
+public interface ICredentialManager
 {
-    public interface ICredentialManager
-    {
-        CredentialToken CredentialToken { get; }
-        string AccessToken { get; }
-        Task GenerateToken(string username, string password, Scope[] scopes = null);
-        void ProvideOAuth2Token(string accessToken);
+    CredentialToken CredentialToken { get; }
+    string AccessToken { get; }
+    Task GenerateToken(string username, string password, Scope[] scopes = null);
+    void ProvideOAuth2Token(string accessToken);
         void ProvideOAuth2Token(string accessToken, string refreshToken);
-        Task RefreshToken();
-    }
+    Task RefreshToken();
 }

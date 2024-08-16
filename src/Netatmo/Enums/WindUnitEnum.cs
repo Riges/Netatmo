@@ -1,11 +1,10 @@
-namespace Netatmo.Enums
+namespace Netatmo.Enums;
+
+public enum WindUnitEnum
 {
-    public enum WindUnitEnum
-    {
-        Kph = 0,
-        Mph = 1,
-        Ms = 2,
-        Beaufort = 3,
-        Knot = 4
-    }
+    Kph = 0,
+    Mph = 1,
+    Ms = 2,
+    Beaufort = 3,
+    Knot = 4
 }
