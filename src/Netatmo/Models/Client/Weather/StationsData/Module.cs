@@ -26,11 +26,20 @@ public class Module
     {
         get
         {
-            if (RfStatus <= 60) return RfStrengthEnum.FullSignal;
+            if (RfStatus <= 60)
+            {
+                return RfStrengthEnum.FullSignal;
+            }
 
-            if (RfStatus <= 70) return RfStrengthEnum.High;
+            if (RfStatus <= 70)
+            {
+                return RfStrengthEnum.High;
+            }
 
-            if (RfStatus <= 80) return RfStrengthEnum.Medium;
+            if (RfStatus <= 80)
+            {
+                return RfStrengthEnum.Medium;
+            }
 
             return RfStrengthEnum.Low;
         }
@@ -115,10 +124,11 @@ public class Module
     [JsonProperty("dashboard_data")]
     public JObject DashboardData { get; set; }
 
-    public T GetDashboardData<T>()where T : IDashBoardData
+    public T GetDashboardData<T>()
+        where T : IDashBoardData
     {
         Type expectedType;
-        switch(Type)
+        switch (Type)
         {
             case "NAMain":
                 expectedType = typeof(BaseStationDashBoardData);
@@ -144,7 +154,7 @@ public class Module
         {
             throw new ArgumentException($"{expectedType.Name} should be expected");
         }
-            
+
         return JsonConvert.DeserializeObject<T>(DashboardData.ToString(), Configuration.JsonSerializer());
     }
 }

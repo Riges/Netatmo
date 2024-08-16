@@ -8,6 +8,6 @@ public interface ICredentialManager
     string AccessToken { get; }
     Task GenerateToken(string username, string password, Scope[] scopes = null);
     void ProvideOAuth2Token(string accessToken);
-        void ProvideOAuth2Token(string accessToken, string refreshToken);
+    void ProvideOAuth2Token(string accessToken, string refreshToken);
     Task RefreshToken();
 }

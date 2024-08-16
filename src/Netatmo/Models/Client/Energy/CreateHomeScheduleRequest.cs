@@ -10,18 +10,23 @@ public class CreateHomeScheduleRequest
         Zones = new List<Zone>();
     }
 
-    public CreateHomeScheduleRequest(string homeId, double hgTemp, double awayTemp, string name, Timetable[] timetables = null,
-        Zone[] zones = null) : 
-        this()
+    public CreateHomeScheduleRequest(string homeId, double hgTemp, double awayTemp, string name, Timetable[] timetables = null, Zone[] zones = null)
+        : this()
     {
         HomeId = homeId;
         Name = name;
         HgTemp = hgTemp;
         AwayTemp = awayTemp;
 
-        if (timetables != null) Timetables.AddRange(timetables);
+        if (timetables != null)
+        {
+            Timetables.AddRange(timetables);
+        }
 
-        if (zones != null) Zones.AddRange(zones);
+        if (zones != null)
+        {
+            Zones.AddRange(zones);
+        }
     }
 
     [JsonProperty("home_id")]

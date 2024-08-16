@@ -23,11 +23,20 @@ public class Module
     {
         get
         {
-            if (!WifiStrength.HasValue) return WifiStrengthEnum.Undefined;
+            if (!WifiStrength.HasValue)
+            {
+                return WifiStrengthEnum.Undefined;
+            }
 
-            if (WifiStrength.Value <= 56) return WifiStrengthEnum.Good;
+            if (WifiStrength.Value <= 56)
+            {
+                return WifiStrengthEnum.Good;
+            }
 
-            if (WifiStrength.Value <= 71) return WifiStrengthEnum.Average;
+            if (WifiStrength.Value <= 71)
+            {
+                return WifiStrengthEnum.Average;
+            }
 
             return WifiStrengthEnum.Bad;
         }
@@ -41,11 +50,20 @@ public class Module
     {
         get
         {
-            if (RfStrength <= 60) return RfStrengthEnum.FullSignal;
+            if (RfStrength <= 60)
+            {
+                return RfStrengthEnum.FullSignal;
+            }
 
-            if (RfStrength <= 70) return RfStrengthEnum.High;
+            if (RfStrength <= 70)
+            {
+                return RfStrengthEnum.High;
+            }
 
-            if (RfStrength <= 80) return RfStrengthEnum.Medium;
+            if (RfStrength <= 80)
+            {
+                return RfStrengthEnum.Medium;
+            }
 
             return RfStrengthEnum.Low;
         }

@@ -5,39 +5,39 @@ namespace Netatmo.Models.Client.Air.HomesCoachs;
 
 public class DashBoardData
 {
-    [JsonProperty("time_utc")] 
+    [JsonProperty("time_utc")]
     public Instant TimeUtc { get; set; }
 
-    [JsonProperty("Temperature")] 
+    [JsonProperty("Temperature")]
     public double Temperature { get; set; }
 
-    [JsonProperty("CO2")] 
+    [JsonProperty("CO2")]
     public int CO2 { get; set; }
 
-    [JsonProperty("Humidity")] 
+    [JsonProperty("Humidity")]
     public int HumidityPercent { get; set; }
 
-    [JsonProperty("Noise")] 
+    [JsonProperty("Noise")]
     public double Noise { get; set; }
 
-    [JsonProperty("Pressure")] 
+    [JsonProperty("Pressure")]
     public double Pressure { get; set; }
 
     [JsonProperty("AbsolutePressure")]
     public double AbsolutePressure { get; set; }
 
-    [JsonProperty("health_idx")] 
+    [JsonProperty("health_idx")]
     public HealthIdx HealthIdx { get; set; }
 
-    [JsonProperty("min_temp")] 
+    [JsonProperty("min_temp")]
     public decimal MinTemp { get; set; }
 
-    [JsonProperty("max_temp")] 
+    [JsonProperty("max_temp")]
     public decimal MaxTemp { get; set; }
 
     [JsonProperty("date_min_temp")]
     public Instant DateMinTemp { get; set; }
 
-    [JsonProperty("date_max_temp")] 
+    [JsonProperty("date_max_temp")]
     public Instant DateMaxTemp { get; set; }
 }

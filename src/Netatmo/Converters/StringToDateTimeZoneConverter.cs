@@ -13,7 +13,10 @@ public class StringToDateTimeZoneConverter : JsonConverter<DateTimeZone>
 
     public override DateTimeZone ReadJson(JsonReader reader, Type objectType, DateTimeZone existingValue, bool hasExistingValue, JsonSerializer serializer)
     {
-        if (reader.Value == null) return null;
+        if (reader.Value == null)
+        {
+            return null;
+        }
 
         return DateTimeZoneProviders.Tzdb[reader.Value.ToString()];
     }

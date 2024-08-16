@@ -15,17 +15,10 @@ public class WeatherClient : IWeatherClient
         this.baseUrl = baseUrl;
     }
 
-    public Task<DataResponse<GetStationsDataBody>> GetStationsData(string deviceId = null, bool? onlyFavorites = null)
-    {
-        return baseUrl
-            .ConfigureRequest(Configuration.ConfigureRequest)
+    public Task<DataResponse<GetStationsDataBody>> GetStationsData(string deviceId = null, bool? onlyFavorites = null) =>
+        baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/getstationsdata")
             .WithOAuthBearerToken(credentialManager.AccessToken)
-            .PostJsonAsync(new GetStationsDataRequest
-            {
-                DeviceId = deviceId,
-                GetFavorites = onlyFavorites
-            })
+            .PostJsonAsync(new GetStationsDataRequest { DeviceId = deviceId, GetFavorites = onlyFavorites })
             .ReceiveJson<DataResponse<GetStationsDataBody>>();
-    }
 }
