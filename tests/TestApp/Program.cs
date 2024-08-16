@@ -1,5 +1,4 @@
 ﻿using Flurl.Http;
-using Flurl.Util;
 using Netatmo;
 using Netatmo.Models.Client.Energy;
 using Netatmo.Models.Client.Energy.RoomMeasure;

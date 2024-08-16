@@ -6,17 +6,8 @@ using NodaTime;
 
 namespace Netatmo;
 
-public class EnergyClient : IEnergyClient
+public class EnergyClient(string baseUrl, ICredentialManager credentialManager) : IEnergyClient
 {
-    private readonly string baseUrl;
-    private readonly ICredentialManager credentialManager;
-
-    public EnergyClient(string baseUrl, ICredentialManager credentialManager)
-    {
-        this.credentialManager = credentialManager;
-        this.baseUrl = baseUrl;
-    }
-
     public Task<DataResponse<GetHomesDataBody>> GetHomesData(string homeId = null, string gatewayTypes = null) =>
         baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/homesdata")

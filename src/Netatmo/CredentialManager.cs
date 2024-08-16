@@ -6,21 +6,8 @@ using NodaTime;
 
 namespace Netatmo;
 
-public class CredentialManager : ICredentialManager
+public class CredentialManager(string baseUrl, string clientId, string clientSecret, IClock clock) : ICredentialManager
 {
-    private readonly string baseUrl;
-    private readonly string clientId;
-    private readonly string clientSecret;
-    private readonly IClock clock;
-
-    public CredentialManager(string baseUrl, string clientId, string clientSecret, IClock clock)
-    {
-        this.baseUrl = baseUrl;
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-        this.clock = clock;
-    }
-
     public CredentialToken CredentialToken { get; private set; }
     public string AccessToken => CredentialToken?.AccessToken;
 
