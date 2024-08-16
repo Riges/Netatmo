@@ -2,16 +2,16 @@
   <code_scheme name="Project" version="173">
     <option name="RIGHT_MARGIN" value="180" />
     <option name="SOFT_MARGINS" value="150,180" />
-    <MySQLCodeStyleSettings version="6">
+    <MySQLCodeStyleSettings version="7">
       <option name="TYPE_CASE" value="3" />
       <option name="CUSTOM_TYPE_CASE" value="3" />
       <option name="ALIAS_CASE" value="4" />
       <option name="USE_GENERIC_STYLE" value="true" />
     </MySQLCodeStyleSettings>
-    <PostgresCodeStyleSettings version="6">
+    <PostgresCodeStyleSettings version="7">
       <option name="USE_GENERIC_STYLE" value="true" />
     </PostgresCodeStyleSettings>
-    <SqlCodeStyleSettings version="6">
+    <SqlCodeStyleSettings version="7">
       <option name="TYPE_CASE" value="3" />
       <option name="CUSTOM_TYPE_CASE" value="3" />
       <option name="ALIAS_CASE" value="4" />

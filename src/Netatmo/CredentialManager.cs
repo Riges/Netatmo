@@ -47,14 +47,7 @@ public class CredentialManager : ICredentialManager
         
     public void ProvideOAuth2Token(string accessToken, string refreshToken)
     {
-        var appToken = new Token()
-        {
-            AccessToken = accessToken,
-            RefreshToken = refreshToken,
-            ExpiresIn = 20
-        };
-
-        CredentialToken = new CredentialToken(appToken, clock);
+        CredentialToken = new CredentialToken(new Token(20, accessToken, refreshToken), clock);
     }
 
     public void ProvideOAuth2Token(string accessToken)
