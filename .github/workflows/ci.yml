@@ -12,9 +12,6 @@ on:
   # release:
   #   types: [prereleased, edited]
 
-env:
-  DOTNET_VERSION: 8.0.x
-
 jobs:
   test:
     name: Test on ${{ matrix.os }}
