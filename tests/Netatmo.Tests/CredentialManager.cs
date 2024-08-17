@@ -7,16 +7,12 @@ namespace Netatmo.Tests;
 
 public class CredentialManager : IDisposable
 {
-    private readonly HttpTest httpTest;
-
-    public CredentialManager()
-    {
-        httpTest = new HttpTest();
-    }
+    private readonly HttpTest httpTest = new();
 
     public void Dispose()
     {
         httpTest.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     [Fact]
