@@ -19,21 +19,19 @@ public class Client : IClient
 
     public Task GenerateToken(string username, string password, Scope[] scopes = null)
     {
-        Console.WriteLine("Client credentials grant type is deprecated since october 2022 and will not work!");return CredentialManager.GenerateToken(username, password, scopes);
-    }
-        
-    public void ProvideOAuth2Token(string accessToken)
-        {
-            CredentialManager.ProvideOAuth2Token(accessToken);
-        }
-        
-        public void ProvideOAuth2Token(string accessToken, string refreshToken)
-    {
-        CredentialManager.ProvideOAuth2Token(accessToken, refreshToken);
+        Console.WriteLine("Client credentials grant type is deprecated since october 2022 and will not work!");
+        return CredentialManager.GenerateToken(username, password, scopes);
     }
 
-    public Task RefreshToken()
+    public void ProvideOAuth2Token(string accessToken)
     {
-        return CredentialManager.RefreshToken();
+        CredentialManager.ProvideOAuth2Token(accessToken);
+    }
+
+    public Task RefreshToken() => CredentialManager.RefreshToken();
+
+    public void ProvideOAuth2Token(string accessToken, string refreshToken)
+    {
+        CredentialManager.ProvideOAuth2Token(accessToken, refreshToken);
     }
 }

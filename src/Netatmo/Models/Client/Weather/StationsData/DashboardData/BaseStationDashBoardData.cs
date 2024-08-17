@@ -3,8 +3,7 @@ using NodaTime;
 
 namespace Netatmo.Models.Client.Weather.StationsData.DashboardData;
 
-public class BaseStationDashBoardData : DashBoardData, ICO2DashBoardData, IHumidityDashBoardData, ITemperatureDashBoardData,
-    INoiseDashBoardData, IPressureDashBoardData
+public class BaseStationDashBoardData : DashBoardData, ICO2DashBoardData, IHumidityDashBoardData, ITemperatureDashBoardData, INoiseDashBoardData, IPressureDashBoardData
 {
     [JsonProperty("CO2")]
     public int CO2 { get; set; }

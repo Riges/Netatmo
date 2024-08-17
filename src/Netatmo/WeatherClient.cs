@@ -4,28 +4,12 @@ using Netatmo.Models.Client.Weather;
 
 namespace Netatmo;
 
-public class WeatherClient : IWeatherClient
+public class WeatherClient(string baseUrl, ICredentialManager credentialManager) : IWeatherClient
 {
-    private readonly string baseUrl;
-    private readonly ICredentialManager credentialManager;
-
-    public WeatherClient(string baseUrl, ICredentialManager credentialManager)
-    {
-        this.credentialManager = credentialManager;
-        this.baseUrl = baseUrl;
-    }
-
-    public Task<DataResponse<GetStationsDataBody>> GetStationsData(string deviceId = null, bool? onlyFavorites = null)
-    {
-        return baseUrl
-            .ConfigureRequest(Configuration.ConfigureRequest)
+    public Task<DataResponse<GetStationsDataBody>> GetStationsData(string deviceId = null, bool? onlyFavorites = null) =>
+        baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/getstationsdata")
             .WithOAuthBearerToken(credentialManager.AccessToken)
-            .PostJsonAsync(new GetStationsDataRequest
-            {
-                DeviceId = deviceId,
-                GetFavorites = onlyFavorites
-            })
+            .PostJsonAsync(new GetStationsDataRequest { DeviceId = deviceId, GetFavorites = onlyFavorites })
             .ReceiveJson<DataResponse<GetStationsDataBody>>();
-    }
 }

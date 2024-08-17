@@ -43,8 +43,7 @@ public class EnergyClient : IDisposable
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
             .WithContentType("application/json")
-            .WithRequestJson(
-                new CreateHomeScheduleRequest(parameters.HomeId, parameters.HgTemp, parameters.AwayTemp, parameters.Name, Array.Empty<Timetable>(), Array.Empty<Zone>()))
+            .WithRequestJson(new CreateHomeScheduleRequest(parameters.HomeId, parameters.HgTemp, parameters.AwayTemp, parameters.Name, [], []))
             .Times(1);
     }
 
@@ -147,7 +146,7 @@ public class EnergyClient : IDisposable
         Func<Task> actTemperatureStep = () => sut.GetRoomMeasure<DateTemperatureStep>(
             new GetRoomMeasureParameters { HomeId = "5a327cbdb05a2133678b5d3e", RoomId = "2255031728", Scale = Scale.Max, Type = ThermostatMeasurementType.Temperature });
 
-        Func<Task> actDateTemperatureStep = async () =>
+        var actDateTemperatureStep = async () =>
         {
             await sut.GetRoomMeasure<TemperatureStep>(
                 new GetRoomMeasureParameters
@@ -247,8 +246,7 @@ public class EnergyClient : IDisposable
             .WithVerb(HttpMethod.Post)
             .WithOAuthBearerToken(accessToken)
             .WithContentType("application/json")
-            .WithRequestJson(
-                new SyncHomeScheduleRequest(parameters.HomeId, parameters.ScheduleId, parameters.HgTemp, parameters.AwayTemp, Array.Empty<Timetable>(), Array.Empty<Zone>()))
+            .WithRequestJson(new SyncHomeScheduleRequest(parameters.HomeId, parameters.ScheduleId, parameters.HgTemp, parameters.AwayTemp, [], []))
             .Times(1);
     }
 

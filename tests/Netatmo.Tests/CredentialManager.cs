@@ -31,8 +31,7 @@ public class CredentialManager : IDisposable
         await sut.GenerateToken(
             "username@email.com",
             "p@$$W0rd",
-            new[]
-            {
+            [
                 Scope.CameraAccess,
                 Scope.CameraRead,
                 Scope.CameraWrite,
@@ -42,7 +41,7 @@ public class CredentialManager : IDisposable
                 Scope.StationRead,
                 Scope.StationWrite,
                 Scope.ThermostatRead
-            });
+            ]);
 
         var token = sut.CredentialToken;
 

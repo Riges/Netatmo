@@ -10,9 +10,8 @@ public class SyncHomeScheduleRequest
         Zones = new List<Zone>();
     }
 
-    public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, string name = null,
-        Timetable[] timetables = null, Zone[] zones = null) :
-        this()
+    public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, string name = null, Timetable[] timetables = null, Zone[] zones = null)
+        : this()
     {
         HomeId = homeId;
         ScheduleId = scheduleId;
@@ -20,18 +19,24 @@ public class SyncHomeScheduleRequest
         HgTemp = hgTemp;
         AwayTemp = awayTemp;
 
-        if (timetables != null) Timetables.AddRange(timetables);
+        if (timetables != null)
+        {
+            Timetables.AddRange(timetables);
+        }
 
-        if (zones != null) Zones.AddRange(zones);
+        if (zones != null)
+        {
+            Zones.AddRange(zones);
+        }
     }
 
-    public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, string name) :
-        this(homeId, scheduleId, hgTemp, awayTemp, name, null, null)
+    public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, string name)
+        : this(homeId, scheduleId, hgTemp, awayTemp, name, null)
     {
     }
 
-    public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, Timetable[] timetables, Zone[] zones) :
-        this(homeId, scheduleId, hgTemp, awayTemp, null, timetables, zones)
+    public SyncHomeScheduleRequest(string homeId, string scheduleId, double hgTemp, double awayTemp, Timetable[] timetables, Zone[] zones)
+        : this(homeId, scheduleId, hgTemp, awayTemp, null, timetables, zones)
     {
     }
 

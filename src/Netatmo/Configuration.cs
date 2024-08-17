@@ -6,14 +6,8 @@ namespace Netatmo;
 
 public static class Configuration
 {
-    public static JsonSerializerSettings JsonSerializer()
-    {
-        return new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            Converters = new List<JsonConverter> {new TimestampToInstantConverter(), new StringToDateTimeZoneConverter()}
-        };
-    }
+    public static JsonSerializerSettings JsonSerializer() =>
+        new() { NullValueHandling = NullValueHandling.Ignore, Converters = [new TimestampToInstantConverter(), new StringToDateTimeZoneConverter()] };
 
     public static void ConfigureRequest(FlurlHttpSettings settings)
     {
