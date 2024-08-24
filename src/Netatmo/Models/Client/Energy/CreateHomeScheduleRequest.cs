@@ -2,14 +2,8 @@ using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client.Energy;
 
-public class CreateHomeScheduleRequest
+public class CreateHomeScheduleRequest()
 {
-    public CreateHomeScheduleRequest()
-    {
-        Timetables = new List<Timetable>();
-        Zones = new List<Zone>();
-    }
-
     public CreateHomeScheduleRequest(string homeId, double hgTemp, double awayTemp, string name, Timetable[] timetables = null, Zone[] zones = null)
         : this()
     {
@@ -42,8 +36,8 @@ public class CreateHomeScheduleRequest
     public double AwayTemp { get; set; }
 
     [JsonProperty("timetable")]
-    public List<Timetable> Timetables { get; set; }
+    public List<Timetable> Timetables { get; set; } = [];
 
     [JsonProperty("zones")]
-    public List<Zone> Zones { get; set; }
+    public List<Zone> Zones { get; set; } = [];
 }
