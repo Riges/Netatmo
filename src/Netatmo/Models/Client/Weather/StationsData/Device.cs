@@ -28,9 +28,15 @@ public class Device
     {
         get
         {
-            if (WifiStatus <= 56) return WifiStrengthEnum.Good;
+            if (WifiStatus <= 56)
+            {
+                return WifiStrengthEnum.Good;
+            }
 
-            if (WifiStatus <= 71) return WifiStrengthEnum.Average;
+            if (WifiStatus <= 71)
+            {
+                return WifiStrengthEnum.Average;
+            }
 
             return WifiStrengthEnum.Bad;
         }

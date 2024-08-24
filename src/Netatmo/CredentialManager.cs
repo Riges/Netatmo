@@ -13,7 +13,7 @@ public class CredentialManager(string baseUrl, string clientId, string clientSec
 
     public async Task GenerateToken(string username, string password, Scope[] scopes = null)
     {
-        var scope = string.Join(" ", scopes?.Select(s => s.Value) ?? new string[0]);
+        var scope = string.Join(" ", scopes?.Select(s => s.Value) ?? []);
 
         // TODO : Handle not success status codes (rate limit exceeded, api down, ect)
         var token = await baseUrl.AppendPathSegment("/oauth2/token")
