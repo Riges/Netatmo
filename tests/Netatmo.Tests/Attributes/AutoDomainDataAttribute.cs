@@ -6,11 +6,12 @@ using NodaTime.Testing;
 
 namespace Netatmo.Tests.Attributes;
 
-public class AutoDomainDataAttribute() : AutoDataAttribute(
-    () => new Fixture().Customize(new AutoNSubstituteCustomization { ConfigureMembers = true })
-        .Customize(new ClockCustomization())
-        .Customize(new CredentialManagerCustomization())
-        .Customize(new ClientsCustomization()));
+public class AutoDomainDataAttribute()
+    : AutoDataAttribute(
+        () => new Fixture().Customize(new AutoNSubstituteCustomization { ConfigureMembers = true })
+            .Customize(new ClockCustomization())
+            .Customize(new CredentialManagerCustomization())
+            .Customize(new ClientsCustomization()));
 
 public class ClockCustomization : ICustomization
 {
