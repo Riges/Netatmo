@@ -1,15 +1,15 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Energy.HomeStatus;
 
 public class Home
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("modules")]
+    [JsonPropertyName("modules")]
     public Module[] Modules { get; set; }
 
-    [JsonProperty("rooms")]
+    [JsonPropertyName("rooms")]
     public Room[] Rooms { get; set; }
 }

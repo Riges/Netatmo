@@ -1,45 +1,45 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NodaTime;
 
 namespace Netatmo.Models.Client.Weather.StationsData.DashboardData;
 
 public class BaseStationDashBoardData : DashBoardData, ICO2DashBoardData, IHumidityDashBoardData, ITemperatureDashBoardData, INoiseDashBoardData, IPressureDashBoardData
 {
-    [JsonProperty("CO2")]
+    [JsonPropertyName("CO2")]
     public int CO2 { get; set; }
 
-    [JsonProperty("Humidity")]
+    [JsonPropertyName("Humidity")]
     public int HumidityPercent { get; set; }
 
-    [JsonProperty("Noise")]
+    [JsonPropertyName("Noise")]
     public double Noise { get; set; }
 
-    [JsonProperty("AbsolutePressure")]
+    [JsonPropertyName("AbsolutePressure")]
     public double AbsolutePressure { get; set; }
 
-    [JsonProperty("Pressure")]
+    [JsonPropertyName("Pressure")]
     public double Pressure { get; set; }
 
     // pressure_trend for last 12h (up, down, stable)
-    [JsonProperty("pressure_trend")]
+    [JsonPropertyName("pressure_trend")]
     public string PressureTrend { get; set; }
 
-    [JsonProperty("Temperature")]
+    [JsonPropertyName("Temperature")]
     public double Temperature { get; set; }
 
     // temp_trend for last 12h (up, down, stable)
-    [JsonProperty("temp_trend")]
+    [JsonPropertyName("temp_trend")]
     public string TempTrend { get; set; }
 
-    [JsonProperty("min_temp")]
+    [JsonPropertyName("min_temp")]
     public double MinTemp { get; set; }
 
-    [JsonProperty("max_temp")]
+    [JsonPropertyName("max_temp")]
     public double MaxTemp { get; set; }
 
-    [JsonProperty("date_min_temp")]
+    [JsonPropertyName("date_min_temp")]
     public Instant MinTempAt { get; set; }
 
-    [JsonProperty("date_max_temp")]
+    [JsonPropertyName("date_max_temp")]
     public Instant MaxTempAt { get; set; }
 }

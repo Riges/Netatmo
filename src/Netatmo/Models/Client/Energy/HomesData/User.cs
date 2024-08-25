@@ -1,31 +1,31 @@
+using System.Text.Json.Serialization;
 using Netatmo.Enums;
-using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client.Energy.HomesData;
 
 public class User
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("email")]
+    [JsonPropertyName("email")]
     public string Email { get; set; }
 
-    [JsonProperty("language")]
+    [JsonPropertyName("language")]
     public string Language { get; set; }
 
-    [JsonProperty("locale")]
+    [JsonPropertyName("locale")]
     public string Locale { get; set; }
 
-    [JsonProperty("feel_like_algorithm")]
+    [JsonPropertyName("feel_like_algorithm")]
     public FeelLikeAlgoEnum FeelLikeAlgorithm { get; set; }
 
-    [JsonProperty("unit_pressure")]
+    [JsonPropertyName("unit_pressure")]
     public PressureUnitEnum PressureUnit { get; set; }
 
-    [JsonProperty("unit_system")]
+    [JsonPropertyName("unit_system")]
     public UnitEnum Unit { get; set; }
 
-    [JsonProperty("unit_wind")]
+    [JsonPropertyName("unit_wind")]
     public WindUnitEnum WindUnit { get; set; }
 }

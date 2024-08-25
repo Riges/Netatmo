@@ -1,4 +1,5 @@
 using AutoFixture.Xunit2;
+using Flurl.Http;
 using Flurl.Http.Testing;
 using Netatmo.Enums;
 using Netatmo.Models.Client;
@@ -17,7 +18,7 @@ public class EnergyClientTest : IDisposable
     public EnergyClientTest()
     {
         httpTest = new HttpTest();
-        httpTest.Configure(Configuration.ConfigureRequest);
+        httpTest.WithSettings(Configuration.ConfigureRequest);
     }
 
     public void Dispose()
@@ -133,10 +134,9 @@ public class EnergyClientTest : IDisposable
         var result = await sut.GetRoomMeasure<TemperatureStep>(parameters);
 
         httpTest.ShouldHaveCalled("https://api.netatmo.local/api/getroommeasure")
-            .WithVerb(HttpMethod.Post)
+            .WithVerb(HttpMethod.Get)
             .WithOAuthBearerToken(credentialManager.AccessToken)
-            .WithContentType("application/json")
-            .WithRequestJson(new GetRoomMeasureRequest { HomeId = parameters.HomeId, RoomId = parameters.RoomId, Scale = parameters.Scale.Value, Type = parameters.Type.Value })
+            .WithQueryParams(new { home_id = parameters.HomeId, room_id = parameters.RoomId, scale = parameters.Scale.Value, type = parameters.Type.Value })
             .Times(1);
 
         result.Body[0].BeginAt.Should().Be(Instant.FromDateTimeUtc(DateTime.SpecifyKind(new DateTime(2017, 12, 14, 13, 45, 0), DateTimeKind.Utc)));

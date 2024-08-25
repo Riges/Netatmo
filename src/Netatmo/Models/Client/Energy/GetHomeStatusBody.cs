@@ -1,10 +1,10 @@
+using System.Text.Json.Serialization;
 using Netatmo.Models.Client.Energy.HomeStatus;
-using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client.Energy;
 
 public class GetHomeStatusBody
 {
-    [JsonProperty("home")]
+    [JsonPropertyName("home")]
     public Home Home { get; set; }
 }

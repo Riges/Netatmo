@@ -1,4 +1,5 @@
 using System.Net.Mail;
+using System.Text.Json.Serialization;
 using AutoFixture.Xunit2;
 using Flurl.Http.Testing;
 using Netatmo.Models;
@@ -118,8 +119,8 @@ public class CredentialManagerTest : IDisposable
         refreshedToken.Should().NotBe(oldToken);
     }
 
-    public record TokenResponse(string AccessToken, uint ExpiresIn, string RefreshToken)
-    {
-        public override string ToString() => $"{{ access_token = {AccessToken}, expires_in = {ExpiresIn}, refresh_token = {RefreshToken} }}";
-    }
+    public record TokenResponse(
+        [property: JsonPropertyName("access_token")] string AccessToken,
+        [property: JsonPropertyName("expires_in")] uint ExpiresIn,
+        [property: JsonPropertyName("refresh_token")] string RefreshToken);
 }

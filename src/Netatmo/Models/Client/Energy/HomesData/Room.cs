@@ -1,24 +1,24 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Energy.HomesData;
 
 public class Room
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type { get; set; }
 
-    [JsonProperty("measure_offset_NAPlug_estimated_temperature")]
+    [JsonPropertyName("measure_offset_NAPlug_estimated_temperature")]
     public double MeasureOffsetNaPlugEstimatedTemperature { get; set; }
 
-    [JsonProperty("measure_offset_NAPlug_temperature")]
+    [JsonPropertyName("measure_offset_NAPlug_temperature")]
     public double MeasureOffsetNaPlugTemperature { get; set; }
 
-    [JsonProperty("module_ids")]
+    [JsonPropertyName("module_ids")]
     public string[] ModuleIds { get; set; }
 }

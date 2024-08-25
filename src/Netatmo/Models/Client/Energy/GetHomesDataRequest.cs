@@ -1,12 +1,12 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Energy;
 
 public class GetHomesDataRequest
 {
-    [JsonProperty("home_id")]
+    [JsonPropertyName("home_id")]
     public string HomeId { get; set; }
 
-    [JsonProperty("gateway_types")]
+    [JsonPropertyName("gateway_types")]
     public string GatewayTypes { get; set; }
 }

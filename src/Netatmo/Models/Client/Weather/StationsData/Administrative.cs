@@ -1,28 +1,28 @@
+using System.Text.Json.Serialization;
 using Netatmo.Enums;
-using Newtonsoft.Json;
 
 namespace Netatmo.Models.Client.Weather.StationsData;
 
 public class Administrative
 {
-    [JsonProperty("country")]
+    [JsonPropertyName("country")]
     public string Country { get; set; }
 
-    [JsonProperty("feel_like_algo")]
+    [JsonPropertyName("feel_like_algo")]
     public FeelLikeAlgoEnum FeelLikeAlgo { get; set; }
 
-    [JsonProperty("lang")]
+    [JsonPropertyName("lang")]
     public string Lang { get; set; }
 
-    [JsonProperty("pressureunit")]
+    [JsonPropertyName("pressureunit")]
     public PressureUnitEnum PressureUnit { get; set; }
 
-    [JsonProperty("reg_locale")]
+    [JsonPropertyName("reg_locale")]
     public string RegLocale { get; set; }
 
-    [JsonProperty("unit")]
+    [JsonPropertyName("unit")]
     public UnitEnum Unit { get; set; }
 
-    [JsonProperty("windunit")]
+    [JsonPropertyName("windunit")]
     public WindUnitEnum WindUnit { get; set; }
 }

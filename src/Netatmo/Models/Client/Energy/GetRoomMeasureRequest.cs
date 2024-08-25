@@ -1,34 +1,34 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NodaTime;
 
 namespace Netatmo.Models.Client.Energy;
 
 public class GetRoomMeasureRequest
 {
-    [JsonProperty("home_id")]
+    [JsonPropertyName("home_id")]
     public string HomeId { get; set; }
 
-    [JsonProperty("room_id")]
+    [JsonPropertyName("room_id")]
     public string RoomId { get; set; }
 
-    [JsonProperty("scale")]
+    [JsonPropertyName("scale")]
     public string Scale { get; set; }
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type { get; set; }
 
-    [JsonProperty("date_begin")]
+    [JsonPropertyName("date_begin")]
     public Instant? BeginAt { get; set; }
 
-    [JsonProperty("date_end")]
+    [JsonPropertyName("date_end")]
     public Instant? EndAt { get; set; }
 
-    [JsonProperty("limit")]
+    [JsonPropertyName("limit")]
     public int? Limit { get; set; }
 
-    [JsonProperty("optimize")]
+    [JsonPropertyName("optimize")]
     public bool? Optimize { get; set; }
 
-    [JsonProperty("real_time")]
+    [JsonPropertyName("real_time")]
     public bool? RealTime { get; set; }
 }

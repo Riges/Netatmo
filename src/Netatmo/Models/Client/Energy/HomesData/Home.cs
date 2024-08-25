@@ -1,40 +1,40 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NodaTime;
 
 namespace Netatmo.Models.Client.Energy.HomesData;
 
 public class Home
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("country")]
+    [JsonPropertyName("country")]
     public string Country { get; set; }
 
-    [JsonProperty("timezone")]
+    [JsonPropertyName("timezone")]
     public DateTimeZone Timezone { get; set; }
 
-    [JsonProperty("schedules")]
+    [JsonPropertyName("schedules")]
     public Schedule[] Schedules { get; set; }
 
-    [JsonProperty("coordinates")]
+    [JsonPropertyName("coordinates")]
     public double[] Coordinates { get; set; }
 
-    [JsonProperty("therm_setpoint_default_duration")]
+    [JsonPropertyName("therm_setpoint_default_duration")]
     public int ThermSetpointDefaultDuration { get; set; }
 
-    [JsonProperty("therm_mode")]
+    [JsonPropertyName("therm_mode")]
     public string ThermMode { get; set; }
 
-    [JsonProperty("therm_mode_endtime")]
+    [JsonPropertyName("therm_mode_endtime")]
     public Instant? ThermModeEndtime { get; set; }
 
-    [JsonProperty("rooms")]
+    [JsonPropertyName("rooms")]
     public Room[] Rooms { get; set; }
 
-    [JsonProperty("modules")]
+    [JsonPropertyName("modules")]
     public Module[] Modules { get; set; }
 }

@@ -7,7 +7,7 @@ namespace Netatmo;
 public class WeatherClient(string baseUrl, ICredentialManager credentialManager) : IWeatherClient
 {
     public Task<DataResponse<GetStationsDataBody>> GetStationsData(string deviceId = null, bool? onlyFavorites = null) =>
-        baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/getstationsdata")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(new GetStationsDataRequest { DeviceId = deviceId, GetFavorites = onlyFavorites })

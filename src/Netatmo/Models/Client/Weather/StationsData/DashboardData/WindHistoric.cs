@@ -1,16 +1,16 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NodaTime;
 
 namespace Netatmo.Models.Client.Weather.StationsData.DashboardData;
 
 public class WindHistoric : IWindHistory
 {
-    [JsonProperty("WindStrength")]
+    [JsonPropertyName("WindStrength")]
     public int WindStrength { get; set; }
 
-    [JsonProperty("WindAngle")]
+    [JsonPropertyName("WindAngle")]
     public int WindAngle { get; set; }
 
-    [JsonProperty("time_utc")]
+    [JsonPropertyName("time_utc")]
     public Instant TimeUtc { get; set; }
 }

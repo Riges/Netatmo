@@ -1,11 +1,13 @@
-﻿using Flurl.Http;
+﻿using System.Text.Json;
+using Flurl.Http;
 using Netatmo;
 using Netatmo.Models.Client.Energy;
 using Netatmo.Models.Client.Energy.RoomMeasure;
-using Newtonsoft.Json;
 using NodaTime;
 
-JsonConvert.DefaultSettings = Configuration.JsonSerializer;
+var jsonSerializerOptions = Configuration.JsonSerializerOptions;
+jsonSerializerOptions.WriteIndented = true;
+
 
 var client = new Client(
     SystemClock.Instance,
@@ -36,18 +38,18 @@ Console.WriteLine($"Token : {token.AccessToken}");
 
 Console.WriteLine("Stations data :");
 var stationsData = await client.Weather.GetStationsData();
-Console.WriteLine(JsonConvert.SerializeObject(stationsData, Formatting.Indented));
+Console.WriteLine(JsonSerializer.Serialize(stationsData, jsonSerializerOptions));
 
 Console.WriteLine("Energy Homes data :");
 var homesData = await client.Energy.GetHomesData();
-Console.WriteLine(JsonConvert.SerializeObject(homesData, Formatting.Indented));
+Console.WriteLine(JsonSerializer.Serialize(homesData, jsonSerializerOptions));
 
 Console.WriteLine("Energy Homes data :");
 foreach (var home in homesData.Body.Homes)
 {
     Console.WriteLine(home.Name);
     var homeStatus = await client.Energy.GetHomeStatus(home.Id);
-    Console.WriteLine(JsonConvert.SerializeObject(homeStatus, Formatting.Indented));
+    Console.WriteLine(JsonSerializer.Serialize(homeStatus, jsonSerializerOptions));
 
     Console.WriteLine("Energy room measure :");
     foreach (var room in home.Rooms)
@@ -71,7 +73,7 @@ foreach (var home in homesData.Body.Homes)
         try
         {
             var roomMeasure = await client.Energy.GetRoomMeasure<TemperatureStep>(parameters);
-            Console.WriteLine(JsonConvert.SerializeObject(roomMeasure, Formatting.Indented));
+            Console.WriteLine(JsonSerializer.Serialize(roomMeasure, jsonSerializerOptions));
         }
         catch (FlurlHttpException exception)
         {

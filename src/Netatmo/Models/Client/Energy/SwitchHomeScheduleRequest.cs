@@ -1,12 +1,12 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Energy;
 
 public class SwitchHomeScheduleRequest
 {
-    [JsonProperty("home_id")]
+    [JsonPropertyName("home_id")]
     public string HomeId { get; set; }
 
-    [JsonProperty("schedule_id")]
+    [JsonPropertyName("schedule_id")]
     public string ScheduleId { get; set; }
 }
