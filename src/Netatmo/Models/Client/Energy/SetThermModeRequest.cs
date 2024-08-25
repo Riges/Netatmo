@@ -1,16 +1,16 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NodaTime;
 
 namespace Netatmo.Models.Client.Energy;
 
 public class SetThermModeRequest
 {
-    [JsonProperty("home_id")]
+    [JsonPropertyName("home_id")]
     public string HomeId { get; set; }
 
-    [JsonProperty("mode")]
+    [JsonPropertyName("mode")]
     public string Mode { get; set; }
 
-    [JsonProperty("endtime")]
+    [JsonPropertyName("endtime")]
     public Instant? EndTime { get; set; }
 }

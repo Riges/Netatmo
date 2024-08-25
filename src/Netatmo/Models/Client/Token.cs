@@ -1,8 +1,8 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client;
 
 public record Token(
-    [property: JsonProperty("expires_in")] int ExpiresIn,
-    [property: JsonProperty("access_token")] string AccessToken,
-    [property: JsonProperty("refresh_token")] string RefreshToken);
+    [property: JsonPropertyName("expires_in")] int ExpiresIn,
+    [property: JsonPropertyName("access_token")] string AccessToken,
+    [property: JsonPropertyName("refresh_token")] string RefreshToken);

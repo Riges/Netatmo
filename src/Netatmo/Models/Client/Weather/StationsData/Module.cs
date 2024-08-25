@@ -1,25 +1,26 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Netatmo.Enums;
 using Netatmo.Models.Client.Weather.StationsData.DashboardData;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NodaTime;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Netatmo.Models.Client.Weather.StationsData;
 
 public class Module
 {
-    [JsonProperty("_id")]
+    [JsonPropertyName("_id")]
     public string Id { get; set; }
 
     // NAMain: Base station, NAModule1: Outdoor Module, NAModule2: Wind Gauge, NAModule3: Rain Gauge, NAModule4: Optional indoor module
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type { get; set; }
 
-    [JsonProperty("module_name")]
+    [JsonPropertyName("module_name")]
     public string ModuleName { get; set; }
 
     // Current radio status per module. (90=low, 60=highest)
-    [JsonProperty("rf_status")]
+    [JsonPropertyName("rf_status")]
     public int RfStatus { get; set; }
 
     public RfStrengthEnum RfStrength
@@ -46,10 +47,10 @@ public class Module
     }
 
     // Percentage of battery remaining (10=low)
-    [JsonProperty("battery_percent")]
+    [JsonPropertyName("battery_percent")]
     public int BatteryPercent { get; set; }
 
-    [JsonProperty("battery_vp")]
+    [JsonPropertyName("battery_vp")]
     public int BatteryVp { get; set; }
 
     public BatteryLevelEnum BatteryStatus
@@ -106,55 +107,43 @@ public class Module
         }
     }
 
-    [JsonProperty("firmware")]
+    [JsonPropertyName("firmware")]
     public int Firmware { get; set; }
 
-    [JsonProperty("last_message")]
+    [JsonPropertyName("last_message")]
     public Instant LastMessageAt { get; set; }
 
-    [JsonProperty("last_seen")]
+    [JsonPropertyName("last_seen")]
     public Instant LastSeenAt { get; set; }
 
-    [JsonProperty("last_setup")]
+    [JsonPropertyName("last_setup")]
     public Instant LastSetupAt { get; set; }
 
-    [JsonProperty("data_type")]
+    [JsonPropertyName("data_type")]
     public string[] DataType { get; set; }
 
-    [JsonProperty("dashboard_data")]
-    public JObject DashboardData { get; set; }
+    [JsonPropertyName("dashboard_data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public JsonElement DashboardData { get; set; }
 
     public T GetDashboardData<T>()
         where T : IDashBoardData
     {
-        Type expectedType;
-        switch (Type)
+        var expectedType = Type switch
         {
-            case "NAMain":
-                expectedType = typeof(BaseStationDashBoardData);
-                break;
-            case "NAModule1":
-                expectedType = typeof(OutdoorDashBoardData);
-                break;
-            case "NAModule2":
-                expectedType = typeof(WindGaugeDashBoardData);
-                break;
-            case "NAModule3":
-                expectedType = typeof(RainGaugeDashBoardData);
-                break;
-            case "NAModule4":
-                expectedType = typeof(IndoorDashBoardData);
-                break;
-            default:
-                expectedType = typeof(DashBoardData);
-                break;
-        }
+            "NAMain" => typeof(BaseStationDashBoardData),
+            "NAModule1" => typeof(OutdoorDashBoardData),
+            "NAModule2" => typeof(WindGaugeDashBoardData),
+            "NAModule3" => typeof(RainGaugeDashBoardData),
+            "NAModule4" => typeof(IndoorDashBoardData),
+            _ => typeof(DashBoardData)
+        };
 
         if (expectedType != typeof(T))
         {
             throw new ArgumentException($"{expectedType.Name} should be expected");
         }
 
-        return JsonConvert.DeserializeObject<T>(DashboardData.ToString(), Configuration.JsonSerializer());
+        return JsonSerializer.Deserialize<T>(DashboardData.ToString(), Configuration.JsonSerializerOptions);
     }
 }

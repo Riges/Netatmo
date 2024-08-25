@@ -1,12 +1,12 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Weather;
 
 public class GetStationsDataRequest
 {
-    [JsonProperty("device_id")]
+    [JsonPropertyName("device_id")]
     public string DeviceId { get; set; }
 
-    [JsonProperty("get_favorites")]
+    [JsonPropertyName("get_favorites")]
     public bool? GetFavorites { get; set; }
 }

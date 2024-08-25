@@ -1,16 +1,16 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NodaTime;
 
 namespace Netatmo.Models.Client.Energy.RoomMeasure;
 
 public abstract class Step<T> : IStep
 {
-    [JsonProperty("beg_time")]
+    [JsonPropertyName("beg_time")]
     public Instant BeginAt { get; set; }
 
-    [JsonProperty("step_time")]
+    [JsonPropertyName("step_time")]
     public int StepTime { get; set; }
 
-    [JsonProperty("value")]
+    [JsonPropertyName("value")]
     public T[][] Values { get; set; }
 }

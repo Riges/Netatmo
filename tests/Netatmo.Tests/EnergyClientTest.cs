@@ -1,4 +1,5 @@
 using AutoFixture.Xunit2;
+using Flurl.Http;
 using Flurl.Http.Testing;
 using Netatmo.Enums;
 using Netatmo.Models.Client;
@@ -17,7 +18,7 @@ public class EnergyClientTest : IDisposable
     public EnergyClientTest()
     {
         httpTest = new HttpTest();
-        httpTest.Configure(Configuration.ConfigureRequest);
+        httpTest.WithSettings(Configuration.ConfigureRequest);
     }
 
     public void Dispose()

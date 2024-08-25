@@ -1,32 +1,32 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Energy.HomesData;
 
 public class Schedule
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type { get; set; }
 
     // Away temperature value
-    [JsonProperty("away_temp")]
+    [JsonPropertyName("away_temp")]
     public double AwayTemp { get; set; }
 
     // Frostguard temperature value
-    [JsonProperty("hg_temp")]
+    [JsonPropertyName("hg_temp")]
     public double HgTemp { get; set; }
 
-    [JsonProperty("selected")]
+    [JsonPropertyName("selected")]
     public bool Selected { get; set; }
 
-    [JsonProperty("timetables")]
+    [JsonPropertyName("timetables")]
     public Timetable[] Timetables { get; set; }
 
-    [JsonProperty("zones")]
+    [JsonPropertyName("zones")]
     public Zone[] Zones { get; set; }
 }

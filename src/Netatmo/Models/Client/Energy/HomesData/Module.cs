@@ -1,29 +1,29 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NodaTime;
 
 namespace Netatmo.Models.Client.Energy.HomesData;
 
 public class Module
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     // NATherm1 = thermostat, NRV = valve, NAPlug = relay, NACamera = welcome camera, NOC = presence camera
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type { get; set; }
 
-    [JsonProperty("setup_date")]
+    [JsonPropertyName("setup_date")]
     public Instant SetupAt { get; set; }
 
-    [JsonProperty("modules_bridged")]
+    [JsonPropertyName("modules_bridged")]
     public string[] ModulesBridged { get; set; }
 
-    [JsonProperty("bridge")]
+    [JsonPropertyName("bridge")]
     public string Bridge { get; set; }
 
-    [JsonProperty("room_id")]
+    [JsonPropertyName("room_id")]
     public string RoomId { get; set; }
 }

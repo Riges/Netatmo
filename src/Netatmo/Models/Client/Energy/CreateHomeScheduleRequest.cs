@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Energy;
 
@@ -23,21 +23,21 @@ public class CreateHomeScheduleRequest()
         }
     }
 
-    [JsonProperty("home_id")]
+    [JsonPropertyName("home_id")]
     public string HomeId { get; set; }
 
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("hg_temp")]
+    [JsonPropertyName("hg_temp")]
     public double HgTemp { get; set; }
 
-    [JsonProperty("away_temp")]
+    [JsonPropertyName("away_temp")]
     public double AwayTemp { get; set; }
 
-    [JsonProperty("timetable")]
+    [JsonPropertyName("timetable")]
     public List<Timetable> Timetables { get; set; } = [];
 
-    [JsonProperty("zones")]
+    [JsonPropertyName("zones")]
     public List<Zone> Zones { get; set; } = [];
 }

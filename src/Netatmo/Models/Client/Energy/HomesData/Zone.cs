@@ -1,18 +1,18 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Netatmo.Models.Client.Energy.HomesData;
 
 public class Zone : Energy.Zone
 {
-    [JsonProperty("rooms_temp")]
+    [JsonPropertyName("rooms_temp")]
     public RoomTemp[] RoomsTemp { get; set; }
 
     public class RoomTemp
     {
-        [JsonProperty("room_id")]
+        [JsonPropertyName("room_id")]
         public string RoomId { get; set; }
 
-        [JsonProperty("temp")]
+        [JsonPropertyName("temp")]
         public double Temp { get; set; }
     }
 }

@@ -9,28 +9,28 @@ namespace Netatmo;
 public class EnergyClient(string baseUrl, ICredentialManager credentialManager) : IEnergyClient
 {
     public Task<DataResponse<GetHomesDataBody>> GetHomesData(string homeId = null, string gatewayTypes = null) =>
-        baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/homesdata")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(new GetHomesDataRequest { HomeId = homeId, GatewayTypes = gatewayTypes })
             .ReceiveJson<DataResponse<GetHomesDataBody>>();
 
     public async Task<DataResponse<GetHomeStatusBody>> GetHomeStatus(string homeId, string[] deviceTypes = null) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/homestatus")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(new GetHomeStatusRequest { HomeId = homeId, DeviceTypes = deviceTypes })
             .ReceiveJson<DataResponse<GetHomeStatusBody>>();
 
     public async Task<DataResponse> SetThermMode(string homeId, string mode, Instant? endTime = null) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/setthermmode")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(new SetThermModeRequest { HomeId = homeId, Mode = mode, EndTime = endTime })
             .ReceiveJson<DataResponse>();
 
     public async Task<DataResponse> SetRoomThermPoint(string homeId, string roomId, string mode, double? temp = null, Instant? endTime = null) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/setroomthermpoint")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(
@@ -49,55 +49,55 @@ public class EnergyClient(string baseUrl, ICredentialManager credentialManager) 
     {
         ValidateGetRoomMeasureParameters<T>(parameters);
 
-        return await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        return await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/getroommeasure")
             .WithOAuthBearerToken(credentialManager.AccessToken)
-            .PostJsonAsync(
-                new GetRoomMeasureRequest
+            .SetQueryParams(
+                new
                 {
-                    HomeId = parameters.HomeId,
-                    RoomId = parameters.RoomId,
-                    Scale = parameters.Scale.Value,
-                    Type = parameters.Type.Value,
-                    BeginAt = parameters.BeginAt,
-                    EndAt = parameters.EndAt,
-                    Limit = parameters.Limit,
-                    Optimize = parameters.Optimize,
-                    RealTime = parameters.RealTime
+                    home_id = parameters.HomeId,
+                    room_id = parameters.RoomId,
+                    scale = parameters.Scale.Value,
+                    type = parameters.Type.Value,
+                    date_begin = parameters.BeginAt?.ToUnixTimeSeconds(),
+                    date_end = parameters.EndAt?.ToUnixTimeSeconds(),
+                    limit = parameters.Limit,
+                    optimize = parameters.Optimize,
+                    real_time = parameters.RealTime
                 })
-            .ReceiveJson<DataResponse<T[]>>();
+            .GetJsonAsync<DataResponse<T[]>>();
     }
 
     public async Task<DataResponse> SwitchHomeSchedule(string homeId, string scheduleId) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/switchhomeschedule")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(new SwitchHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId })
             .ReceiveJson<DataResponse>();
 
     public async Task<DataResponse> RenameHomeSchedule(string homeId, string scheduleId, string name) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/renamehomeschedule")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(new RenameHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId, Name = name })
             .ReceiveJson<DataResponse>();
 
     public async Task<DataResponse> DeleteHomeSchedule(string homeId, string scheduleId) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/deletehomeschedule")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(new DeleteHomeScheduleRequest { HomeId = homeId, ScheduleId = scheduleId })
             .ReceiveJson<DataResponse>();
 
     public async Task<DataResponse> SyncHomeSchedule(SyncHomeScheduleRequest requestParameters) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/synchomeschedule")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(requestParameters)
             .ReceiveJson<DataResponse>();
 
     public async Task<CreateHomeScheduleResponse> CreateHomeSchedule(CreateHomeScheduleRequest requestParameters) =>
-        await baseUrl.ConfigureRequest(Configuration.ConfigureRequest)
+        await baseUrl.WithSettings(Configuration.ConfigureRequest)
             .AppendPathSegment("/api/createnewhomeschedule")
             .WithOAuthBearerToken(credentialManager.AccessToken)
             .PostJsonAsync(requestParameters)
