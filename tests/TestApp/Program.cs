@@ -64,7 +64,7 @@ foreach (var home in homesData.Body.Homes)
         {
             HomeId = home.Id,
             RoomId = room.Id,
-            Scale = Scale.OneMonth,
+            Scale = Scale.Max,
             Type = ThermostatMeasurementType.Temperature,
             BeginAt = SystemClock.Instance.GetCurrentInstant().Plus(Duration.FromDays(-1)),
             EndAt = SystemClock.Instance.GetCurrentInstant()
