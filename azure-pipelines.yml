@@ -44,7 +44,7 @@ jobs:
         displayName: "Use .NET Core SDK Tool Installer"
         inputs:
           packageType: "sdk"
-          version: "3.1.101"
+          version: "9.0.100"
       - script: dotnet restore src
         displayName: Restore packages
       - script: |
