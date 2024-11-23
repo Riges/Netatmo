@@ -12,6 +12,14 @@ public class Client : IClient
         Air = new AirClient(baseUrl, CredentialManager);
     }
 
+    public Client(ICredentialManager credentialManager, IWeatherClient weatherClient, IEnergyClient energyClient, IAirClient airClient)
+    {
+        CredentialManager = credentialManager;
+        Weather = weatherClient;
+        Energy = energyClient;
+        Air = airClient;
+    }
+
     public IWeatherClient Weather { get; }
     public IEnergyClient Energy { get; }
     public IAirClient Air { get; }
