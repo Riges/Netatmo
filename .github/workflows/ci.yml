@@ -35,7 +35,7 @@ jobs:
     name: Create Package nuget
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.event.created == true && github.event.compare != '' && github.ref != ''
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Dump GitHub context
         env:
@@ -59,24 +59,11 @@ jobs:
           name: Netatmo.${{ env.TAG }}.nupkg
           path: src/Netatmo/bin/Release/Netatmo.${{ env.TAG }}.nupkg
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.TAG }}
-          release_name: Release ${{ env.TAG }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/
-          asset_path: src/Netatmo/bin/Release/Netatmo.${{ env.TAG }}.nupkg
-          asset_name: Netatmo.${{ env.TAG }}.nupkg
-          asset_content_type: application/zip
+          files: |
+            src/Netatmo/bin/Release/Netatmo.${{ env.TAG }}.nupkg
+          name: Release ${{ env.TAG }}
+          generate_release_notes: true
       - name: Push package
         run: dotnet nuget push src/Netatmo/bin/Release/Netatmo.$TAG.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
