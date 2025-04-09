@@ -1,4 +1,4 @@
-name-template: "v$RESOLVED_VERSION"
+name-template: "Release $RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 template: |
   # What's Changed
@@ -9,72 +9,74 @@ template: |
 
 categories:
   - title: "⚠️ Breaking"
-    label: "type: breaking"
+    label: "breaking"
   - title: "🚀 Features"
-    label: "type: feature"
+    labels:
+      - "feature"
+      - "enhancement"
   - title: "🐛 Bug Fixes"
-    label: "type: bug"
+    label: "bug"
   - title: "🧰 Maintenance"
     labels:
-      - "type: maintenance"
-      - "type: chore"
-      - "type: refactor"
-      - "type: test"
+      - "maintenance"
+      - "chore"
+      - "refactor"
+      - "test"
   - title: "📖 Documentation"
-    label: "type: docs"
+    label: "docs"
   - title: "Other changes"
   - title: "⬆️ Dependency Updates"
-    label: "type: dependencies"
+    label: "dependencies"
     collapse-after: 5
 
 version-resolver:
   major:
     labels:
-      - "type: breaking"
+      - "breaking"
   minor:
     labels:
-      - "type: feature"
+      - "feature"
   patch:
     labels:
-      - "type: bug"
-      - "type: chore"
-      - "type: maintenance"
-      - "type: docs"
-      - "type: dependencies"
-      - "type: security"
+      - "bug"
+      - "chore"
+      - "maintenance"
+      - "docs"
+      - "dependencies"
+      - "security"
   default: patch
 exclude-labels:
   - "skip-changelog"
 
 autolabeler:
-  - label: "type: breaking"
+  - label: "breaking"
     title:
       - "(?i)^feat!:.*"
       - "(?i)^BREAKING CHANGE:.*"
-  - label: "type: feature"
+  - label: "feature"
     title:
       - "(?i)^feat:.*"
-  - label: "type: bug"
+  - label: "bug"
     title:
       - "(?i)^fix:.*"
-  - label: "type: chore"
+  - label: "chore"
     title:
       - "(?i)^chore:.*"
-  - label: "type: dependencies"
+  - label: "dependencies"
     title:
       - "(?i)^deps:.*"
-  - label: "type: docs"
+  - label: "docs"
     title:
       - "(?i)^docs:.*"
-  - label: "type: maintenance"
+  - label: "maintenance"
     title:
       - "(?i)^ci:.*"
-  - label: "type: refactor"
+  - label: "refactor"
     title:
       - "(?i)^refactor:.*"
-  - label: "type: test"
+  - label: "test"
     title:
       - "(?i)^test:.*"
-  - label: "type: performance"
+  - label: "performance"
     title:
       - "(?i)^perf:.*"
