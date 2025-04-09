@@ -18,7 +18,7 @@
 	//		}
 	// }
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "dotnet restore",
+	"postCreateCommand": "dotnet restore --locked-mode",
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
@@ -30,11 +30,11 @@
 				"ms-vscode.csharp"
 			]
 		}
-  },
-  "tasks": {
-    "build": "dotnet restore --locked-mode && dotnet build --configuration Release",
-    "test": "dotnet restore --locked-mode && dotnet test --configuration Release"
-  }
+	},
+	"tasks": {
+		"build": "dotnet restore && dotnet build --configuration Release",
+		"test": "dotnet restore && dotnet test --configuration Release"
+	}
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
