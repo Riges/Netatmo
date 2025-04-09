@@ -22,7 +22,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
+          cache: true
       - name: Restore packages
-        run: dotnet restore
+        run: dotnet restore --locked-mode
       - name: Test
         run: dotnet test --configuration Release
