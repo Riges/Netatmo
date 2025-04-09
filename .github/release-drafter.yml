@@ -20,7 +20,7 @@ categories:
       - "type: chore"
       - "type: refactor"
       - "type: test"
-  - title: "📚 Documentation"
+  - title: "📖 Documentation"
     label: "type: docs"
   - title: "Other changes"
   - title: "⬆️ Dependency Updates"
