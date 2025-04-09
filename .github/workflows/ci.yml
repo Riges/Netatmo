@@ -30,19 +30,20 @@ jobs:
         run: dotnet restore
       - name: Test
         run: dotnet test --configuration Release
+
   build:
     name: Create Package nuget
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.event.created == true && github.event.compare != '' && github.ref != ''
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Get the version
-        id: vars
-        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+        run: |
+          echo "TAG=${GITHUB_REF:10}" >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
@@ -51,31 +52,18 @@ jobs:
       - name: Restore packages
         run: dotnet restore
       - name: Build and create package nuget
-        run: dotnet pack -c Release -p:PackageVersion=${{steps.vars.outputs.tag}}
+        run: dotnet pack -c Release -p:PackageVersion=$TAG
       - name: Publish artifact
         uses: actions/upload-artifact@master
         with:
-          name: Netatmo.${{steps.vars.outputs.tag}}.nupkg
-          path: src/Netatmo/bin/Release/Netatmo.${{steps.vars.outputs.tag}}.nupkg
+          name: Netatmo.${{ env.TAG }}.nupkg
+          path: src/Netatmo/bin/Release/Netatmo.${{ env.TAG }}.nupkg
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{steps.vars.outputs.tag}}
-          release_name: Release ${{steps.vars.outputs.tag}}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: src/Netatmo/bin/Release/Netatmo.${{steps.vars.outputs.tag}}.nupkg
-          asset_name: Netatmo.${{steps.vars.outputs.tag}}.nupkg
-          asset_content_type: application/zip
+          files: |
+            src/Netatmo/bin/Release/Netatmo.${{ env.TAG }}.nupkg
+          name: Release ${{ env.TAG }}
+          generate_release_notes: true
       - name: Push package
-        run: dotnet nuget push src/Netatmo/bin/Release/Netatmo.${{steps.vars.outputs.tag}}.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push src/Netatmo/bin/Release/Netatmo.$TAG.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
