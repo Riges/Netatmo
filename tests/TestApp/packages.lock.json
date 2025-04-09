@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net9.0": {
+      "Flurl": {
+        "type": "Transitive",
+        "resolved": "4.0.0",
+        "contentHash": "rpts69yYgvJqg6PPgqShBQEZ4aNzWQqWpWppcT0oDWxDCIsBqiod4pj6LQZdhk+1OozLFagemldMRACdHF3CsA=="
+      },
+      "Newtonsoft.Json": {
+        "type": "Transitive",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "System.Runtime.CompilerServices.Unsafe": {
+        "type": "Transitive",
+        "resolved": "4.7.1",
+        "contentHash": "zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ=="
+      },
+      "netatmo": {
+        "type": "Project",
+        "dependencies": {
+          "Flurl.Http": "[4.0.2, )",
+          "NodaTime": "[3.1.11, )",
+          "NodaTime.Serialization.JsonNet": "[3.1.0, )"
+        }
+      },
+      "Flurl.Http": {
+        "type": "CentralTransitive",
+        "requested": "[4.0.2, )",
+        "resolved": "4.0.2",
+        "contentHash": "9vCqFFyceA11yplkFD8AbCFFTvG1Lrw3tpsgOpL5sLUc28p6zcvGszNleuT6nDymRvtt5eS+rqUX+bRztg1fhA==",
+        "dependencies": {
+          "Flurl": "4.0.0"
+        }
+      },
+      "NodaTime": {
+        "type": "CentralTransitive",
+        "requested": "[3.1.11, )",
+        "resolved": "3.1.11",
+        "contentHash": "AYSiCHp1PLzWKVf7hEL3MJ0q9kzOWMNIaTVysXk4XKrDBzK5PF2wpd4LsAl+EIQ2Hbvu+vw4oFaexcXzCuY1lQ==",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+        }
+      },
+      "NodaTime.Serialization.JsonNet": {
+        "type": "CentralTransitive",
+        "requested": "[3.1.0, )",
+        "resolved": "3.1.0",
+        "contentHash": "eEr9lXUz50TYr4rpeJG4TDAABkpxjIKr5mDSi/Zav8d6Njy6fH7x4ZtNwWFj0Vd+vIvEZNrHFQ4Gfy8j4BqRGg==",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3",
+          "NodaTime": "[3.0.0, 4.0.0)"
+        }
+      }
+    }
+  }
+}
