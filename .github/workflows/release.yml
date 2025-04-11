@@ -7,7 +7,7 @@ on:
 
 jobs:
   Publish:
-    name: Create Package nuget
+    name: Create NuGet Package
     runs-on: ubuntu-latest
     env:
       NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
