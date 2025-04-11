@@ -34,7 +34,7 @@ jobs:
         run: dotnet test --configuration Release
       - name: Build package nuget
         run: dotnet pack -c Release -p:PackageVersion=$VERSION --output ./output
-      - name: Publish Artefacts
+      - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Netatmo.${{ env.VERSION }}.nupkg
