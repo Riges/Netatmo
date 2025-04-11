@@ -42,7 +42,7 @@ jobs:
       - name: Push package
         run: dotnet nuget push ./output/Netatmo.${{ env.VERSION }}.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
 
-      - uses: release-drafter/release-drafter@master
+      - uses: release-drafter/release-drafter@v6
         with:
           version: ${{ steps.version.outputs.version }}
           publish: true
