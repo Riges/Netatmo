@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  Publish:
+    name: Create NuGet Package
+    runs-on: ubuntu-latest
+    env:
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+    steps:
+      - name: Get the version
+        id: version
+        run: |
+          tag=${GITHUB_REF/refs\/tags\//}
+          version=${tag#v}
+          echo "VERSION=${version}" >> $GITHUB_ENV
+          echo "version=${version}" >> $GITHUB_OUTPUT
+          echo "TAG=${tag}" >> $GITHUB_ENV
+          echo "tag=${tag}" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+      - name: Restore packages
+        run: dotnet restore --locked-mode
+      - name: Test
+        run: dotnet test --configuration Release
+      - name: Build NuGet Package
+        run: dotnet pack -c Release -p:PackageVersion="${{ env.VERSION }}" --output ./output
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Netatmo.${{ env.VERSION }}.nupkg
+          path: './output/Netatmo.${{ env.VERSION }}.nupkg'
+      - name: Push package
+        run: dotnet nuget push ./output/Netatmo.${{ env.VERSION }}.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
+
+      - uses: release-drafter/release-drafter@v6
+        with:
+          version: ${{ steps.version.outputs.version }}
+          publish: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
