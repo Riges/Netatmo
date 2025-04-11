@@ -32,7 +32,7 @@ jobs:
         run: dotnet restore --locked-mode
       - name: Test
         run: dotnet test --configuration Release
-      - name: Build package nuget
+      - name: Build NuGet Package
         run: dotnet pack -c Release -p:PackageVersion=$VERSION --output ./output
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
@@ -40,7 +40,7 @@ jobs:
           name: Netatmo.${{ env.VERSION }}.nupkg
           path: './output/Netatmo.${{ env.VERSION }}.nupkg'
       - name: Push package
-        run: dotnet nuget push ./output/Netatmo.$VERSION.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./output/Netatmo.${{ env.VERSION }}.nupkg -k ${{ secrets.NUGET_ORG_KEY }} -s https://api.nuget.org/v3/index.json
 
       - uses: release-drafter/release-drafter@master
         with:
