@@ -6,8 +6,6 @@ on:
       - master
   # pull_request event is required only for autolabeler
   pull_request:
-    branches:
-      - master
 
 jobs:
   update_release_draft:
@@ -20,5 +18,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: release-drafter/release-drafter@v6
+        with:
+          disable-autolabeler: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

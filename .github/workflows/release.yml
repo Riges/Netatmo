@@ -5,6 +5,10 @@ on:
     tags:
       - v*.*.*
 
+permissions:
+  # write permission is required to create a github release
+  contents: write
+
 jobs:
   Publish:
     name: Create NuGet Package
