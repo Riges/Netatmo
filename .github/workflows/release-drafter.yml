@@ -6,8 +6,8 @@ on:
       - master
   # pull_request event is required only for autolabeler
   pull_request:
-    branches:
-      - master
+    # Only following types are handled by the action, but one can default to all as well
+    types: [opened, reopened, synchronize]
 
 jobs:
   update_release_draft:
