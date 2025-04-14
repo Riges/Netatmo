@@ -1,3 +1,4 @@
+commitish: master
 name-template: "Release $RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 template: |
